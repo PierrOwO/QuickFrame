@@ -46,7 +46,6 @@ class Route
             $callback();
             self::$groupMiddleware = $previousMiddleware;
         } else {
-            // dla pojedynczej trasy: Route::get(...)->middleware(...);
             return function (RouteFluent $route) use ($middlewares) {
                 $route->middleware = array_merge($route->middleware, $middlewares);
                 return $route;
@@ -114,9 +113,14 @@ class Route
         }
 
         http_response_code(404);
-        return View::render('errors/404', ['message' => 'Nie znaleziono strony o podanym adresie']);
-        //return View::render('errors/403', ['message' => 'Brak dostępu']);
-        //return View::render('errors/401', ['message' => 'Niezautoryzowany dostęp']);
+        return View::render('errors/404', ['message' => 'Page with the specified address not found']);
+        
+        //http_response_code(403);
+        //return View::render('errors/403', ['message' => 'Forbidden']);
+        
+        //http_response_code(401);
+        //return View::render('errors/401', ['message' => 'Unauthorized']);
+        
     }
 
     private static function runMiddlewares(array $middlewares, $request, $controllerCallback)

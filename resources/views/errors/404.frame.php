@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>404</title>
+    <title>Error 404</title>
     <style>
         body{
             background-color: #EF4B4B;
@@ -89,7 +89,7 @@
                 <a>{{ $message }}</a>
             </div>
             <div class="footer">
-                <button onclick="homePage()">Go back to home page</button>
+                <button onclick="homePage()">Back to home page</button>
             </div>
         </div>
     </div>

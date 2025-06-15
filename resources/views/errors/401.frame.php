@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Błąd 401</title>
+    <title>Error 401</title>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
@@ -92,13 +92,13 @@
     <div class="message">
         <div class="content">
             <div class="header">
-                <a>Błąd 401</a>
+                <a>Error 401</a>
             </div>
             <div class="body">
                 <a>{{ $message }}</a>
             </div>
             <div class="footer">
-                <button onclick="homePage()">Powrót na strone główną</button>
+                <button onclick="homePage()">Back to home page</button>
             </div>
         </div>
     </div>
@@ -106,6 +106,6 @@
 </html>
 <script>
     function homePage(){
-        window.location.replace('/home');
+        window.location.replace('/');
     }
 </script>

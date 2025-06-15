@@ -135,12 +135,12 @@ switch ($command) {
                 for ($i = 0; $i < $maxAttempts; $i++, $port++) {
                     $connection = @fsockopen($host, $port);
                     if (is_resource($connection)) {
-                        fclose($connection); // port zajęty
+                        fclose($connection); 
                     } else {
-                        return $port; // port wolny
+                        return $port; 
                     }
                 }
-                return false; // nie znaleziono wolnego portu
+                return false; 
             }
         
             if ($requestedPort === null) {
