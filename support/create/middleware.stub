@@ -1,0 +1,15 @@
+<?php
+
+namespace App\Middleware;
+
+class ClassName
+{
+    public function handle($request, $next)
+    {
+        // before
+        $response = $next($request);
+        // after
+
+        return $response;
+    }
+}

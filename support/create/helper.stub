@@ -1,0 +1,11 @@
+<?php
+
+namespace App\Helpers;
+
+class ClassName
+{
+    public static function index()
+    {
+        // ...
+    }
+}

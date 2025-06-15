@@ -1,0 +1,30 @@
+<?php
+namespace App\Models;
+use App\Models\Model;
+
+class ClassName extends Model {
+
+    protected static $table = 'table_name';
+
+    protected static $fillable = [
+        'name',
+        'created_at',
+        'status'
+    ];
+
+    public static function all()
+    {
+        // return all records from table
+    }
+
+    public static function find($id)
+    {
+        // return single record by ID
+    }
+
+    public static function save($data)
+    {
+        // save data to table
+    }
+
+}
