@@ -115,33 +115,60 @@ switch ($command) {
         file_put_contents($outputPath, $stub);
         echo "Created view: $relativePath\n";
         break;
-    case 'serve':
-        $host = $argv[2] ?? 'localhost';
-        $port = $argv[3] ?? '8000';
-
-        if (!filter_var($host, FILTER_VALIDATE_IP) && !preg_match('/^([a-z0-9\.\-]+)$/i', $host)) {
-            echo "Invalid host: {$host}\n";
-            exit;
-        }
-
-        if (!is_numeric($port) || $port < 1 || $port > 65535) {
-            echo "Invalid port: {$port}\n";
-            exit;
-        }
-
-        $publicDir = __DIR__ . '/public';
-        if (!is_dir($publicDir)) {
-            echo "Missing 'public' directory. Please create a 'public/' folder with an index.php file.\n";
-            exit;
-        }
-
-        echo "Starting PHP server at http://{$host}:{$port}\n";
-        echo "Press Ctrl+C to stop the server\n\n";
-
-        // Start PHP built-in server
-        $cmd = "php -S {$host}:{$port} -t {$publicDir}";
-        passthru($cmd);
-        break;
+        case 'serve':
+            $host = $argv[2] ?? 'localhost';
+            $requestedPort = $argv[3] ?? null;
+        
+            if (!filter_var($host, FILTER_VALIDATE_IP) && !preg_match('/^([a-z0-9\.\-]+)$/i', $host)) {
+                echo "Invalid host: {$host}\n";
+                exit;
+            }
+        
+            $publicDir = __DIR__ . '/public';
+            if (!is_dir($publicDir)) {
+                echo "Missing 'public' directory. Please create a 'public/' folder with an index.php file.\n";
+                exit;
+            }
+        
+            function findFreePort($host, $startPort = 8000, $maxAttempts = 100) {
+                $port = $startPort;
+                for ($i = 0; $i < $maxAttempts; $i++, $port++) {
+                    $connection = @fsockopen($host, $port);
+                    if (is_resource($connection)) {
+                        fclose($connection); // port zajęty
+                    } else {
+                        return $port; // port wolny
+                    }
+                }
+                return false; // nie znaleziono wolnego portu
+            }
+        
+            if ($requestedPort === null) {
+                $port = findFreePort($host);
+                if (!$port) {
+                    echo "Could not find a free port starting from 8000.\n";
+                    exit;
+                }
+            } else {
+                if (!is_numeric($requestedPort) || $requestedPort < 1 || $requestedPort > 65535) {
+                    echo "Invalid port: {$requestedPort}\n";
+                    exit;
+                }
+                $port = (int)$requestedPort;
+                $connection = @fsockopen($host, $port);
+                if (is_resource($connection)) {
+                    fclose($connection);
+                    echo "Port {$port} is already in use.\n";
+                    exit;
+                }
+            }
+        
+            echo "Starting PHP server at http://{$host}:{$port}\n";
+            echo "Press Ctrl+C to stop the server\n\n";
+        
+            $cmd = "php -S {$host}:{$port} -t {$publicDir}";
+            passthru($cmd);
+            break;
     default:
         echo "unknown command\n";
         break;
