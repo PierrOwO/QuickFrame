@@ -29,8 +29,12 @@ myApp/
 │   └── views/
 ├── routes/
 │   └── web.php
+├── storage/
 ├── support/
 │   └── ...
+├── .env
+├── deploy.sh
+├── database.sql
 └── frame
 ```
 
