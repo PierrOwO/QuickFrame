@@ -1,6 +1,0 @@
-APP_NAME="App Name"
-
-DB_HOST=host
-DB_NAME=db
-DB_USER=user
-DB_PASSWORD=password
