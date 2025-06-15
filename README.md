@@ -17,7 +17,7 @@ quickframe new myApp
 ```
 
 Your project will be created in:  
-**Linux/macOS**: `/Users/<username>/QuickFrame/myApp`  
+**Linux/macOS**: `/Users/<username>/myApp`  
 **Windows**: `C:\Users\<username>\QuickFrame\myApp`
 
 ---
