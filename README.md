@@ -1,10 +1,16 @@
-# 📦 QuickFrame Project Template
 
-This is the default project template used by [QuickFrame installer](https://github.com/PierrOwO/quickframe-installer), a simple PHP micro-framework with a CLI tool.
+# 📦 QuickFrame Framework
+
+QuickFrame is a lightweight PHP micro-framework inspired by Laravel. It was built with simplicity and accessibility in mind — especially for *shared or budget hosting environments* where SSH access is not available. With QuickFrame, you can build dynamic PHP web applications even on servers that don't support Composer or command-line tools.
+
+➡️ **Installer repository**: [quickframe-installer](https://github.com/PierrOwO/quickframe-installer)  
+➡️ **Status**: Actively developed 🚧
+
+---
 
 ## 🚀 Getting Started
 
-After installing the QuickFrame CLI, you can create a new project using:
+Once the QuickFrame CLI is installed, you can create a new project by running:
 
 ```bash
 quickframe new myApp
@@ -14,7 +20,9 @@ Your project will be created in:
 **Linux/macOS**: `/Users/<username>/QuickFrame/myApp`  
 **Windows**: `C:\Users\<username>\QuickFrame\myApp`
 
-## 📂 Structure
+---
+
+## 📂 Project Structure
 
 ```
 myApp/
@@ -38,17 +46,23 @@ myApp/
 └── frame
 ```
 
+---
+
 ## ⚙️ CLI Commands
 
-Inside the project root, you can use:
+From the project root, you can run:
 
 ```bash
 php frame serve
 ```
 
-Starts a local server (default: `localhost:8000`)
+Starts a local development server (default: `localhost:8000`)
+
+---
 
 ### 🛠 Generators
+
+QuickFrame includes generators for common elements:
 
 ```bash
 php frame make:controller Example
@@ -58,12 +72,35 @@ php frame make:helper Formatter
 php frame make:view homepage
 ```
 
+---
+
 ## 📡 Requirements
 
 - PHP 8.1+
-- Git (for initial project scaffolding)
-- `public/index.php` file is required to run the local server.
+- Git (used to fetch project templates)
+- `public/index.php` is required to run the local server.
+
+---
+
+## 🎯 Why QuickFrame?
+
+Laravel is powerful, but it requires a modern server environment with terminal access (SSH) and Composer.  
+QuickFrame removes this limitation — it runs out-of-the-box on traditional shared hosting platforms that only support basic FTP upload and have no CLI or shell access.
+
+Perfect for:
+
+- Deployments on shared hosting
+- Lightweight or internal business apps
+- Developers looking for Laravel-style routing and structure in a simpler package
+
+---
 
 ## 🔧 Development
 
-To extend CLI commands or stub files, check the `support/` directory.
+QuickFrame is under active development — upcoming features include:
+
+- Blade-like templating support
+- Built-in validation and session management
+- CLI tools for deployment and packaging
+
+Feel free to open issues or contribute with suggestions!
