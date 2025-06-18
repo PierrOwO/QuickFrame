@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Page title</title>
+    <title>View ViewName</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
@@ -30,8 +30,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Hello wotld!</h1>
-        @if (!empty($data)): 
+        <h1>Hello world!</h1>
+        @if (!empty($data)) 
             <pre>{{$data}}</pre>
         @endif
     </div>

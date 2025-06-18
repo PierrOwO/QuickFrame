@@ -97,7 +97,7 @@ switch ($command) {
         }
 
         $stub = file_get_contents(__DIR__ . '/support/create/view.stub');
-        $stub = str_replace('ClassName', $name, $stub);
+        $stub = str_replace('ViewName', $name, $stub);
 
         $relativePath = "/resources/views/{$name}.frame.php";
         $outputPath = __DIR__ . $relativePath;
