@@ -12,7 +12,7 @@ use Support\Core\Log;
  *
  * Example usage:
  * Route::get('/home', function () {
- *     return View::render('home');
+ *     return view('home');
  * });
  *
  * Common methods (depending on your implementation):
