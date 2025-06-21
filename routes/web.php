@@ -1,6 +1,5 @@
 <?php
 use Support\Core\Route;
-use Support\Core\View;
 use Support\Core\Log;
 
 /**
