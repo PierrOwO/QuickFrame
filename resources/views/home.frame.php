@@ -1,6 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Home page')
 @section('styles')
+
 <style>
 h1, h2, h3, h4, button {
     display: block;
