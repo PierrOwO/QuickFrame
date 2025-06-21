@@ -97,13 +97,20 @@ Perfect for:
 
 ## 🔧 Development
 QuickFrame currently includes:
-	-	Lightweight MVC structure
-	-	Custom router with support for dynamic parameters and middleware
-	-	Native session support with authentication (login + user session)
-	-	View rendering system
-	-	Custom autoloader (no Composer required)
-	-	Simple CLI installer (frame)
-	-	Asset helper with cache-busting for CSS/JS
+-Lightweight MVC structure
+ 
+-Custom router with support for dynamic parameters and middleware
+ 
+-Native session support with authentication (login + user session)
+ 
+-View rendering system
+
+-Custom autoloader (no Composer required)
+
+-Simple CLI installer (frame)
+
+-Asset helper with cache-busting for CSS/JS
+
  
 QuickFrame is under active development — upcoming features include:
   - CSRF protection
