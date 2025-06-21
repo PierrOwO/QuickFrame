@@ -28,5 +28,5 @@ use Support\Core\Log;
  */
 
 Route::get('/', function () {
-    View::render('home');
+   return view('home');
 });
