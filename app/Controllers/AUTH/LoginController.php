@@ -1,13 +1,12 @@
 <?php
 namespace App\Controllers\AUTH;
 use App\Models\User;
-use Support\Core\View;
 use Support\Core\Auth;
 use App\Helpers\HashHelper;
 class LoginController {
 
     public function index(){
-        View::render('AUTH.login');
+        return view('AUTH.login');
     }
     public function login($name, $password) {
         $user = User::where('name', $name)->first();
