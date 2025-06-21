@@ -8,7 +8,5 @@ function redirect($url)
     exit();
 }
 function view(string $view, array $data = []) {
-    //ob_start();
     View::render($view, $data);
-   // return ob_get_clean();
 }
