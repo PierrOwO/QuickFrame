@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../support/autoload.php';
 require_once __DIR__ . '/../support/Core/helpers.php';
+session_start();
 
 /**
  * File: public/index.php
@@ -17,7 +18,9 @@ require_once __DIR__ . '/../support/Core/helpers.php';
  * This setup ensures a clean and centralized flow of control.
  * 
  */
-
+if (!isset($_SESSION['_csrf_token'])) {
+    $_SESSION['_csrf_token'] = bin2hex(random_bytes(32));
+}
 set_error_handler(function ($errno, $errstr, $errfile, $errline) {
     $errfile = \Support\Core\Log::shortenPath($errfile);
     \Support\Core\Log::error("Error: [$errno] $errstr in file $errfile in line $errline");

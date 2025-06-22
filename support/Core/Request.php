@@ -2,6 +2,8 @@
 
 namespace Support\Core;
 
+use Support\Validate\VerifyCsrfToken;
+
 class Request
 {
     public $get;
@@ -15,6 +17,7 @@ class Request
         $this->post = $_POST;
         $this->server = $_SERVER;
         $this->files = $_FILES;
+        VerifyCsrfToken::handle();
     }
 
     public function input($key, $default = null)

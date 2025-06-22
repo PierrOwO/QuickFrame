@@ -21,3 +21,11 @@ function asset(string $path): string
 
     return '/' . ltrim($path, '/');
 }
+function csrf_token() {
+    return $_SESSION['_csrf_token'] ?? 'no csrf token';
+}
+
+function csrf_field() {
+    $token = htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8');
+    return '<input type="hidden" name="_token" value="' . $token . '">';
+}
