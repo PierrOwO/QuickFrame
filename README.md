@@ -105,10 +105,10 @@ QuickFrame currently includes:
  - Simple CLI installer (frame)
  - Asset helper with cache-busting for CSS/JS
  - CSRF protection
+ - Form validation
 
  
 QuickFrame is under active development — upcoming features include:
-  - Form validation
   - Session and flash message support
 
 Feel free to open issues or contribute with suggestions!
