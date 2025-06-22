@@ -104,10 +104,10 @@ QuickFrame currently includes:
  - Custom autoloader (no Composer required)
  - Simple CLI installer (frame)
  - Asset helper with cache-busting for CSS/JS
+ - CSRF protection
 
  
 QuickFrame is under active development — upcoming features include:
-  - CSRF protection
   - Form validation
   - Session and flash message support
 
