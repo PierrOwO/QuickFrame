@@ -65,11 +65,18 @@ Starts a local development server (default: `localhost:8000`)
 QuickFrame includes generators for common elements:
 
 ```bash
-php frame make:controller Example
-php frame make:model Product
-php frame make:middleware AuthCheck
-php frame make:helper Formatter
-php frame make:view homepage
+php frame serve                  Start the built-in PHP development server (default: 127.0.0.1:8000)
+php frame serve IP PORT          Start server with custom IP and port (e.g. php frame serve 0.0.0.0 8080)
+php frame migrations:on          Enable migrations (.env MIGRATIONS_ENABLED=true)
+php frame migrations:off         Disable migrations (.env MIGRATIONS_ENABLED=false)
+
+php frame make:controller Name   Generate a new controller class
+php frame make:model Name        Generate a new model class
+php frame make:helper Name       Generate a new global helper function
+php frame make:view Name         Generate a new view file (Blade-like)
+php frame make:middleware Name   Generate a new middleware class
+php frame make:migration Name    Generate a new migration class
+
 ```
 
 ---
@@ -106,6 +113,7 @@ QuickFrame currently includes:
  - Asset helper with cache-busting for CSS/JS
  - CSRF protection
  - Form validation
+ - Migrations system
 
  
 QuickFrame is under active development — upcoming features include:
