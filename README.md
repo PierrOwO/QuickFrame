@@ -57,7 +57,7 @@ From the project root, you can run:
 php frame serve
 ```
 
-Starts a local development server (default: `localhost:8000`)
+Starts a local development server (default: `127.0.0.1:8000`)
 
 ---
 
