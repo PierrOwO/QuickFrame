@@ -32,7 +32,7 @@ myApp/
 │   ├── Middleware/
 │   └── Models/
 ├── database/
-|   └── migrations/
+│   └── migrations/
 ├── public/
 │   └── index.php
 ├── resources/
