@@ -38,6 +38,20 @@ class Route
         return $route;
     }
 
+    public static function any(string $path, $callback): RouteFluent
+    {
+        $methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'];
+        $fullPath = self::fullPath($path);
+        $route = new RouteFluent('ANY', $fullPath, $callback);
+        $route->middleware = self::$groupMiddleware;
+
+        foreach ($methods as $method) {
+            self::$routes[$method][$fullPath] = $route;
+        }
+
+        return $route;
+    }
+    
     public static function middleware(array $middlewares, ?callable $callback = null)
     {
         if ($callback) {
@@ -105,21 +119,27 @@ class Route
                 };
 
                 if (!empty($route->middleware)) {
-                    return self::runMiddlewares($route->middleware, $_REQUEST, $controllerCallback);
+                    $response = self::runMiddlewares($route->middleware, $_REQUEST, $controllerCallback);
                 } else {
-                    return $controllerCallback();
+                    $response = $controllerCallback();
                 }
+            
+                if (is_string($response)) {
+                    echo $response;
+                }
+            
+                return $response;
             }
         }
 
         http_response_code(404);
-        return View::render('errors/404', ['message' => 'Page with the specified address not found']);
+        return view('errors/404', ['message' => 'Page with the specified address not found']);
         
         //http_response_code(403);
-        //return View::render('errors/403', ['message' => 'Forbidden']);
+        //return view('errors/403', ['message' => 'Forbidden']);
         
         //http_response_code(401);
-        //return View::render('errors/401', ['message' => 'Unauthorized']);
+        //return view('errors/401', ['message' => 'Unauthorized']);
         
     }
 

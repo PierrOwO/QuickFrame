@@ -26,7 +26,7 @@ set_error_handler(function ($errno, $errstr, $errfile, $errline) {
     \Support\Core\Log::error("Error: [$errno] $errstr in file $errfile in line $errline");
     $trace = [
         "# Fatal error: [$errno] $errstr",
-        "# in file $errfile at line {$errline['line']}"
+        "# in file $errfile at line $errline {$errline['line']}"
     ];
 
     \Support\Core\Log::error("Fatal error occurred", $trace);
@@ -65,8 +65,5 @@ register_shutdown_function(function () {
     }
 });
 
-require_once __DIR__ . '/../routes/web.php';
-require_once __DIR__ . '/../routes/api.php';
-require_once __DIR__ . '/../routes/auth.php';
-\Support\Core\Route::dispatch();
+require_once __DIR__ . '/../support/Core/routes.php';
 

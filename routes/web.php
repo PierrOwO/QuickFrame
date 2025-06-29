@@ -1,5 +1,7 @@
 
 <?php
+
+use App\Controllers\MigrationController;
 use Support\Core\Route;
 use Support\Core\Log;
 

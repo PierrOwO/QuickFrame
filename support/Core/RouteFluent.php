@@ -22,9 +22,13 @@ class RouteFluent
         $this->callback = $callback;
     }
 
-    public function where(array $conditions): static
-    {
-        $this->wheres = $conditions;
-        return $this;
+    public function where(string|array $paramOrArray, ?string $pattern = null): static
+{
+    if (is_array($paramOrArray)) {
+        $this->wheres = array_merge($this->wheres, $paramOrArray);
+    } elseif (is_string($paramOrArray) && $pattern !== null) {
+        $this->wheres[$paramOrArray] = $pattern;
     }
+    return $this;
+}
 }

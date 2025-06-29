@@ -1,0 +1,21 @@
+<?php
+
+use Support\Core\Database\Migration;
+use Support\Core\Database\Schema;
+use Support\Core\Database\Blueprint;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('{{table}}', function (Blueprint $table) {
+            $table->id();
+            // $table->string('name');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('{{table}}');
+    }
+};

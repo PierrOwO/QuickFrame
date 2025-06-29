@@ -1,5 +1,6 @@
 <?php
 
+use Support\Core\Http\Response;
 use Support\Core\View;
 
 function redirect($url)
@@ -28,4 +29,14 @@ function csrf_token() {
 function csrf_field() {
     $token = htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8');
     return '<input type="hidden" name="_token" value="' . $token . '">';
+}
+if (!function_exists('base_path')) {
+    function base_path($path = '')
+    {
+        return __DIR__ . '/../../' . ($path ? '/' . ltrim($path, '/') : '');
+    }
+}
+function response(): Response
+{
+    return new Response();
 }

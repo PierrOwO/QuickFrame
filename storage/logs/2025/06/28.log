@@ -1,0 +1,356 @@
+[2025-06-28 11:16:20][ERROR] Error: [2] Undefined array key "POST" in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php in line 87
+[2025-06-28 11:16:20][ERROR] Fatal error occurred
+# Fatal error: [2] Undefined array key "POST"
+# in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php at line 
+[2025-06-28 11:21:12][ERROR] Error: [2] Undefined array key "POST" in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php in line 87
+[2025-06-28 11:21:12][ERROR] Fatal error occurred
+# Fatal error: [2] Undefined array key "POST"
+# in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php at line 87 
+[2025-06-28 11:21:20][ERROR] Error: [2] Undefined array key "POST" in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php in line 87
+[2025-06-28 11:21:20][ERROR] Fatal error occurred
+# Fatal error: [2] Undefined array key "POST"
+# in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php at line 87 
+[2025-06-28 11:25:58][INFO] wczytano
+[2025-06-28 11:25:58][ERROR] Error: [8192] basename(): Passing null to parameter #1 ($path) of type string is deprecated in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php in line 52
+[2025-06-28 11:25:58][ERROR] Fatal error occurred
+# Fatal error: [8192] basename(): Passing null to parameter #1 ($path) of type string is deprecated
+# in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php at line 52 
+[2025-06-28 11:27:03][INFO] wczytano
+[2025-06-28 11:27:03][ERROR] Error: [8192] basename(): Passing null to parameter #1 ($path) of type string is deprecated in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php in line 52
+[2025-06-28 11:27:03][ERROR] Fatal error occurred
+# Fatal error: [8192] basename(): Passing null to parameter #1 ($path) of type string is deprecated
+# in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php at line 52 
+[2025-06-28 11:29:32][INFO] wczytano
+[2025-06-28 11:29:32][ERROR] Error: [8192] basename(): Passing null to parameter #1 ($path) of type string is deprecated in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php in line 52
+[2025-06-28 11:29:32][ERROR] Fatal error occurred
+# Fatal error: [8192] basename(): Passing null to parameter #1 ($path) of type string is deprecated
+# in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php at line 52 
+[2025-06-28 11:30:44][INFO] wczytano
+[2025-06-28 11:30:44][ERROR] Fatal error occurred
+# Fatal error: Namespace declaration statement has to be the very first statement or after any declare call in the script
+# in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Http/Response.php at line 4
+[2025-06-28 11:31:32][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:31:32][ERROR] Fatal error occurred
+# Fatal error: Namespace declaration statement has to be the very first statement or after any declare call in the script
+# in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Http/Response.php at line 4
+[2025-06-28 11:33:13][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:35:08][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:35:12][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:37:17][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:37:51][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:38:10][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:38:51][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:39:04][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:39:14][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:39:26][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:39:36][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:39:50][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:40:21][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:40:27][INFO] wczytano, 2025_06_25_102040_test.php
+[2025-06-28 11:40:30][INFO] wczytano, 2025_06_26_105313_test2.php
+[2025-06-28 11:40:33][INFO] wczytano, 2025_06_26_105313_test2.php
+[2025-06-28 11:40:52][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:40:55][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:40:58][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:41:17][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:43:08][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:44:04][INFO] wczytano, 2025_06_25_102040_test.php
+[2025-06-28 11:44:06][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 11:44:12][INFO] wczytano, 2025_06_25_102040_test.php
+[2025-06-28 11:44:14][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:33:33][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:33:55][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:34:36][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:35:04][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:35:22][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:35:42][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:35:54][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:36:19][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:36:44][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:37:15][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:37:29][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:37:58][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:38:43][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:38:56][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:39:24][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:40:00][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:40:11][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:40:28][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:40:42][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:41:03][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:41:13][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:46:23][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:47:50][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:49:36][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:51:14][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:51:55][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:53:26][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:53:29][INFO] wczytano, 2025_06_26_105313_test2.php
+[2025-06-28 20:53:31][INFO] wczytano, 2025_06_25_102040_test.php
+[2025-06-28 20:54:42][INFO] wczytano, 2025_06_25_102040_test.php
+[2025-06-28 20:54:45][INFO] wczytano, 2025_06_25_102040_test.php
+[2025-06-28 20:57:29][INFO] wczytano, 2025_06_26_214311_users.php
+[2025-06-28 20:57:32][ERROR] Error: [2] require(/Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/../..//database/migrations/$migration['name'] }}): Failed to open stream: No such file or directory in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php in line 39
+[2025-06-28 20:57:32][ERROR] Fatal error occurred
+# Fatal error: [2] require(/Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/../..//database/migrations/$migration['name'] }}): Failed to open stream: No such file or directory
+# in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php at line 39 
+[2025-06-28 20:57:36][ERROR] Error: [2] require(/Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/../..//database/migrations/$migration['name'] }}): Failed to open stream: No such file or directory in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php in line 39
+[2025-06-28 20:57:36][ERROR] Fatal error occurred
+# Fatal error: [2] require(/Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/../..//database/migrations/$migration['name'] }}): Failed to open stream: No such file or directory
+# in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php at line 39 
+[2025-06-28 20:58:58][ERROR] Error: [2] require(/Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/../..//database/migrations/$migration['name'] }}): Failed to open stream: No such file or directory in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php in line 39
+[2025-06-28 20:58:58][ERROR] Fatal error occurred
+# Fatal error: [2] require(/Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/../..//database/migrations/$migration['name'] }}): Failed to open stream: No such file or directory
+# in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php at line 39 
+[2025-06-28 21:00:20][ERROR] Error: [2] require(/Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/../..//database/migrations/$migration['name'] }}): Failed to open stream: No such file or directory in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php in line 39
+[2025-06-28 21:00:20][ERROR] Fatal error occurred
+# Fatal error: [2] require(/Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/../..//database/migrations/$migration['name'] }}): Failed to open stream: No such file or directory
+# in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php at line 39 
+[2025-06-28 21:02:27][INFO] log: $migration['name'] }}
+[2025-06-28 21:02:27][ERROR] Error: [2] require(/Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/../..//database/migrations/$migration['name'] }}): Failed to open stream: No such file or directory in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php in line 40
+[2025-06-28 21:02:27][ERROR] Fatal error occurred
+# Fatal error: [2] require(/Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/../..//database/migrations/$migration['name'] }}): Failed to open stream: No such file or directory
+# in file /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php at line 40 
+[2025-06-28 21:03:06][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:04:16][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:04:16][ERROR] SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'test' already exists
+#0 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Schema.php(16): PDO->exec('CREATE TABLE `t...')
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/database/migrations/2025_06_25_102040_test.php(11): Support\Core\Database\Schema::create('test', Object(Closure))
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php(43): Support\Core\Database\Migration@anonymous->up()
+#3 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#4 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#5 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#6 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#7 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#8 {main}
+[2025-06-28 21:04:20][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:04:20][ERROR] SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'test' already exists
+#0 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Schema.php(16): PDO->exec('CREATE TABLE `t...')
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/database/migrations/2025_06_25_102040_test.php(11): Support\Core\Database\Schema::create('test', Object(Closure))
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php(43): Support\Core\Database\Migration@anonymous->up()
+#3 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#4 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#5 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#6 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#7 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#8 {main}
+[2025-06-28 21:04:25][INFO] log: 2025_06_26_105313_test2.php
+[2025-06-28 21:04:25][ERROR] SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'test2' already exists
+#0 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Schema.php(16): PDO->exec('CREATE TABLE `t...')
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/database/migrations/2025_06_26_105313_test2.php(11): Support\Core\Database\Schema::create('test2', Object(Closure))
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php(43): Support\Core\Database\Migration@anonymous->up()
+#3 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#4 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#5 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#6 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#7 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#8 {main}
+[2025-06-28 21:04:27][INFO] log: 2025_06_26_214311_users.php
+[2025-06-28 21:04:27][ERROR] SQLSTATE[42S01]: Base table or view already exists: 1050 Table 'users' already exists
+#0 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Schema.php(16): PDO->exec('CREATE TABLE `u...')
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/database/migrations/2025_06_26_214311_users.php(12): Support\Core\Database\Schema::create('users', Object(Closure))
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php(43): Support\Core\Database\Migration@anonymous->up()
+#3 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#4 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#5 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#6 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#7 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#8 {main}
+[2025-06-28 21:08:29][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:08:30][ERROR] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '?' at line 1
+#0 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Schema.php(34): PDO->prepare('SHOW TABLES LIK...')
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Schema.php(11): Support\Core\Database\Schema::hasTable('test')
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/database/migrations/2025_06_25_102040_test.php(11): Support\Core\Database\Schema::create('test', Object(Closure))
+#3 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php(43): Support\Core\Database\Migration@anonymous->up()
+#4 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#5 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#6 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#7 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#8 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#9 {main}
+[2025-06-28 21:08:54][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:08:54][ERROR] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '?' at line 1
+#0 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Schema.php(34): PDO->prepare('SHOW TABLES LIK...')
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Schema.php(11): Support\Core\Database\Schema::hasTable('test')
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/database/migrations/2025_06_25_102040_test.php(11): Support\Core\Database\Schema::create('test', Object(Closure))
+#3 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php(43): Support\Core\Database\Migration@anonymous->up()
+#4 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#5 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#6 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#7 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#8 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#9 {main}
+[2025-06-28 21:08:59][INFO] log: 2025_06_26_214311_users.php
+[2025-06-28 21:08:59][ERROR] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '?' at line 1
+#0 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Schema.php(34): PDO->prepare('SHOW TABLES LIK...')
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Schema.php(11): Support\Core\Database\Schema::hasTable('users')
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/database/migrations/2025_06_26_214311_users.php(12): Support\Core\Database\Schema::create('users', Object(Closure))
+#3 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php(43): Support\Core\Database\Migration@anonymous->up()
+#4 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#5 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#6 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#7 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#8 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#9 {main}
+[2025-06-28 21:09:03][INFO] log: 2025_06_26_105313_test2.php
+[2025-06-28 21:09:03][ERROR] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '?' at line 1
+#0 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Schema.php(34): PDO->prepare('SHOW TABLES LIK...')
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Schema.php(11): Support\Core\Database\Schema::hasTable('test2')
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/database/migrations/2025_06_26_105313_test2.php(11): Support\Core\Database\Schema::create('test2', Object(Closure))
+#3 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php(43): Support\Core\Database\Migration@anonymous->up()
+#4 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#5 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#6 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#7 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#8 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#9 {main}
+[2025-06-28 21:11:00][INFO] log: 2025_06_26_214311_users.php
+[2025-06-28 21:11:01][INFO] log: 2025_06_26_214311_users.php
+[2025-06-28 21:11:15][INFO] log: 2025_06_26_214311_users.php
+[2025-06-28 21:12:08][INFO] log: 2025_06_26_214311_users.php
+[2025-06-28 21:12:08][ERROR] Object of class Support\Core\Http\Response could not be converted to string
+#0 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#3 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#4 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#5 {main}
+[2025-06-28 21:12:13][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:12:13][ERROR] Object of class Support\Core\Http\Response could not be converted to string
+#0 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#3 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#4 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#5 {main}
+[2025-06-28 21:14:19][INFO] log: 2025_06_26_105313_test2.php
+[2025-06-28 21:14:19][ERROR] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '?' at line 1
+#0 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Schema.php(36): PDO->prepare('SHOW TABLES LIK...')
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Schema.php(12): Support\Core\Database\Schema::hasTable('test2')
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/database/migrations/2025_06_26_105313_test2.php(11): Support\Core\Database\Schema::create('test2', Object(Closure))
+#3 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php(43): Support\Core\Database\Migration@anonymous->up()
+#4 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#5 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#6 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#7 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#8 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#9 {main}
+[2025-06-28 21:15:18][INFO] log: 2025_06_26_105313_test2.php
+[2025-06-28 21:15:18][INFO] tale exists.
+[2025-06-28 21:15:18][ERROR] Table 'test2' already exists.
+#0 /Users/piotrmilos/QuickFrame/QuickFrame-framework/database/migrations/2025_06_26_105313_test2.php(11): Support\Core\Database\Schema::create('test2', Object(Closure))
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Database/Migrations/MigrationController.php(43): Support\Core\Database\Migration@anonymous->up()
+#2 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#3 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#4 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#5 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#6 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#7 {main}
+[2025-06-28 21:16:36][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:16:36][INFO] tale exists.
+[2025-06-28 21:16:36][ERROR] Object of class Support\Core\Http\Response could not be converted to string
+#0 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#3 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#4 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#5 {main}
+[2025-06-28 21:18:46][INFO] log: 2025_06_26_214311_users.php
+[2025-06-28 21:18:46][INFO] tale exists.
+[2025-06-28 21:18:46][ERROR] Object of class Support\Core\Http\Response could not be converted to string
+#0 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#3 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#4 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#5 {main}
+[2025-06-28 21:19:11][INFO] log: 2025_06_26_105313_test2.php
+[2025-06-28 21:19:11][INFO] tale exists.
+[2025-06-28 21:19:11][ERROR] Object of class Support\Core\Http\Response could not be converted to string
+#0 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#3 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#4 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#5 {main}
+[2025-06-28 21:19:37][INFO] log: 2025_06_26_214311_users.php
+[2025-06-28 21:19:37][INFO] tale exists.
+[2025-06-28 21:19:37][ERROR] Object of class Support\Core\Http\Response could not be converted to string
+#0 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#3 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#4 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#5 {main}
+[2025-06-28 21:19:54][INFO] log: 2025_06_26_214311_users.php
+[2025-06-28 21:19:54][INFO] tale exists.
+[2025-06-28 21:19:54][ERROR] Object of class Support\Core\Http\Response could not be converted to string
+#0 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#3 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#4 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#5 {main}
+[2025-06-28 21:20:21][INFO] log: 2025_06_26_214311_users.php
+[2025-06-28 21:20:21][INFO] tale exists.
+[2025-06-28 21:20:21][ERROR] Object of class Support\Core\Http\Response could not be converted to string
+#0 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#3 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#4 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#5 {main}
+[2025-06-28 21:20:31][INFO] log: 2025_06_26_105313_test2.php
+[2025-06-28 21:20:31][INFO] tale exists.
+[2025-06-28 21:20:31][ERROR] Object of class Support\Core\Http\Response could not be converted to string
+#0 [internal function]: Support\Core\Database\Migrations\MigrationController->run(Object(Support\Core\Request))
+#1 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(113): call_user_func_array(Array, Array)
+#2 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/Route.php(124): Support\Core\Route::{closure:Support\Core\Route::dispatch():95}()
+#3 /Users/piotrmilos/QuickFrame/QuickFrame-framework/support/Core/routes.php(22): Support\Core\Route::dispatch()
+#4 /Users/piotrmilos/QuickFrame/QuickFrame-framework/public/index.php(68): require_once('/Users/piotrmil...')
+#5 {main}
+[2025-06-28 21:21:52][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:21:52][INFO] tale exists.
+[2025-06-28 21:21:55][INFO] log: 2025_06_26_105313_test2.php
+[2025-06-28 21:21:55][INFO] tale exists.
+[2025-06-28 21:21:57][INFO] log: 2025_06_26_214311_users.php
+[2025-06-28 21:21:57][INFO] tale exists.
+[2025-06-28 21:22:15][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:22:15][INFO] tale exists.
+[2025-06-28 21:22:34][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:22:34][INFO] tale exists.
+[2025-06-28 21:23:31][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:23:31][INFO] tale exists.
+[2025-06-28 21:23:51][INFO] log: 2025_06_26_214311_users.php
+[2025-06-28 21:23:51][INFO] tale exists.
+[2025-06-28 21:24:18][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:24:18][INFO] tale exists.
+[2025-06-28 21:24:30][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:24:30][INFO] tale exists.
+[2025-06-28 21:24:38][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:24:38][INFO] tale exists.
+[2025-06-28 21:24:52][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:24:52][INFO] tale exists.
+[2025-06-28 21:25:04][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:25:04][INFO] tale exists.
+[2025-06-28 21:25:14][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:25:14][INFO] tale exists.
+[2025-06-28 21:25:28][INFO] log: 2025_06_26_105313_test2.php
+[2025-06-28 21:25:28][INFO] tale exists.
+[2025-06-28 21:25:31][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:25:31][INFO] tale exists.
+[2025-06-28 21:25:36][INFO] log: 2025_06_26_214311_users.php
+[2025-06-28 21:25:36][INFO] tale exists.
+[2025-06-28 21:25:41][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:25:41][INFO] tale exists.
+[2025-06-28 21:26:31][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:26:37][INFO] log: 2025_06_26_105313_test2.php
+[2025-06-28 21:26:38][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:26:38][INFO] tale exists.
+[2025-06-28 21:26:42][INFO] log: 2025_06_26_105313_test2.php
+[2025-06-28 21:26:42][INFO] tale exists.
+[2025-06-28 21:26:44][INFO] log: 2025_06_26_214311_users.php
+[2025-06-28 21:28:36][INFO] log: 2025_06_26_214311_users.php
+[2025-06-28 21:28:36][INFO] tale exists.
+[2025-06-28 21:28:52][INFO] log: 2025_06_25_102040_test.php
+[2025-06-28 21:28:52][INFO] tale exists.
