@@ -31,6 +31,8 @@ myApp/
 │   ├── Helpers/
 │   ├── Middleware/
 │   └── Models/
+├── database/
+|   └── migrations/
 ├── public/
 │   └── index.php
 ├── resources/
@@ -42,7 +44,6 @@ myApp/
 │   └── ...
 ├── .env
 ├── deploy.sh
-├── database.sql
 └── frame
 ```
 
