@@ -15,19 +15,13 @@ class View
         $path = str_contains($template, '.')
             ? str_replace('.', '/', $template)
             : $template;
-        
+        $specialErrorTemplates = ['errors/404', 'errors/401', 'errors/403'];
         if($template == 'migrations'){
             $viewPath = dirname(__DIR__, 2) . '/support/Core/Database/Migrations/' . $path . '.frame.php';            
         }
-        elseif($template == 'errors/404'){
-            $viewPath = dirname(__DIR__, 2) . '/support/Core/' . $path . '.frame.php';
-        } 
-        elseif($template == 'errors/401'){
-            $viewPath = dirname(__DIR__, 2) . '/support/Core/' . $path . '.frame.php';
-        } 
-        elseif($template == 'errors/403'){
-            $viewPath = dirname(__DIR__, 2) . '/support/Core/' . $path . '.frame.php';
-        } 
+        elseif (in_array($template, $specialErrorTemplates)) {
+            $viewPath = dirname(__DIR__, 2) . '/support/' . $path . '.frame.php';
+        }
         else{
             $viewPath = dirname(__DIR__, 2) . '/resources/views/' . $path . '.frame.php';
         }

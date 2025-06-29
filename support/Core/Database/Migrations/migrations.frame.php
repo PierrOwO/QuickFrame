@@ -180,6 +180,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                @if (!empty($migrations))
                 @foreach ($migrations as $migration)
                     <tr>
                         <td>{{ $migration['name'] }}</td>
@@ -191,6 +192,11 @@
                         </td>
                     </tr>
                 @endforeach
+                @else
+                    <tr>
+                        <td colspan="3">No migrations found</td>
+                    </tr>
+                @endif
                 </tbody>
             </table>
         </div>
