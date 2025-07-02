@@ -29,12 +29,6 @@
 <header class="header">
   <div class="container">
     <h1>About QuickFrame</h1>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/docs">Docs</a>
-      <a href="https://github.com/PierrOwO/quickframe" target="_blank">GitHub</a>
-      <a href="/about">About</a>
-    </nav>
   </div>
 </header>
 

@@ -61,6 +61,11 @@
 #backToTop:hover {
   opacity: 1;
 }
+.header nav a {
+   
+    padding: 5px 5px;
+    font-size: 14px;
+  }
 </style>
 @endsection
 
