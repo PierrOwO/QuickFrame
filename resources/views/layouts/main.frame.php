@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <title>@yield('title')</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+    
+    <?= vite('js/app.js') ?>
+    <?= vite('js/app-select2.js') ?>
+   
 @yield('styles')
 </head>
 <body>
@@ -11,3 +15,9 @@
 </body>
 </html>
 @yield('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const _token = $('meta[name="csrf-token"]').attr('content');
+        console.log('csrf token: ' + _token);
+    });
+</script>

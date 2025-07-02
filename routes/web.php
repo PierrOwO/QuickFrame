@@ -1,6 +1,8 @@
+
 <?php
+
+use App\Controllers\MigrationController;
 use Support\Core\Route;
-use Support\Core\View;
 use Support\Core\Log;
 
 /**
@@ -12,7 +14,7 @@ use Support\Core\Log;
  *
  * Example usage:
  * Route::get('/home', function () {
- *     return View::render('home');
+ *     return view('home');
  * });
  *
  * Common methods (depending on your implementation):
@@ -28,5 +30,11 @@ use Support\Core\Log;
  */
 
 Route::get('/', function () {
-    View::render('home');
+   return view('home');
+});
+Route::get('/docs', function () {
+   return view('docs');
+});
+Route::get('/about', function () {
+   return view('about');
 });

@@ -15,9 +15,9 @@ class Auth
             session_start();
         }
         session_regenerate_id(true);
-        $_SESSION['user_id'] = $user->unique_id;  // <- poprawione
+        $_SESSION['user_id'] = $user->unique_id; 
         self::$cachedUser = $user;
-        Log::info('user: ' . json_encode($user)); // działa, bo teraz $user to obiekt
+        Log::info('user: ' . json_encode($user));
         Log::info('sesja: ' . $_SESSION['user_id']);
     }
 

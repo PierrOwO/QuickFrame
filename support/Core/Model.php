@@ -19,8 +19,6 @@ class Model {
         // Przypisz wszystkie przekazane atrybuty do właściwości $attributes
         $this->attributes = $attributes;
 
-        // Opcjonalnie, możesz też dynamicznie ustawić właściwości obiektu,
-        // jeśli chcesz mieć do nich dostęp jako $obj->imie itp.
         foreach ($attributes as $key => $value) {
             $this->$key = $value;
         }
@@ -41,7 +39,6 @@ class Model {
         return self::$connection;
     }
 
-    // === MAGICZNE METODY ===
     public function __get($key) {
         return $this->attributes[$key] ?? null;
     }
@@ -50,7 +47,6 @@ class Model {
         $this->attributes[$key] = $value;
     }
 
-    // === WYPEŁNIANIE DANYCH ===
     public function fill(array $data) 
     {
         foreach (static::$fillable as $field) {
@@ -61,13 +57,11 @@ class Model {
         return $this;
     }
 
-    // === ZWRACA DANE JAKO TABLICĘ ===
     public function toArray() 
     {
         return $this->attributes;
     }
 
-    // === ZAPIS DO BAZY (INSERT lub UPDATE) ===
     public function save() 
     {
         $table = static::$table;
@@ -80,7 +74,6 @@ class Model {
         );
 
         if (isset($this->attributes['id'])) {
-            // UPDATE
             $id = $this->attributes['id'];
             unset($data['id']);
 
@@ -94,7 +87,6 @@ class Model {
 
             return self::find($id);
         } else {
-            // INSERT
             $columns = implode(', ', array_keys($data));
             $placeholders = implode(', ', array_fill(0, count($data), '?'));
             $values = array_values($data);
@@ -108,7 +100,6 @@ class Model {
         }
     }
 
-    // === STATYCZNE METODY ===
 
     public static function find($id) 
     {

@@ -116,7 +116,7 @@ switch ($command) {
         echo "Created view: $relativePath\n";
         break;
         case 'serve':
-            $host = $argv[2] ?? 'localhost';
+            $host = $argv[2] ?? '127.0.0.1';
             $requestedPort = $argv[3] ?? null;
         
             if (!filter_var($host, FILTER_VALIDATE_IP) && !preg_match('/^([a-z0-9\.\-]+)$/i', $host)) {
@@ -169,7 +169,80 @@ switch ($command) {
             $cmd = "php -S {$host}:{$port} -t {$publicDir}";
             passthru($cmd);
             break;
+        case 'make:migration':
+            $name = $argv[2] ?? null;
+            if (!$name) {
+                echo "Type name of the migration (e.g. create_users_table).\n";
+                exit(1);
+            }
+
+            $tableName = strtolower(preg_replace('/^create_|_table$/', '', $name));
+            $timestamp = date('Y_m_d_His');
+            $fileName = $timestamp . '_' . $name . '.php';
+
+            $stub = file_get_contents(__DIR__ . '/support/create/migration.stub');
+            $stub = str_replace('{{table}}', $tableName, $stub);
+
+            $outputPath = __DIR__ . "/database/migrations/{$fileName}";
+            if (!is_dir(dirname($outputPath))) {
+                mkdir(dirname($outputPath), 0755, true);
+            }
+
+            file_put_contents($outputPath, $stub);
+            echo "Created migration: {$fileName}\n";
+            break;
+        case 'migrations:on':
+            updateEnvValue('MIGRATIONS_ENABLED', 'true');
+            echo "Migrations enabled.\n";
+            echo "You can now access the migration panel at /migrations.\n";
+            break;
+        case 'migrations:off':
+            updateEnvValue('MIGRATIONS_ENABLED', 'false');
+            echo "Migrations disabled.\n";
+            break;
     default:
         echo "unknown command\n";
+        echo <<<TEXT
+
+        Available QuickFrame Commands:
+
+        php frame serve                  Start the built-in PHP development server (default: 127.0.0.1:8000)
+        php frame serve IP PORT          Start server with custom IP and port (e.g. php frame serve 0.0.0.0 8080)
+        php frame migrations:on          Enable migrations (.env MIGRATIONS_ENABLED=true)
+        php frame migrations:off         Disable migrations (.env MIGRATIONS_ENABLED=false)
+
+        Generators (make:)
+
+        php frame make:controller Name   Generate a new controller class
+        php frame make:model Name        Generate a new model class
+        php frame make:helper Name       Generate a new global helper function
+        php frame make:view Name         Generate a new view file (Blade-like)
+        php frame make:middleware Name   Generate a new middleware class
+        php frame make:migration Name    Generate a new migration class
+
+        CLI: frame | Powered by QuickFrame
+
+
+        TEXT;
+
         break;
+}
+function updateEnvValue(string $key, string $value): void
+{
+    $envPath = __DIR__ . '/.env'; 
+
+    if (!file_exists($envPath)) {
+        echo " .env file not found at $envPath\n";
+        exit(1);
+    }
+
+    $content = file_get_contents($envPath);
+
+    if (preg_match("/^{$key}=.*/m", $content)) {
+        $content = preg_replace("/^{$key}=.*/m", "{$key}={$value}", $content);
+    } else {
+        $content .= PHP_EOL . "{$key}={$value}";
+    }
+
+    file_put_contents($envPath, $content);
 }

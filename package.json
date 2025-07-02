@@ -1,0 +1,25 @@
+{
+  "name": "quickframe-framework",
+  "version": "1.0.0",
+  "description": "QuickFrame is a lightweight PHP micro-framework inspired by Laravel. It was built with simplicity and accessibility in mind — especially for *shared or budget hosting environments* where SSH access is not available. With QuickFrame, you can build dynamic PHP web applications even on servers that don't support Composer or command-line tools.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PierrOwO/QuickFrame.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PierrOwO/QuickFrame/issues"
+  },
+  "homepage": "https://github.com/PierrOwO/QuickFrame#readme",
+  "devDependencies": {
+    "axios": "^1.10.0",
+    "vite": "^7.0.0"
+  }
+}
