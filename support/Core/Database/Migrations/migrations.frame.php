@@ -5,6 +5,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>View migrations</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -57,6 +59,7 @@
             padding: 5px 10px;
             cursor: pointer;
             transition: 0.25s;
+            display: inline;
         }
         tbody td button:first-child{
             background-color: rgb(99, 192, 84);
@@ -165,8 +168,6 @@
             animation: 0.4s content-down;
         }
     </style>
-    <?= vite('js/app.js') ?>
-    <?= vite('js/app-select2.js') ?>
     </head>
 <body>
     <div class="container">
@@ -213,7 +214,8 @@
 </body>
 </html>
 <script>
-    
+            console.log(document.querySelector('meta[name="csrf-token"]').getAttribute('content') )
+
     const modal = document.getElementById('modal');
     const modalContent = document.getElementById('modal-content');
     const modalTitle = document.getElementById('modal-title');
@@ -257,84 +259,87 @@
     }
 
     function showMigration(migration){
-        var formData = {
-            migration: migration,
-            _token: $('meta[name="csrf-token"]').attr('content')
-        };
-        $.ajax({
-            url:"/migrations/show",
-            method:"post",
-            data: formData,
-            success:function(response){  
-                let jsonResponse = JSON.parse(response);
+        const formData = new FormData();
+        formData.append('migration', migration);
+        formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+
+        axios.post('/migrations/show', formData)
+            .then(response => {
+                const jsonResponse = response.data;
                 openModal(1, "show mgration", jsonResponse.data);
-                
-            },
-            error: function(xhr, status, error) {
-                console.log(xhr.responseText);
-                alert(xhr.responseText);
-            
-                if (xhr.status === 419 || xhr.status === 401) {
-                    window.location.reload();
+            })
+            .catch(error => {
+                if (error.response) {
+                    const status = error.response.status;
+                    const responseText = error.response.data;
+
+                    console.log(responseText);
+                    alert(responseText);
+
+                    if (status === 419 || status === 401) {
+                        window.location.reload();
+                    } else {
+                        console.error(error);
+                        alert('Error');
+                    }
                 } else {
-                    console.error(error);
-                    alert('Error');
+                    console.error("Axios error:", error.message);
+                    alert('Unexpected Error');
                 }
-            }
-        });
+            });
     }
     function runMigration(migration){
-        var formData = {
-            migration: migration,
-            _token: $('meta[name="csrf-token"]').attr('content')
-        };
-        $.ajax({
-            url:"/migrations/run",
-            method:"post",
-            data: formData,
-            success:function(response){  
-                let jsonResponse = JSON.parse(response);
-                openModal(0, "show mgration", jsonResponse.data);
-                
-            },
-            error: function(xhr, status, error) {
-                console.log(xhr.responseText);
-               // alert(xhr.responseText);
-            openModal(1, "show mgration", xhr.responseText);
-                if (xhr.status === 419 || xhr.status === 401) {
-                    window.location.reload();
+        const formData = new FormData();
+        formData.append('migration', migration);
+        formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+
+        axios.post('/migrations/run', formData)
+            .then(response => {
+                const jsonResponse = response.data;
+                openModal(0, "run mgration", jsonResponse.data);
+            })
+            .catch(error => {
+                if (error.response) {
+                    const status = error.response.status;
+                    const responseText = error.response.data;
+
+                    openModal(1, "error", responseText);
+
+                    if (status === 419 || status === 401) {
+                        window.location.reload();
+                    } else {
+                        console.error(error);
+                    }
                 } else {
-                    console.error(error);
-                   //alert('Error');
+                    console.error("Axios error:", error.message);
                 }
-            }
-        });
+            });
     }
     function dropMigration(migration){
-        var formData = {
-            migration: migration,
-            _token: $('meta[name="csrf-token"]').attr('content')
-        };
-        $.ajax({
-            url:"/migrations/drop",
-            method:"post",
-            data: formData,
-            success:function(response){  
-                let jsonResponse = JSON.parse(response);
-                openModal(0, "show mgration", jsonResponse.data);
-                
-            },
-            error: function(xhr, status, error) {
-                console.log(xhr.responseText);
-               // alert(xhr.responseText);
-            openModal(1, "show mgration", xhr.responseText);
-                if (xhr.status === 419 || xhr.status === 401) {
-                    window.location.reload();
+        const formData = new FormData();
+        formData.append('migration', migration);
+        formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+
+        axios.post('/migrations/drop', formData)
+            .then(response => {
+                const jsonResponse = response.data;
+                openModal(0, "drop mgration", jsonResponse.data);
+            })
+            .catch(error => {
+                if (error.response) {
+                    const status = error.response.status;
+                    const responseText = error.response.data;
+
+                    openModal(1, "error", responseText);
+
+                    if (status === 419 || status === 401) {
+                        window.location.reload();
+                    } else {
+                        console.error(error);
+                    }
                 } else {
-                    console.error(error);
-                   //alert('Error');
+                    console.error("Axios error:", error.message);
                 }
-            }
-        });
+            });
     }
 </script>

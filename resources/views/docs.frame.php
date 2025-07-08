@@ -26,34 +26,30 @@
     margin: auto;
     margin-bottom: 25px;
     padding-top: 25px; 
-
 }
 .docs-section .container{
     border-radius: 8px;
     background-color: white;
     box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
 }
-  code{
-    padding: 4px;
-    background-color: rgb(224, 224, 224);
-    border-radius: 3px;
 
-  }
   html {
   scroll-behavior: smooth;
 }
 #backToTop {
   display: none;
   position: fixed;
-  bottom: 40px;
+  bottom: 90px;
   right: 40px;
-  padding: 10px 15px;
-  font-size: 18px;
+  height: 60px;
+  width: 60px;
+  font-size: 33px;
+  font-weight: 800;
   cursor: pointer;
   border: none;
   background-color: #333;
   color: white;
-  border-radius: 5px;
+  border-radius: 60px;
   z-index: 1000;
   opacity: 0.7;
   transition: opacity 0.3s ease;
@@ -61,11 +57,48 @@
 #backToTop:hover {
   opacity: 1;
 }
-.header nav a {
-   
-    padding: 5px 5px;
-    font-size: 14px;
+nav .links {
+   flex-wrap: wrap;
+   display: flex;
+   margin: auto;
+   align-items: center;
+   justify-content: center;
   }
+nav .links li{
+  text-decoration: none;
+  list-style: none;
+}
+
+@media (max-width: 1000px) {
+ 
+  nav .links li {
+    padding: 7px 0px ;
+  }
+  nav a{
+  font-size: 30px;
+  }
+  #backToTop {
+    width: 120px;
+    height: 120px;
+    font-size: 50px;
+  }
+}
+
+
+code {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.container table{
+  margin: auto;
+}
+.container table td:first-child{
+  text-align: left;
+}
+.container table td:last-child{
+  text-align: right;
+}
 </style>
 @endsection
 
@@ -75,13 +108,17 @@
   <div class="container">
     <h1>QuickFrame</h1>
     <nav>
-      <a href="#getting-started">Getting Started</a>
-      <a href="#views&layouts">Views & Layouts</a>
-      <a href="#controllers">Controllers</a>
-      <a href="#css&js">CSS & JS</a>
-      <a href="#auth&sessions">Auth & Sessions</a>
-      <a href="#helpers">Helpers</a>
-    </nav>
+      <ul class="links">
+        <li><a href="#getting-started">Getting Started</a></li>
+        <li><a href="#views&layouts">Views & Layouts</a></li>
+        <li><a href="#controllers">Controllers</a></li>
+        <li><a href="#css&js">CSS & JS</a></li>
+        <li><a href="#auth&sessions">Auth & Sessions</a></li>
+        <li><a href="#helpers">Helpers</a></li>
+        <li><a href="#migrations">Migrations</a></li>
+        <li><a href="#cli">CLI</a></li>
+      </ul>
+  </nav>
   </div>
 </header>
 
@@ -96,9 +133,28 @@
   <div class="container">
     <h2>🚀 Getting Started</h2>
     <ul>
-      <li><strong>Installation:</strong> Clone the repo, set up `.env`, and run your dev server.</li>
-      <li><strong>Structure:</strong> Use familiar folders like `app/`, `routes/`, `resources/`.</li>
-      <li><strong>Routing:</strong> Define routes in `routes/web.php` using `Route::get()` etc.</li>
+      <li><strong>Installation:</strong> Clone the repo, set up <code style="display:inline-block;">.env</code>, and run your dev server.</li>
+      <li><strong>Structure:</strong> Use familiar folders like <code style="display:inline-block;">app/</code>, <code style="display:inline-block;">routes/</code>, <code style="display:inline-block;">resources/</code>.</li>
+      <li><strong>Routing:</strong> Define routes in <code style="display:inline-block;">routes/web.php</code> using <code style="display:inline-block;">Route::get()</code> etc. <br>
+        <p>Example:</p>
+        <code>Route::get('/', [HomeController::class, 'index']);</code>
+
+        <p><strong>HomeController:</strong></p>
+
+        <code>
+public function index() 
+{
+  return view('home', ['title' => 'Welcome!']);
+}</code>
+
+        <p><strong>or JSON response:</strong></p>
+
+        <code>
+public function index() 
+{
+  return response()->json(['data' => $data]);
+}</code>
+      </li>
     </ul>
   </div>
 </section>
@@ -106,9 +162,14 @@
 <section id="views&layouts" class="docs-section">
   <div class="container">
     <h2>🧩 Views & Layouts</h2>
+
+    <p>Views in QuickFrame work like Blade templates, using the <code style="display:inline-block;">.frame.php</code> extension. You can use familiar directives:</p>
+
     <ul>
-      <li>Use `.frame.php` files that work like Blade templates.</li>
-      <li>Use `@extends`, `@section`, `@yield`, `@include` to build UI.</li>
+      <li><code style="display:inline-block;">@extends</code> – to inherit a layout</li>
+      <li><code style="display:inline-block;">@section</code> – to define content blocks</li>
+      <li><code style="display:inline-block;">@yield</code> – to render sections from child views</li>
+      <li><code style="display:inline-block;">@include</code> – to include partials (like headers, footers)</li>
     </ul>
   </div>
 </section>
@@ -116,20 +177,130 @@
 <section id="controllers" class="docs-section">
   <div class="container">
     <h2>🧠 Controllers</h2>
+    <p>Controllers are the core part of the MVC (Model-View-Controller) architecture. They handle user requests, interact with models, and return views or other responses.</p>
+
+    <h3>Where are controllers located?</h3>
+    <p>Controllers live in the <code style="display: inline-block;">app/Controllers/</code> directory. Each controller is a PHP class grouping methods (actions) that correspond to different functions or endpoints in your application.</p>
+
+    <h3>Main responsibilities of a controller</h3>
     <ul>
-      <li>Controllers live in `app/Controllers/` and handle logic.</li>
-      <li>Return views with data like: `return view('home', [...])`.</li>
+      <li>Receive and process HTTP requests.</li>
+      <li>Interact with models (fetching, saving data).</li>
+      <li>Pass data to views.</li>
+      <li>Handle application business logic.</li>
+      <li>Manage redirects and HTTP responses (like JSON, file downloads).</li>
     </ul>
+
+    <h3>How to return a view from a controller?</h3>
+    <p>Controllers usually return a view with data. Example:</p>
+    <pre><code class="language-php">
+public function home()
+{
+    $data = [
+        'title' => 'Home Page',
+        'items' => ['apple', 'banana', 'pear']
+    ];
+    return view('home', $data);
+}
+    </code></pre>
+    <p>The <code style="display: inline-block;">view()</code> function loads the view template and passes the data to it.</p>
+
+    <h3>Example of a simple controller</h3>
+    <pre><code class="language-php">
+namespace App\Controllers;
+
+class HomeController
+{
+    public function index()
+    {
+        $message = "Welcome to the home page!";
+        return view('home.index', ['message' => $message]);
+    }
+}
+    </code></pre>
+
+    <h3>Best practices</h3>
+    <ul>
+      <li><strong>Single responsibility:</strong> Keep your controller focused on handling application logic, avoid direct database queries (leave that to models).</li>
+      <li><strong>Use dependency injection:</strong> Inject services into controllers instead of creating them inside methods.</li>
+      <li><strong>Avoid bloated controllers:</strong> Move complex operations to service classes or models.</li>
+      <li><strong>Write tests for controller methods:</strong> This improves maintainability and reliability.</li>
+    </ul>
+
+    <h3>Error handling in controllers</h3>
+    <p>Controllers should gracefully handle errors and exceptions, e.g., by returning appropriate error pages or JSON error responses for APIs.</p>
+
+    <h3>Middleware and extensions</h3>
+    <p>Controllers can use middleware to run code before or after controller actions, such as authentication, logging, or input validation.</p>
   </div>
 </section>
 
 <section id="css&js" class="docs-section">
   <div class="container">
     <h2>🎨 CSS & JS</h2>
+
+    <p>Our project uses <strong>Vite</strong> as a modern frontend build tool to efficiently compile and bundle CSS and JavaScript assets.</p>
+
+    <h3>How to manage assets?</h3>
     <ul>
-      <li>Use Vite to build and load assets.</li>
-      <li>Import CSS/JS inside `resources/js/app.js`.</li>
-      <li>Run `npm run dev` or `npm run build` for production.</li>
+      <li>All your main JavaScript and CSS files should be imported in the <code style="display: inline-block;">resources/js/app.js</code> entry point.</li>
+      <li>You can import CSS files directly in JavaScript using <code style="display: inline-block;">import './styles.css'</code> or import frameworks like Tailwind or Bootstrap.</li>
+      <li>JavaScript modules can also be imported here and bundled together.</li>
+    </ul>
+
+    <h3>Running development and production builds</h3>
+    <ul>
+      <li><code style="display: inline-block;">npm run dev</code>: Starts a development server with hot module replacement (HMR) for rapid development.</li>
+      <li><code style="display: inline-block;">npm run build</code>: Compiles and minifies assets for production, generating optimized files in the <code style="display: inline-block;">public/build</code> directory.</li>
+    </ul>
+
+    <h3>How to include assets in your views?</h3>
+    <p>If you’re using Vite and the build process, include the compiled assets like this:</p>
+    <pre><code>&lt;link rel="stylesheet" href="/build/assets/app.css"&gt;
+&lt;script type="module" src="/build/assets/app.js"&gt;&lt;/script&gt;
+</code></pre>
+
+    <h3>Using the <code style="display: inline-block;">asset()</code> helper (alternative)</h3>
+    <p>If you're not using Vite, or you prefer a simple method to load static files, QuickFrame provides an <code>asset()</code> helper:</p>
+    <pre><code>&lt;link rel="stylesheet" href="&lt;?= asset('css/style.css') ?&gt;"&gt;</code></pre>
+    <p>This function automatically appends a version string based on the file’s last modified time. For example:</p>
+    <pre><code>&lt;link rel="stylesheet" href="/css/style.css?v=1720308702"&gt;</code></pre>
+    <p>This helps avoid caching issues when updating assets.</p>
+
+    <blockquote>
+      💡 You can use <code>asset()</code> for any file in your <code>/public</code> directory, such as CSS, JS, images, and fonts.
+    </blockquote>
+
+    <h3>When to use <code style="display: inline-block;">asset()</code> vs Vite?</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Scenario</th>
+          <th>Recommended method</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>You use Vite with hashed filenames</td>
+          <td>Use <code style="display: inline-block;">&#64;vite()</code> or include the files from <code style="display: inline-block;">/build</code></td>
+        </tr>
+        <tr>
+          <td>You don't use Vite or want a simpler setup</td>
+          <td>Use the <code style="display: inline-block;">asset()</code> helper</td>
+        </tr>
+        <tr>
+          <td>You load static images, fonts, or favicons</td>
+          <td>Use the <code style="display: inline-block;">asset()</code> helper</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Tips & best practices</h3>
+    <ul>
+      <li>Manage all frontend dependencies using <code style="display: inline-block;">package.json</code>.</li>
+      <li>Organize your JavaScript files into modules inside <code>resources/js/</code>.</li>
+      <li>Use environment variables like <code style="display: inline-block;">VITE_API_URL</code> by prefixing with <code style="display: inline-block;">VITE_</code> in your JS code.</li>
+      <li>Always rebuild assets with <code style="display: inline-block;">npm run build</code> before deploying to production.</li>
     </ul>
   </div>
 </section>
@@ -137,9 +308,31 @@
 <section id="auth&sessions" class="docs-section">
   <div class="container">
     <h2>🔐 Auth & Sessions</h2>
+
+    <p>This framework uses PHP sessions to securely store user data across requests, making it easy to implement authentication and maintain user state.</p>
+
+    <h3>Session Management</h3>
     <ul>
-      <li>Store data with PHP sessions using `session()` helper.</li>
-      <li>Check auth with `auth()` helper functions.</li>
+      <li>Use the <code style="display: inline-block;">session()</code> helper to store, retrieve, and manage session data effortlessly.</li>
+      <li>Example to set a session value: <code style="display: inline-block;">session(['user_id' => $user->id])</code>.</li>
+      <li>Retrieve session data by calling <code style="display: inline-block;">session('user_id')</code>.</li>
+      <li>Sessions persist until the user logs out or the session expires.</li>
+    </ul>
+
+    <h3>Authentication Helpers</h3>
+    <ul>
+      <li>Check if a user is authenticated with the <code style="display: inline-block;">auth()->check()</code> method.</li>
+      <li>Get the currently authenticated user via <code style="display: inline-block;">auth()->user()</code>.</li>
+      <li>Log users in and out using built-in methods (e.g., <code style="display: inline-block;">auth()->login($user)</code>, <code style="display: inline-block;">auth()->logout()</code>).</li>
+      <li>Protect routes or controller methods by verifying authentication status using these helpers.</li>
+    </ul>
+
+    <h3>Best Practices</h3>
+    <ul>
+      <li>Always validate user credentials securely before calling login methods.</li>
+      <li>Regenerate session IDs on login to prevent session fixation attacks.</li>
+      <li>Use middleware or controller checks to restrict access to authenticated users.</li>
+      <li>Clear session data properly on logout to avoid unauthorized access.</li>
     </ul>
   </div>
 </section>
@@ -148,47 +341,87 @@
   <div class="container">
     <h2>📦 Helpers</h2>
 
-    <h3>redirect($url)</h3>
-    <p>Redirects the browser to the given URL and stops the script execution.</p>
-    <pre><code>redirect('/home');</code></pre>
+    <h3>redirect(string $url)</h3>
+    <p>Redirects the user’s browser to the specified URL and immediately stops script execution. Example: <code>redirect('/home');</code></p>
 
     <h3>view(string $view, array $data = [])</h3>
-    <p>Renders a view from <code>resources/views</code> with optional data passed as an associative array.</p>
-    <pre><code>view('home', ['user' => $user]);</code></pre>
+    <p>Renders a view from <code>resources/views</code> with optional data passed as an associative array. Example: <code>view('home', ['user' => $user]);</code></p>
 
     <h3>asset(string $path): string</h3>
-    <p>Generates a URL to a public asset, appending a cache-busting query parameter based on the file modification time.</p>
-    <pre><code>&lt;img src="&lt;?= asset('images/logo.png') ?&gt;" alt="Logo"></code></pre>
+    <p>Generates a URL for a public asset and appends a cache-busting query parameter based on the file's modification time. Example: <code style="display: inline-block;">&lt;img src="&lt;?= asset('images/logo.png') ?&gt;" alt="Logo"></code></p>
 
     <h3>vite(string|array $entries): string</h3>
-    <p>Generates HTML tags for including Vite-built CSS and JS assets. Works in dev mode (with hot-reloading) and production mode (using manifest.json).</p>
-    <pre><code>&lt;?= vite('js/app.js') ?&gt;</code></pre>
-    <pre><code>&lt;?= vite(['js/app.js', 'css/app.css']) ?&gt;</code></pre>
+    <p>Generates the necessary HTML tags to include Vite-built CSS and JS assets. Supports both development mode (with hot module replacement) and production mode (using <code style="display: inline-block;">manifest.json</code>). Example: <code style="display: inline-block;">&#64;vite('js/app.js');</code></p>
 
-    <h3>csrf_token()</h3>
-    <p>Returns the current CSRF token stored in the session for form protection.</p>
-    <pre><code>$token = csrf_token();</code></pre>
+    <h3>csrf_token(): string</h3>
+    <p>Returns the current CSRF token stored in the session for form protection. Example:</p>
+    <code style="display: inline-block;">$token = csrf_token();</code>
 
-    <h3>csrf_field()</h3>
-    <p>Returns an HTML hidden input field with the CSRF token for inclusion inside forms.</p>
-    <pre><code>&lt;form method="POST"&gt;</code></pre>
-    <pre><code>&lt;?= csrf_field() ?&gt;</code></pre>
-    <pre><code>&lt;/form&gt;</code></pre>
+    <h3>csrf_field(): string</h3>
+    <p>Returns an HTML hidden input field containing the CSRF token, to include inside forms. Example: </p>
+      <code style="display: inline-block; flex-wrap: wrap;">&lt;form method="POST"&gt; &lt;?= csrf_field() ?&gt; &lt;/form&gt;</code>
 
     <h3>base_path(string $path = ''): string</h3>
-    <p>Returns the absolute base path of the project, optionally appending a relative subpath.</p>
-    <pre><code>$path = base_path('app/Controllers/HomeController.php');</code></pre>
+    <p>Returns the absolute base path of the project, optionally appending a relative subpath. Example:</p>
+    <code style="display: inline-block; flex-wrap: wrap;">$path = base_path('app/Controllers/HomeController.php');</code>
 
     <h3>response(): Response</h3>
-    <p>Returns a new instance of the <code>Response</code> class for managing HTTP responses.</p>
-    <pre><code>return response()->json(['success' => true]);</code></pre>
+    <p>Returns a new instance of the <code style="display: inline-block;">Response</code> class for managing HTTP responses. Example: </p>
+    <code>return response()->json(['success' => true]);</code>
+  </div>
 
+  
+</section>
+<section id="migrations" class="docs-section">
+  <div class="container">
+    <h2>🗂️ Migrations</h2>
+    <ul>
+      <li>Migrations allow you to define and version-control your database schema using PHP classes.</li>
+      <li>Create a new migration with:<br>
+        <code>php frame make:migration CreateUsersTable</code>
+      </li>
+      <li>Use <code style="display: inline-block;">php frame migrations:on</code> to enable automatic migration execution on each page load.</li>
+      <li>Use <code style="display: inline-block;">php frame migrations:off</code> to disable it after your schema is up to date.</li>
+      <li>Visit <a href="/migrations" target="_blank"><code style="display: inline-block;">/migrations</code></a> in your browser to manually trigger all migration files.</li>
+    </ul>
+
+    
+  </div>
+</section>
+<section id="cli" class="docs-section">
+  <div class="container">
+    <h2>⚡️ CLI</h2>
+    <ul>
+      <li>Create a new QuickFrame project globally with:<br>
+        <code>quickframe new my-app</code>
+      </li>
+      <li>Start the local development server:<br>
+        <code style="display: inline-block;">php frame serve</code> (optional: <code style="display: inline-block;">php frame serve 0.0.0.0 8080</code>)
+      </li>
+      <li>Generate core files with simple commands:
+        <ul>
+          <li><code>php frame make:controller ProductController</code></li>
+          <li><code>php frame make:model Product</code></li>
+          <li><code>php frame make:view products.index</code></li>
+          <li><code>php frame make:middleware AuthMiddleware</code></li>
+          <li><code>php frame make:helper StringHelper</code></li>
+        </ul>
+      </li>
+      <li>Create a new migration file:<br>
+        <code>php frame make:migration CreateProductsTable</code>
+      </li>
+      <li>Enable browser access to the migration interface:<br>
+        <code style="display: inline-block;">php frame migrations:on</code>
+      </li>
+      <li>Disable browser access to the migration interface:<br>
+        <code style="display: inline-block;">php frame migrations:off</code>
+      </li>
+      <li>Visit <a href="/migrations" target="_blank"><code style="display: inline-block;">/migrations</code></a> in your browser to run or drop migrations manually.</li>
+    </ul>
   </div>
   <a href="/" class="btn-primary">← Back to Home</a>
 </section>
-<button id="backToTop" title="Back to top">
-  ↑ Top
-</button>
+<button id="backToTop" title="Back to top">↑</button>
 @endsection
 @section('scripts')
 <script>
