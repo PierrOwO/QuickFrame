@@ -6,6 +6,7 @@ class VerifyCsrfToken
 {
     public static function handle(): void
     {
+        
         $methodsToCheck = ['POST', 'PUT', 'PATCH', 'DELETE'];
 
         if (in_array($_SERVER['REQUEST_METHOD'], $methodsToCheck, true)) {
