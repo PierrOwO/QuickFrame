@@ -2,28 +2,28 @@
 namespace App\Controllers\AUTH;
 use App\Models\User;
 use Support\Core\Auth;
-use App\Helpers\HashHelper;
+use Support\Core\Hash;
+
 class LoginController {
 
-    public function index(){
+    public function index()
+    {
         return view('AUTH.login');
     }
-    public function login($name, $password) {
+    public function login($name, $password) 
+    {
         $user = User::where('name', $name)->first();
-        if($user)
-        {
-            $hashHelper = new HashHelper;
-            $salt = $user->sn;
-            $db_encrypted_password = $user->password;
-            $hashHelper = new HashHelper();
-            $isValid = $hashHelper->verifyHash($password.$salt,$db_encrypted_password);
-            if($isValid){
+        if ($user) {
+            $encrypted = $user->password;
+
+            if (Hash::check($password, $encrypted)) {
                 Auth::login($user);
+                return true; 
             } else {
-                return "Incorrect password!";
+                return response()->json(['status' => false ,'message' => "Incorrect password!"]);
             }
         } else {
-            return "Cannot find an account with the specified login";
+            return response()->json(['status' => false ,'message' => "Cannot find an account with the specified login"]);
         }
     }
 }
