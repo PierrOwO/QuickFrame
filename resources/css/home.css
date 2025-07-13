@@ -71,6 +71,10 @@ body {
     box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
     flex: 1;
     text-align: center;
+    transition: 0.25s;
+  }
+  .feature-card:hover{
+    scale: 0.95;
   }
   
   .footer {

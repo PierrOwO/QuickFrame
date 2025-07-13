@@ -99,6 +99,10 @@ code {
 .container table td:last-child{
   text-align: right;
 }
+.container h1 a{
+  text-decoration: none;
+  color: #fff;
+}
 </style>
 @endsection
 
@@ -106,7 +110,7 @@ code {
 
 <header class="header">
   <div class="container">
-    <h1>QuickFrame</h1>
+    <h1><a href="/">QuickFrame</a></h1>
     <nav>
       <ul class="links">
         <li><a href="#getting-started">Getting Started</a></li>
@@ -380,9 +384,9 @@ class HomeController
       <li>Create a new migration with:<br>
         <code>php frame make:migration CreateUsersTable</code>
       </li>
-      <li>Use <code style="display: inline-block;">php frame migrations:on</code> to enable automatic migration execution on each page load.</li>
-      <li>Use <code style="display: inline-block;">php frame migrations:off</code> to disable it after your schema is up to date.</li>
-      <li>Visit <a href="/migrations" target="_blank"><code style="display: inline-block;">/migrations</code></a> in your browser to manually trigger all migration files.</li>
+      <li>Use <code style="display: inline-block;">php frame migrations:on</code> to enable browser access to the migration interface.</li>
+      <li>Use <code style="display: inline-block;">php frame migrations:off</code> to disable browser access to the migration interface.</li>
+      <li>Visit <a href="/migrations" target="_blank"><code style="display: inline-block;">/migrations</code></a> in your browser to run or drop migrations manually.</li>
     </ul>
 
     
