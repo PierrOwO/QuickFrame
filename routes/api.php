@@ -1,6 +1,6 @@
 <?php
-use Support\Core\Route;
-use Support\Core\View;
+use Support\Vault\Routing\Route;
+
 
 
 /**

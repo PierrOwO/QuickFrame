@@ -1,9 +1,7 @@
 
 <?php
 
-use App\Controllers\MigrationController;
-use Support\Core\Route;
-use Support\Core\Log;
+use Support\Vault\Routing\Route;
 
 /**
  * File: routes/web.php

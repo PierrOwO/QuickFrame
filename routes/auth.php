@@ -1,9 +1,6 @@
 <?php
-use Support\Core\Route;
-use Support\Core\View;
-use Support\Core\Log;
-use Support\Core\Auth;
-use App\Controllers\AUTH\LoginController;
+use Support\Vault\Routing\Route;
+
 
 /**
  * File: routes/auth.php

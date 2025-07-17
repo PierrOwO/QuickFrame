@@ -1,0 +1,7 @@
+{
+    "name": "QuickFrame",
+    "version": "1.0.0",
+    "description": "Lightweight PHP framework",
+    "author": "Piotr Miłoś",
+    "license": "MIT"
+  }

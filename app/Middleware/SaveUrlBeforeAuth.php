@@ -1,7 +1,7 @@
 <?php
 namespace App\Middleware;
 use Closure;
-use Support\Core\Log;
+use Support\Vault\Sanctum\Log;
 
 class SaveUrlBeforeAuth
 {

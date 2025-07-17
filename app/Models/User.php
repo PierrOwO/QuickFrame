@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Models;
-use Support\Core\Model;
 use \PDO;
+use Support\Vault\Sanctum\Model;
+
 class User extends Model {
     protected static $table = 'users';
     protected static $fillable = [

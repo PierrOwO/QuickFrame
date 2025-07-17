@@ -2,7 +2,7 @@
 namespace App\Middleware;
 
 use Closure;
-use Support\Core\Auth;
+use Support\Vault\Foundation\Auth;
 
 class Authenticate
 {
