@@ -10,11 +10,20 @@ $argv = $_SERVER['argv'];
 $command = $argv[1] ?? null;
 
 switch ($command) {
+    case 'run:test':
+        echo "Running tests...\n";
+        exec('php support/Tools/phpunit.phar support/Tests', $output) ;
+        echo implode("\n", $output);
+        break;
     case '--version':
         echo "\033[36mQuickFrame version: \033[35m" . Framework::version() . "\033[0m\n";
         break;
     case '-v':
         echo "\033[36mQuickFrame version: \033[35m" . Framework::version() . "\033[0m\n";
+        break;
+    case 'make:test':
+        $name = $argv[2] ?? null;
+        echo CreationHandler::createtest($name);
         break;
     case 'make:controller':
         $name = $argv[2] ?? null;

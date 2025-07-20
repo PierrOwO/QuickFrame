@@ -136,4 +136,23 @@ class CreationHandler
         file_put_contents($outputPath, $stub);
         echo "Created migration: {$fileName}\n";
     }
+    public static function createTest($name) 
+    {
+        if (!$name) {
+            echo "Type name of the test (e.g. ExampleTest).\n";
+            exit(1);
+        }
+
+        $stub = file_get_contents(__DIR__ . '/stubs/test.stub');
+        $stub = str_replace('ClassName', $name, $stub);
+    
+        $outputPath = __DIR__ . "/../../../support/Tests/{$name}.php";
+        if (file_exists($outputPath)) {
+            echo "Test already exists.\n";
+            exit(1);
+        }
+    
+        file_put_contents($outputPath, $stub);
+        echo "Created Test: {$name}\n";
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use Support\Vault\Foundation\Config;
 use Support\Vault\Http\Response;
 use Support\Vault\Sanctum\Log;
 use Support\Vault\Sanctum\View;
@@ -134,4 +135,9 @@ if (!function_exists('base_path')) {
 function response(): Response
 {
     return new Response();
+}
+if (!function_exists('config')) {
+    function config(string $key, $default = null) {
+        return Config::get($key, $default);
+    }
 }

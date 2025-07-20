@@ -1,0 +1,18 @@
+<?php
+
+use PHPUnit\Framework\TestCase;
+
+class ClassName extends TestCase
+{
+    public function test_example()
+    {
+        // Arrange
+        // Prepare input or setup conditions
+
+        // Act
+        // Execute the code being tested
+
+        // Assert
+        $this->assertEquals('expected', 'actual');
+    }
+}

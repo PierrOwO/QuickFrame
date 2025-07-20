@@ -57,26 +57,11 @@
 #backToTop:hover {
   opacity: 1;
 }
-nav .links {
-   flex-wrap: wrap;
-   display: flex;
-   margin: auto;
-   align-items: center;
-   justify-content: center;
-  }
-nav .links li{
-  text-decoration: none;
-  list-style: none;
-}
+
 
 @media (max-width: 1000px) {
  
-  nav .links li {
-    padding: 7px 0px ;
-  }
-  nav a{
-  font-size: 30px;
-  }
+ 
   #backToTop {
     width: 120px;
     height: 120px;
@@ -103,6 +88,113 @@ code {
   text-decoration: none;
   color: #fff;
 }
+
+
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  visibility: hidden;
+  transition: 0.3s ease;
+  z-index: 900;
+}
+
+.sidebar.show {
+  background-color: rgba(0, 0, 0, 0.5);
+  visibility: visible;
+
+}
+
+.sidebar .content {
+  position: absolute;
+  top: 0;
+  left: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: #4F46E5;
+  color: white;
+  transition: left 0.4s ease;
+  padding: 1rem 0;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar.show .content {
+  left: 0;
+}
+
+.sidebar .nav-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.sidebar .nav-header h3 {
+  flex: 1;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.sidebar .close-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.sidebar .links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .links li a {
+  display: block;
+  padding: 0rem 1rem;
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar .links li a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+header {
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  padding: 0 1rem;
+  background-color: #f5f5f5;
+  line-height: 50px;
+
+}
+
+header .hamburger-button {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(100%, -50%) rotate(90deg);
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: 0.4s;
+}
+header .hamburger-button.rotate90{
+  transform: translate(100%, -50%) rotate(180deg);
+}
+section {
+  scroll-margin-top: 80px; 
+}
 </style>
 @endsection
 
@@ -110,19 +202,29 @@ code {
 
 <header class="header">
   <div class="container">
-    <h1><a href="/">QuickFrame</a></h1>
-    <nav>
-      <ul class="links">
-        <li><a href="#getting-started">Getting Started</a></li>
-        <li><a href="#views&layouts">Views & Layouts</a></li>
-        <li><a href="#controllers">Controllers</a></li>
-        <li><a href="#css&js">CSS & JS</a></li>
-        <li><a href="#auth&sessions">Auth & Sessions</a></li>
-        <li><a href="#helpers">Helpers</a></li>
-        <li><a href="#migrations">Migrations</a></li>
-        <li><a href="#cli">CLI</a></li>
-      </ul>
-  </nav>
+    <span onclick="showSidebar()" class="hamburger-button" id="hamburger-button">|||</span>
+    <h1><a href="/">QuickFrame Documentation</a></h1>
+    
+    <div class="sidebar" id="sidebar" onclick="hideSidebar()" >
+      <div class="content" id="sidebar-content" onclick="event.stopPropagation()">
+        <div class="nav-header">
+          <h3>Navigation</h3>
+          <span onclick="hideSidebar()" class="close-btn">&times;</span>
+        </div>
+        <ul class="links">
+          <li><a href="#getting-started">Getting Started</a></li>
+          <li><a href="#views&layouts">Views & Layouts</a></li>
+          <li><a href="#controllers">Controllers</a></li>
+          <li><a href="#css&js">CSS & JS</a></li>
+          <li><a href="#auth&sessions">Auth & Sessions</a></li>
+          <li><a href="#helpers">Helpers</a></li>
+          <li><a href="#migrations">Migrations</a></li>
+          <li><a href="#cli">CLI</a></li>
+          <li><a href="#testing">Testing</a></li>
+          <li><a href="#config">Config</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -397,7 +499,7 @@ class HomeController
     <h2>⚡️ CLI</h2>
     <ul>
       <li>Create a new QuickFrame project globally with:<br>
-        <code>quickframe new my-app</code>
+        <pre><code>quickframe new my-app</code></pre>
       </li>
       <li>Start the local development server:<br>
         <code style="display: inline-block;">php frame serve</code> (optional: <code style="display: inline-block;">php frame serve 0.0.0.0 8080</code>)
@@ -411,18 +513,100 @@ class HomeController
           <li><code>php frame make:helper StringHelper</code></li>
         </ul>
       </li>
+      <li>Handling tests
+        <ul>
+        <li>Create test:
+            <pre><code>php frame make:test TestName</code></pre>
+          </li>
+           <li>Run tests:
+            <pre><code>php frame run:test</code></pre>
+          </li>
+        </ul>
+      </li>
       <li>Create a new migration file:<br>
-        <code>php frame make:migration CreateProductsTable</code>
+        <pre><code>php frame make:migration CreateProductsTable</code></pre>
       </li>
       <li>Enable browser access to the migration interface:<br>
-        <code style="display: inline-block;">php frame migrations:on</code>
+        <pre><code style="display: inline-block;">php frame migrations:on</code></pre>
       </li>
       <li>Disable browser access to the migration interface:<br>
-        <code style="display: inline-block;">php frame migrations:off</code>
+        <pre><code style="display: inline-block;">php frame migrations:off</code></pre>
       </li>
       <li>Visit <a href="/migrations" target="_blank"><code style="display: inline-block;">/migrations</code></a> in your browser to run or drop migrations manually.</li>
+      <li>Check all commands by typing:<br>
+        <pre><code style="display: inline-block;">php frame /help</code></pre>
+      </li>
     </ul>
   </div>
+</section>
+<section id="testing" class="docs-section">
+  <div class="container">
+    <h2>🧪 Testing</h2>
+    <ul>
+      <li>
+        Create a test class in <code style="display: inline">/support/Tests</code>:
+        <pre><code>use PHPUnit\Framework\TestCase;
+
+class ConfigTest extends TestCase
+{
+    public function test_app_name_is_correct()
+    {
+        $this->assertEquals('QuickFrame', config('app.name'));
+    }
+}</code></pre>
+      </li>
+      <li>
+        Run all tests with:
+        <pre><code>php phpunit.phar support/Tests</code></pre>
+      </li>
+      <li>
+        Or via CLI shortcut:
+        <pre><code>php frame run:test</code></pre>
+      </li>
+      <li>
+        Test a single file:
+        <pre><code>php phpunit.phar support/Tests/ConfigTest.php</code></pre>
+      </li>
+      <li>
+        Use <code style="display: inline">assert</code> methods from PHPUnit:
+        <pre><code>$this->assertEquals($expected, $actual);
+$this->assertTrue($value);
+$this->assertFalse($value);
+$this->assertNull($value);</code></pre>
+      </li>
+      <li>
+        Example output:
+        <pre><code>PHPUnit 10.5.48 by Sebastian Bergmann and contributors.
+
+.                                                                   1 / 1 (100%)
+
+Time: 00:00, Memory: 22.94 MB
+
+OK (1 test, 1 assertion)</code></pre>
+      </li>
+    </ul>
+  </div>
+</section>
+<section id="config" class="docs-section">
+  <div class="container">
+  <h2>⚙️ Config</h2>
+  <ul>
+    <li>
+      Get data from config files:
+      <pre><code>use Support\Vault\Foundation\Config;
+
+$name = Config::get('app.name');          // "QuickFrame"
+$url = Config::get('app.url');            // "http://localhost:8000"
+$driver = Config::get('database.driver'); // "mysql"</code></pre>
+    </li>
+    <li>
+      Or simpler (with helper function):
+      <pre><code>$name = config('app.name');          // "QuickFrame"
+$url = config('app.url');            // "http://localhost:8000"
+$driver = config('database.driver'); // "mysql"</code></pre>
+    </li>
+  </ul>
+</div>
   <a href="/" class="btn-primary">← Back to Home</a>
 </section>
 <button id="backToTop" title="Back to top">↑</button>
@@ -445,6 +629,20 @@ backToTopButton.addEventListener('click', () => {
     behavior: 'smooth'  
   });
 });
+const sidebarContent = document.getElementById('sidebar-content');
+const sidebar = document.getElementById('sidebar');
+const HamburgerBtn = document.getElementById('hamburger-button');
+
+function showSidebar(){
+  HamburgerBtn.classList.add('rotate90');
+    sidebar.classList.add('show');
+    sidebarContent.classList.add('show');
+ }
+ function hideSidebar(){
+   sidebar.classList.remove('show');
+   sidebarContent.classList.remove('show');
+   HamburgerBtn.classList.remove('rotate90');
+ }
 
 </script>
 @endsection
