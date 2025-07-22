@@ -1,8 +1,9 @@
 <?php
 
+use Support\Vault\Config\CliHandlerFunctions;
 use Support\Vault\Config\Framework;
 use Support\Vault\Creation\CreationHandler;
-use Support\Vault\Sanctum\Log;
+use Support\Vault\FTP\GitFtp;
 
 require __DIR__ . '/autoload.php';
 
@@ -10,6 +11,40 @@ $argv = $_SERVER['argv'];
 $command = $argv[1] ?? null;
 
 switch ($command) {
+    case 'ftp:push':
+        GitFtp::push();
+        break;
+    case 'cache:clear':
+        $type = $argv[2] ?? 'all';
+        if ($type === 'all') {
+            echo CliHandlerFunctions::clearCache('routes');
+            echo CliHandlerFunctions::clearCache('views');
+            echo "All cache cleared\n";
+        } elseif (in_array($type, ['routes', 'views'])) {
+            $this->clearCache($type);
+            echo ucfirst($type) . " cache cleared\n";
+        } else {
+            echo "Unknown cache type\n";
+        }
+        break;
+
+    case 'cache:routes':
+        CliHandlerFunctions::cacheRoutes();
+        break;
+
+    case 'cache:views':
+        CliHandlerFunctions::cacheViews();
+        break;
+    case 'cache:config':
+        loadConfig();
+        echo "Config cached successfully!\n";
+        break;
+    case 'cache:all':
+        loadConfig();
+        CliHandlerFunctions::cacheRoutes();
+        CliHandlerFunctions::cacheViews();
+        echo "All caches generated\n";
+        break;
     case 'run:test':
         echo "Running tests...\n";
         exec('php support/Tools/phpunit.phar support/Tests', $output) ;
@@ -50,12 +85,12 @@ switch ($command) {
         echo CreationHandler::createMigration($name);
         break;
     case 'migrations:on':
-        updateEnvValue('MIGRATIONS_ENABLED', 'true');
+        CliHandlerFunctions::updateEnvValue('MIGRATIONS_ENABLED', 'true');
         echo "Migrations enabled.\n";
         echo "You can now access the migration panel at /migrations.\n";
         break;
     case 'migrations:off':
-        updateEnvValue('MIGRATIONS_ENABLED', 'false');
+        CliHandlerFunctions::updateEnvValue('MIGRATIONS_ENABLED', 'false');
         echo "Migrations disabled.\n";
         break;
     case 'serve':
@@ -67,7 +102,7 @@ switch ($command) {
             exit;
         }
         
-        $publicDir = __DIR__ . '/../../../public';
+        $publicDir = base_path('public');
         if (!is_dir($publicDir)) {
             echo "Missing 'public' directory. Please create a 'public/' folder with an index.php file.\n";
             exit;
@@ -76,16 +111,16 @@ switch ($command) {
         function findFreePort($host, $startPort = 8000, $maxAttempts = 100) {
             $port = $startPort;
             for ($i = 0; $i < $maxAttempts; $i++, $port++) {
-                set_error_handler(function() {}, E_WARNING); // Wycisz tylko warningi
+                set_error_handler(function() {}, E_WARNING); 
                 $connection = stream_socket_client("tcp://{$host}:{$port}", $errno, $errstr, 0.1);
-                restore_error_handler(); // Przywróć handler
+                restore_error_handler(); 
                 if ($connection) {
-                    fclose($connection); // port zajęty
+                    fclose($connection); 
                 } else {
-                    return $port; // port wolny
+                    return $port; 
                 }
             }
-            return false; // nie znaleziono
+            return false;
         }
         
         if ($requestedPort === null) {
@@ -144,23 +179,4 @@ switch ($command) {
     default:
         echo "unknown command\n";
         echo "check available commends: /help\n";
-}
-function updateEnvValue(string $key, string $value): void
-{
-    $envPath = __DIR__ . '../../../.env'; 
-
-    if (!file_exists($envPath)) {
-        echo " .env file not found at $envPath\n";
-        exit(1);
-    }
-
-    $content = file_get_contents($envPath);
-
-    if (preg_match("/^{$key}=.*/m", $content)) {
-        $content = preg_replace("/^{$key}=.*/m", "{$key}={$value}", $content);
-    } else {
-        $content .= PHP_EOL . "{$key}={$value}";
-    }
-
-    file_put_contents($envPath, $content);
 }

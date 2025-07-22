@@ -2,6 +2,7 @@
 
 namespace Support\Vault\Sanctum;
 
+//require __DIR__ . '/../Foundation/helpers.php';
 class Log
 {
     public static function log($message, $type = 'info')
@@ -9,7 +10,7 @@ class Log
         $date = date('Y-m-d H:i:s');
         $logLine = "[$date][$type] $message" . PHP_EOL;
 
-        $logDir = __DIR__ . '/../../../storage/logs/' . date('Y') . '/' . date('m') . '/';
+        $logDir = base_path('storage/logs/' . date('Y') . '/' . date('m') . '/');
         $logFile = $logDir . date('d') . '.log';
 
         if (!is_dir($logDir)) {
@@ -42,7 +43,7 @@ class Log
     }
     public static function shortenPath(string $path): string
     {
-        $basePath = '/some/path/to/file';
+       // $basePath = base_path('some/path/to/file');
         //return str_replace($basePath, '', $path);
         return $path;
     }

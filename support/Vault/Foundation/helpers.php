@@ -2,35 +2,40 @@
 
 use Support\Vault\Foundation\Config;
 use Support\Vault\Http\Response;
-use Support\Vault\Sanctum\Log;
 use Support\Vault\Sanctum\View;
+if (!function_exists('redirect')) {
 
-function redirect($url)
-{
-    header("Location: $url");
-    exit();
-}
-function view(string $view, array $data = []) {
-    View::render($view, $data);
-}
-function asset(string $path): string
-{
-    $publicPath = __DIR__ . '/../../public/' . ltrim($path, '/');
-        
-    if (file_exists($publicPath)) {
-        $version = filemtime($publicPath);
-        return '/' . ltrim($path, '/') . '?v=' . $version;
+    function redirect($url)
+    {
+        header("Location: $url");
+        exit();
     }
-
-    return '/' . ltrim($path, '/');
 }
+if (!function_exists('view')) {
 
+    function view(string $view, array $data = []) {
+        View::render($view, $data);
+    }
+}
+if (!function_exists('asset')) {
+
+    function asset(string $path): string
+    {
+        $publicPath = __DIR__ . '/../../public/' . ltrim($path, '/');
+            
+        if (file_exists($publicPath)) {
+            $version = filemtime($publicPath);
+            return '/' . ltrim($path, '/') . '?v=' . $version;
+        }
+
+        return '/' . ltrim($path, '/');
+    }
+}
 function vite(string|array $entries): string
 {
     $isDev = env('APP_ENV') === 'development';
     $devServerUrl = env('VITE_DEV_SRV_URL');
-    Log::info("vite url: " . $devServerUrl);
-    $manifestPath = __DIR__ . '/../../../public/build/.vite/manifest.json';
+    $manifestPath = base_path('public/build/.vite/manifest.json');
     $tags = '';
 
     if ($isDev && isDevServerRunning()) {
@@ -129,7 +134,7 @@ function csrf_field() {
 if (!function_exists('base_path')) {
     function base_path($path = '')
     {
-        return __DIR__ . '/../../' . ($path ? '/' . ltrim($path, '/') : '');
+        return __DIR__ . '/../../../' . ($path ? '/' . ltrim($path, '/') : '');
     }
 }
 function response(): Response
@@ -140,4 +145,49 @@ if (!function_exists('config')) {
     function config(string $key, $default = null) {
         return Config::get($key, $default);
     }
+}
+function loadConfig(): array {
+    $configDir = base_path('config');
+    $cacheFile = base_path('storage/cache/config.php');
+
+
+    $cacheValid = false;
+    if (file_exists($cacheFile)) {
+        $cacheTime = filemtime($cacheFile);
+        $configFiles = glob($configDir . '/*.php');
+        $latestConfigTime = 0;
+        foreach ($configFiles as $file) {
+
+            $fileTime = filemtime($file);
+            if ($fileTime > $latestConfigTime) {
+                $latestConfigTime = $fileTime;
+            }
+        }
+        if ($cacheTime !== false && $cacheTime >= $latestConfigTime) {
+            $cacheValid = true;
+        }
+    }
+
+    if ($cacheValid) {
+        return include $cacheFile;
+    }
+
+    $config = [];
+    foreach (glob($configDir . '/*.php') as $file) {
+
+        $key = basename($file, '.php');
+        $data = include $file;
+
+        $config[$key] = $data;
+    }
+
+    $export = var_export($config, true);
+    $content = "<?php\nreturn $export;\n";
+
+    $cacheDir = dirname($cacheFile);
+    if (!is_dir($cacheDir)) {
+        mkdir($cacheDir, 0755, true);
+    }
+    file_put_contents($cacheFile, $content);
+    return $config;
 }

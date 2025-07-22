@@ -3,7 +3,7 @@ session_start();
 require_once __DIR__ . '/../support/Vault/Config/autoload.php';
 require_once __DIR__ . '/../support/Vault/Foundation/helpers.php';
 require_once __DIR__ . '/../support/Vault/Config/routes.php';
-
+\Support\Vault\Foundation\Auth::secureSession();
 /**
  * File: public/index.php
  *
@@ -19,4 +19,5 @@ require_once __DIR__ . '/../support/Vault/Config/routes.php';
  * This setup ensures a clean and centralized flow of control.
  * 
  */
+$config = loadConfig();
 

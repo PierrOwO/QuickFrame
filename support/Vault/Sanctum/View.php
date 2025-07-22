@@ -7,6 +7,12 @@ class View
     protected static array $sections = [];
     protected static string $extends = '';
 
+    public static function reset(): void
+    {
+        static::$sections = [];
+        static::$extends = '';
+    }
+
     public static function render(string $template, array $data = [])
     {
         self::$sections = [];
@@ -21,41 +27,42 @@ class View
         extract($data);
 
         if (str_ends_with($viewPath, '.frame.php')) {
-            $rawView = file_get_contents($viewPath);
-            $compiledView = self::compileTemplate($rawView);
+            $cacheDir = base_path('storage/cache/views/');
+            if (!is_dir($cacheDir)) {
+                mkdir($cacheDir, 0755, true);
+            }
 
-            $tempViewFile = tempnam(sys_get_temp_dir(), 'view_');
-            file_put_contents($tempViewFile, $compiledView);
+            $cacheFile = $cacheDir . str_replace(['/', '\\'], '_', $template) . '.cache.php';
+
+            if (!file_exists($cacheFile) || filemtime($cacheFile) < filemtime($viewPath)) {
+                $rawView = file_get_contents($viewPath);
+                $compiledView = self::compileTemplate($rawView);
+                file_put_contents($cacheFile, $compiledView);
+            }
 
             ob_start();
-            include $tempViewFile;
-            unlink($tempViewFile);
+            include $cacheFile;
             $viewContent = ob_get_clean();
 
             if (self::$extends) {
                 $layoutPath = self::getViewPath(self::$extends);
-
                 if (!file_exists($layoutPath)) {
                     throw new \Exception("Layout " . self::$extends . " not found.");
                 }
-
+            
                 $rawLayout = file_get_contents($layoutPath);
                 $replacedLayout = preg_replace_callback('/@yield\([\'"](.+?)[\'"]\)/', function ($matches) {
                     return self::$sections[$matches[1]] ?? '';
                 }, $rawLayout);
-
+            
                 $compiledLayout = self::compileTemplate($replacedLayout);
-
-                $tempLayoutFile = tempnam(sys_get_temp_dir(), 'layout_');
-                file_put_contents($tempLayoutFile, $compiledLayout);
-                include $tempLayoutFile;
-                unlink($tempLayoutFile);
+                ob_start();
+                eval('?>' . $compiledLayout);
+                echo ob_get_clean();
             } else {
                 echo $viewContent;
             }
-        }
-
-        elseif (str_ends_with($viewPath, '.php')) {
+        } elseif (str_ends_with($viewPath, '.php')) {
             include $viewPath;
         }
     }
@@ -70,7 +77,7 @@ class View
         self::$sections[$name] = $content;
     }
 
-    protected static function compileTemplate(string $content): string
+    public static function compileTemplate(string $content): string
     {
         $content = preg_replace_callback('/{{\s*(.+?)\s*}}/', function ($matches) {
             return '<?= htmlspecialchars(' . $matches[1] . ', ENT_QUOTES, "UTF-8") ?>';
@@ -163,22 +170,21 @@ class View
 
     protected static function getViewPath(string $template): string
     {
-        $mainDir = dirname(__DIR__, 3);
         $specialErrorTemplates = ['errors/404', 'errors/401', 'errors/403'];
 
         $path = str_contains($template, '.') ? str_replace('.', '/', $template) : $template;
 
         if ($template === 'migrations') {
-            $dir = $mainDir . '/support/Vault/Database/Migrations/';
+            $dir = base_path('support/Vault/Database/Migrations/');
             $frameFile = $dir . $path . '.frame.php';
             $phpFile = $dir . $path . '.php';
         } elseif (in_array($template, $specialErrorTemplates)) {
-            $dir = $mainDir . '/support/Vault/Errors/Pages/';
+            $dir = base_path('support/Vault/Errors/Pages/');
             $path = explode('/', $path);
             $frameFile = $dir . $path[1] . '.frame.php';
             $phpFile = $dir . $path[1] . '.php';
         } else {
-            $dir = $mainDir . '/resources/views/';
+            $dir = base_path('resources/views/');
             $frameFile = $dir . $path . '.frame.php';
             $phpFile = $dir . $path . '.php';
         }

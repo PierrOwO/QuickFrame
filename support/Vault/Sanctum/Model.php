@@ -16,7 +16,6 @@ class Model {
 
     public function __construct(array $attributes = [])
     {
-        // Przypisz wszystkie przekazane atrybuty do właściwości $attributes
         $this->attributes = $attributes;
 
         foreach ($attributes as $key => $value) {

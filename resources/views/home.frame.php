@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Home page')
+@section('title', 'QuickFrame – Lightweight PHP Framework with Custom Routing and Views')
 @section('styles')
 <style>
   section {

@@ -4,6 +4,7 @@ namespace Support\Vault\Routing;
 
 use ReflectionMethod;
 use Support\Vault\Errors\Abort;
+use Support\Vault\Http\Request;
 
 class Route
 {
@@ -11,6 +12,47 @@ class Route
     protected static string $prefix = '';
     protected static array $globalWheres = [];
     protected static array $groupMiddleware = [];
+    protected static string $cacheFile = __DIR__ . '/../../../storage/cache/routes.php';
+
+    public static function loadCache(): bool
+    {
+        if (file_exists(self::$cacheFile)) {
+            $cachedRoutes = include self::$cacheFile;
+            self::$routes = [];
+
+            foreach ($cachedRoutes as $method => $routes) {
+                foreach ($routes as $path => $routeData) {
+                    self::$routes[$method][$path] = RouteFluent::fromArray($routeData);
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public static function saveCache(): void
+    {
+        $exportArray = [];
+    
+        foreach (self::$routes as $method => $routes) {
+            foreach ($routes as $path => $route) {
+                if ($route->callback instanceof \Closure) {
+                    continue;
+                }
+    
+                $exportArray[$method][$path] = $route->toArray();
+            }
+        }
+    
+        $export = var_export($exportArray, true);
+        $content = "<?php\nreturn $export;\n";
+    
+        if (!is_dir(dirname(self::$cacheFile))) {
+            mkdir(dirname(self::$cacheFile), 0755, true);
+        }
+    
+        file_put_contents(self::$cacheFile, $content);
+    }
     public static function prefix(string $prefix, callable $callback): void
     {
         $previousPrefix = self::$prefix;
@@ -101,8 +143,8 @@ class Route
 
                         if ($reflection->getNumberOfParameters() > 0) {
                             $firstParam = $reflection->getParameters()[0];
-                            if ($firstParam->getType() && $firstParam->getType()->getName() === \Support\Core\Request::class) {
-                                $request = new \Support\Core\Request();
+                            if ($firstParam->getType() && $firstParam->getType()->getName() === Request::class) {
+                                $request = new Request();
                                 $arguments[] = $request;
                             }
                         }

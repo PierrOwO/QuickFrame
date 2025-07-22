@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Documentation')
+@section('title', 'Documentations')
 
 @section('styles')
 <style>
@@ -221,6 +221,7 @@ section {
           <li><a href="#migrations">Migrations</a></li>
           <li><a href="#cli">CLI</a></li>
           <li><a href="#testing">Testing</a></li>
+          <li><a href="#cache">Cache</a></li>
           <li><a href="#config">Config</a></li>
         </ul>
       </div>
@@ -578,13 +579,67 @@ $this->assertNull($value);</code></pre>
         Example output:
         <pre><code>PHPUnit 10.5.48 by Sebastian Bergmann and contributors.
 
-.                                                                   1 / 1 (100%)
+.                                                                   
+1 / 1 (100%)
 
 Time: 00:00, Memory: 22.94 MB
 
 OK (1 test, 1 assertion)</code></pre>
       </li>
     </ul>
+  </div>
+</section>
+<section id="cache" class="docs-section">
+  <div class="container">
+    <h2>⚡ Cache</h2>
+    <ul>
+      <li>
+        Store data in the cache using:
+        <pre><code>cache()->put('key', 'value', 10); // 10 minutes</code></pre>
+      </li>
+      <li>
+        Retrieve data from the cache:
+        <pre><code>$value = cache()->get('key');</code></pre>
+      </li>
+      <li>
+        Check if a cache key exists:
+        <pre><code>if (cache()->has('key')) {
+    // do something
+}</code></pre>
+      </li>
+      <li>
+        Remove a value from the cache:
+        <pre><code>cache()->forget('key');</code></pre>
+      </li>
+      <li>
+        Clear the entire cache (use with caution):
+        <pre><code>cache()->clear();</code></pre>
+      </li>
+      <li>
+        Cached data is stored in:
+        <pre><code>/storage/cache/</code></pre>
+      </li>
+      <li>
+        Cache can be used for:
+        <ul>
+          <li>⚙️ Configuration caching</li>
+          <li>🗺️ Routing table</li>
+          <li>🧠 Query results</li>
+          <li>📦 API responses</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>🧩 Practical Example</h3>
+    <p>Cache settings loaded from the database:</p>
+    <pre><code>// In your controller or service:
+$settings = cache()->remember('site_settings', 60, function () {
+    return DB::table('settings')->pluck('value', 'key')->toArray();
+});
+
+// Usage:
+$siteName = $settings['site_name'] ?? 'QuickFrame';</code></pre>
+    <p>This avoids hitting the database on every request.</p>
   </div>
 </section>
 <section id="config" class="docs-section">

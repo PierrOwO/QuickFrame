@@ -3,7 +3,7 @@
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
-    <title>QuickFrame – Lightweight PHP Framework with Custom Routing and Views</title>
+    <title>@yield('title')</title>
     <meta name="description" content="QuickFrame is a simple, lightweight PHP framework featuring routing, controllers, sessions, and Blade-like views. Perfect for small projects and learning." />
     <meta name="keywords" content="QuickFrame, PHP framework, routing, sessions, custom framework, lightweight framework" />
     <meta name="author" content="Piotr Miłoś" />
