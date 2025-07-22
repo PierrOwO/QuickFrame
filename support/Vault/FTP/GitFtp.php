@@ -20,7 +20,7 @@ class GitFtp
             $green = "\033[32m";
     
             echo "{$red}Deployment failed: Missing FTP credentials in {$yellow}config/app.php {$red}or {$yellow}.env{$red}.{$reset}\n";
-            echo "{$yellow}Please update {$green}.env {$yellow}and run {$blue}php frame config:cache{$reset}\n";
+            echo "{$yellow}Please update {$green}.env {$yellow}and run {$blue}php frame cache:config{$reset}\n";
             return;
         }
         echo "Starting deployment with Git-FTP...\n";
