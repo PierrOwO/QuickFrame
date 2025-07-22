@@ -5,7 +5,7 @@ namespace Support\Vault\Validation;
 class LoginThrottle
 {
     protected static int $maxAttempts = 5;
-    protected static int $lockoutTime = 300; // sekundy (np. 5 minut)
+    protected static int $lockoutTime = 300;
 
     public static function hit(string $identifier): void
     {
