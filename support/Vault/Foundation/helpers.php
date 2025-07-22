@@ -191,3 +191,7 @@ function loadConfig(): array {
     file_put_contents($cacheFile, $content);
     return $config;
 }
+function session_timeout(): int
+{
+    return config('app.session')['lifetime'];
+}
