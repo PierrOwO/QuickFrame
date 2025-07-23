@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Documentations')
+@section('title', 'Documentation')
 
 @section('styles')
 <style>
@@ -120,6 +120,7 @@ code {
   transition: left 0.4s ease;
   padding: 1rem 0;
   box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
+  overflow: auto;
 }
 
 .sidebar.show .content {
@@ -155,6 +156,7 @@ code {
   margin: 0;
   display: flex;
   flex-direction: column;
+  padding-bottom: 50px;
 }
 
 .sidebar .links li a {

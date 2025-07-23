@@ -81,4 +81,13 @@ class Session
             self::start();
         }
     }
+    public static function flash(string $key, mixed $value): void {
+        self::put('_flash.' . $key, $value);
+      }
+      public static function getFlash(string $key, mixed $default = null): mixed {
+        $full = '_flash.' . $key;
+        $val = self::get($full, $default);
+        self::forget($full);
+        return $val;
+      }
 }

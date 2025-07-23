@@ -12,7 +12,7 @@ class CliHandlerFunctions
 
     public static function updateEnvValue(string $key, string $value): void
     {
-        $envPath = __DIR__ . '../../../.env'; 
+        $envPath = base_path('.env'); 
 
         if (!file_exists($envPath)) {
             echo " .env file not found at $envPath\n";

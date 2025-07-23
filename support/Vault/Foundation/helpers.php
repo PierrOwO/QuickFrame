@@ -1,8 +1,12 @@
 <?php
 
 use Support\Vault\Foundation\Config;
+use Support\Vault\Http\Request;
 use Support\Vault\Http\Response;
 use Support\Vault\Sanctum\View;
+use Support\Vault\Validation\Exceptions\ValidationException;
+use Support\Vault\Validation\Validator;
+
 if (!function_exists('redirect')) {
 
     function redirect($url)
@@ -141,6 +145,10 @@ function response(): Response
 {
     return new Response();
 }
+function request(): Request
+{
+    return new Request();
+}
 if (!function_exists('config')) {
     function config(string $key, $default = null) {
         return Config::get($key, $default);
@@ -194,4 +202,25 @@ function loadConfig(): array {
 function session_timeout(): int
 {
     return config('app.session')['lifetime'];
+}
+if (!function_exists('validate')) {
+    /**
+     * Validate data with rules, throw ValidationException on failure.
+     * 
+     * @param array $data
+     * @param array $rules
+     * @return array Validated data (can be raw data in this simple version)
+     * @throws ValidationException
+     */
+    function validate(array $data, array $rules): array
+    {
+        $validator = new Validator();
+
+        if (!$validator->passes($data, $rules)) {
+            throw new ValidationException($validator->getErrors());
+        }
+
+        // If needed, can return filtered/validated data, for now just return original
+        return $data;
+    }
 }
