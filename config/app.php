@@ -19,11 +19,11 @@ return [
     'lockout_time' => env('LOCKOUT_TIME'),
 
     'session' => [
-        'lifetime' => 1800,
-        'path' => '/',
-        'domain' => '',
-        'secure' => true,
-        'httponly' => true,
-        'samesite' => 'Strict',
+        'lifetime'  => env('SESSION_LIFETIME', 1800),
+        'path'      => env('SESSION_PATH', '/'),
+        'domain'    => env('SESSION_DOMAIN', ''),
+        'secure'    => env('SESSION_SECURE', false),
+        'httponly'  => env('SESSION_HTTPONLY', true),
+        'samesite'  => env('SESSION_SAMESITE', 'Lax'),
     ],
 ];

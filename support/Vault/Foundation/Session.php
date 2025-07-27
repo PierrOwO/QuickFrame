@@ -27,7 +27,7 @@ class Session
                     'domain'   => $params['domain']   ?? '',
                     'secure'   => $params['secure']   ?? true,
                     'httponly' => $params['httponly'] ?? true,
-                    'samesite' => $params['samesite'] ?? 'Strict',
+                    'samesite' => $params['samesite'] ?? 'Lax'
                 ]);
             } else {
                 ini_set('session.cookie_httponly', $params['httponly'] ?? 1);
@@ -36,13 +36,12 @@ class Session
             }
 
             session_start();
-            self::$started = true;
-            Log::debug('Session start', [
-                'started' => Session::$started,
-                'status' => session_status(),
-                'session_id' => session_id(),
-                '_SESSION' => $_SESSION,
-            ]);
+
+            if (session_status() === PHP_SESSION_ACTIVE) {
+                self::$started = true;
+            } else {
+                Log::error('Session failed to start');
+            }
         }
     }
 

@@ -17,6 +17,7 @@ switch ($command) {
         $type = $argv[2] ?? 'all';
 
         if ($type === 'all') {
+            echo CliHandlerFunctions::clearCache('config');
             echo CliHandlerFunctions::clearCache('routes');
             echo CliHandlerFunctions::clearCache('views');
             echo "All cache cleared\n";

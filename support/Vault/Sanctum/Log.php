@@ -8,7 +8,6 @@ class Log
     public static function log(string $message, string $type = 'info', array $context = []): void
     {
         $date = date('Y-m-d H:i:s');
-        //$logLine = "[$date][$type] $message" . PHP_EOL;
         $logLine = "[$date][$type] $message";
         if (!empty($context)) {
             $logLine .= ' | ' . json_encode($context, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);

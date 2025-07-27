@@ -43,7 +43,6 @@ class LoginController
             return response()->json([
                 'status' => true,
                 'message' => 'Login successful',
-                'user' => $result['user'], 
             ]);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);

@@ -2,7 +2,6 @@
 
 namespace App\Services\Auth;
 use App\Models\User;
-use Support\Vault\Foundation\Auth;
 use Support\Vault\Foundation\Hash;
 use Support\Vault\Validation\LoginThrottle;
 
@@ -28,7 +27,7 @@ class LoginUserService
         }
 
         LoginThrottle::clear($name);
-        Auth::login($user);
+        auth()->login($user);
 
         return [
             'success' => true,

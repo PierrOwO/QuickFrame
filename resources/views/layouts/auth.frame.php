@@ -13,20 +13,14 @@
     body {
         margin: 0;
         font-family: Arial, sans-serif;
+        background-color: #007bff;
     }
   </style>
    
 @yield('styles')
 </head>
 <body>
-<main>
-    @yield('content')
-  </main>
-<footer class="footer">
-  <div class="container">
-    <p>&copy; 2025 QuickFrame by PierrOwO. MIT License. <a href="https://github.com/PierrOwO/quickframe">GitHub</a></p>
-  </div>
-</footer>
+@yield('content')
 @yield('scripts')
 </body>
 </html>

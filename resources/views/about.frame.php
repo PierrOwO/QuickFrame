@@ -37,21 +37,23 @@
     <h2>What is QuickFrame?</h2>
   </div>
   <p>
-    QuickFrame is a lightweight PHP framework designed to make building web applications fast and easy. 
+    QuickFrame is a lightweight PHP framework designed to make building web applications fast and easy.
     It leverages modern tools like Vite for asset bundling and hot module replacement during development.
   </p>
 
   <h3>Key Features</h3>
   <ul>
-    <li><strong>Simple and Minimal:</strong> Focus on writing your application logic without complex setup.</li>
-    <li><strong>Modern Tooling:</strong> Integration with Vite allows fast frontend development with ES modules.</li>
-    <li><strong>Flexible Views:</strong> Uses a Blade-like templating system with `.frame.php` files for easy layout management.</li>
+    <li><strong>Simple and Minimal:</strong> Focus on writing your application logic without complex setup or overhead.</li>
+    <li><strong>Modern Tooling:</strong> Integrated with Vite for fast frontend development using ES modules and hot reloading.</li>
+    <li><strong>Flexible Views:</strong> Blade-like templating with <code style="display: inline;">.frame.php</code> files for straightforward layout management.</li>
+    <li><strong>Extensible:</strong> Easily add Vue, Tailwind CSS, Alpine.js, or any frontend tool to fit your project.</li>
+    <li><strong>Zero Dependencies:</strong> No Composer required — ready to use right after download.</li>
   </ul>
 
   <h3>Who is it for?</h3>
   <p>
-    QuickFrame is ideal for developers who want a small, efficient PHP framework without the overhead of larger frameworks.
-    Whether you’re building a simple site or a fast prototype, QuickFrame offers a clean foundation.
+    QuickFrame is perfect for developers seeking a small, efficient PHP framework without the complexity of larger solutions.
+    Whether you're building a simple website or a rapid prototype, QuickFrame provides a clean, solid foundation.
   </p>
 
   <a href="/" class="btn-primary">← Back to Home</a>

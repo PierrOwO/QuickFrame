@@ -69,9 +69,13 @@
       <p>No Composer required – works out of the box after download.</p>
     </div>
     <div class="feature-card">
-  <h3>🧩 Extendable</h3>
-  <p>Add Vue, Tailwind CSS, Alpine.js or any frontend tool – your stack, your choice.</p>
-</div>
+      <h3>🧩 Extendable</h3>
+      <p>Add Vue, Tailwind CSS, Alpine.js or any frontend tool – your stack, your choice.</p>
+    </div>
+    <div class="feature-card">
+      <h3>💾 Efficient Caching</h3>
+      <p>Built-in simple caching mechanism to speed up your app without extra dependencies.</p>
+    </div>
   </div>
 </section>
 

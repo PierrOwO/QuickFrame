@@ -10,12 +10,10 @@ class Authenticate
 {
     public function handle($request, Closure $next)
     {
-        Log::info('Auth session user_id: ' . Session::get('user_id'));
-        Log::info('Auth user: ', ['user' => Auth::user()]);
-        Log::info('Auth check: ' . (Auth::check() ? 'yes' : 'no'));
-        if (!Auth::check()) {
+        if (!auth()->check()) {
             return redirect('/auth/login');
         }
+
         return $next($request);
     }
 }

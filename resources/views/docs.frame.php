@@ -223,6 +223,7 @@ section {
           <li><a href="#migrations">Migrations</a></li>
           <li><a href="#cli">CLI</a></li>
           <li><a href="#testing">Testing</a></li>
+          <li><a href="#session">Session</a></li>
           <li><a href="#cache">Cache</a></li>
           <li><a href="#config">Config</a></li>
         </ul>
@@ -431,7 +432,8 @@ class HomeController
     <h3>Authentication Helpers</h3>
     <ul>
       <li>Check if a user is authenticated with the <code style="display: inline-block;">auth()->check()</code> method.</li>
-      <li>Get the currently authenticated user via <code style="display: inline-block;">auth()->user()</code>.</li>
+      <li>Get the currently authenticated user via <code style="display: inline-block;">auth()->user()</code>
+      (e.g., <code style="display: inline-block;">auth()->user()->name</code>).</li>
       <li>Log users in and out using built-in methods (e.g., <code style="display: inline-block;">auth()->login($user)</code>, <code style="display: inline-block;">auth()->logout()</code>).</li>
       <li>Protect routes or controller methods by verifying authentication status using these helpers.</li>
     </ul>
@@ -589,6 +591,45 @@ Time: 00:00, Memory: 22.94 MB
 OK (1 test, 1 assertion)</code></pre>
       </li>
     </ul>
+  </div>
+</section>
+<section id="session" class="docs-section">
+  <div class="container">
+    <h2>🔐 Session</h2>
+    <p>Session management made simple. The <code style="display: inline;">Session</code> class handles starting sessions, storing and retrieving data, and managing CSRF tokens.</p>
+    <ul>
+      <li>
+        Start a session (usually done automatically):
+        <pre><code>Session::start();</code></pre>
+      </li>
+      <li>
+        Put data into session:
+        <pre><code>Session::put('user_id', 123);
+Session::put('last_activity', time());</code></pre>
+      </li>
+      <li>
+        Retrieve data from session:
+        <pre><code>$userId = Session::get('user_id');
+$lastActivity = Session::get('last_activity', 0); // default 0 if not set</code></pre>
+      </li>
+      <li>
+        Check if a key exists:
+        <pre><code>if (Session::has('user_id')) {
+    // user is logged in
+}</code></pre>
+      </li>
+      <li>
+        Remove data or destroy session:
+        <pre><code>Session::forget('user_id'); // remove one key
+Session::destroy();              // end session completely</code></pre>
+      </li>
+      <li>
+        CSRF token helpers:
+        <pre><code>Session::csrf();           // generate/store token
+$token = Session::get('_csrf_token'); // get token value</code></pre>
+      </li>
+    </ul>
+    <p>Using <code style="display: inline;">Session</code> ensures consistent session handling and security features like CSRF protection.</p>
   </div>
 </section>
 <section id="cache" class="docs-section">

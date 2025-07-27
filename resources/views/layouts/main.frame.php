@@ -18,7 +18,7 @@
   </main>
 <footer class="footer">
   <div class="container">
-    <p>&copy; 2025 QuickFrame by PierrOwO. MIT License. <a href="https://github.com/PierrOwO/quickframe">GitHub</a></p>
+    <p>&copy; 2025 QuickFrame v{{config('app.version')}} by PierrOwO. MIT License. <a href="https://github.com/PierrOwO/quickframe">GitHub</a></p>
   </div>
 </footer>
 @yield('scripts')

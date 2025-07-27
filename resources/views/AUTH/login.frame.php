@@ -2,11 +2,10 @@
 
 @endphp
 @extends('layouts.auth')
-@section('title', 'System - logowanie')
+@section('title', 'Login')
 @section('styles')
 <style>
 .login{
-    background-color: #AAC8A7;
     position: absolute;
     top:0;
     left: 0 ;
@@ -94,7 +93,7 @@
     <div class="login">
  	    <div class="content">
  	        <div class="body">
- 	            <span>Logowanie</span>
+ 	            <span>User login</span>
                 
                 <input id="name" name="name" type="text" placeholder="Login" required minlength="3" maxlength="50" pattern="[A-Za-z0-9_-]+">
                 <span id="error-name" class="error-span" role="alert"></span>

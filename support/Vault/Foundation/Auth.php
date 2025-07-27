@@ -14,21 +14,10 @@ class Auth
     {
         Session::start(config('app.session'));
 
-        $csrf = Session::get('_csrf_token');
-
-        session_regenerate_id(true);
-
-        Session::put('_csrf_token', $csrf); 
-
+        session_regenerate_id(true);        
+        Session::csrf();
         Session::put('last_activity', time());
         Session::put('user_id', $user->id);
-        Log::info('old csrf: ' . $csrf);
-        Log::info('new csrf: ' . Session::get('_csrf_token'));
-        Log::info('user: ' . print_r($user, true));
-        Log::info('last_activity: ' . Session::get('last_activity'));
-        Log::info('user_id: ' . $user->id);
-        Log::info('session user_id: ' . Session::get('user_id'));
-
         self::$cachedUser = $user;
     }
 
@@ -57,7 +46,6 @@ class Auth
     public static function user(): ?object
     {
         Session::start();
-
         if (self::$cachedUser) {
             return self::$cachedUser;
         }

@@ -32,6 +32,11 @@ class CliHandlerFunctions
     }
     public static function cacheConfig()
     {
+        $configDir = base_path("storage/cache/config.php");
+        if (is_file($configDir)){
+            unlink($configDir);
+        }
+        Log::info('configDir : ' . $configDir);
         loadConfig();
         return "Config cached successfully";
     }

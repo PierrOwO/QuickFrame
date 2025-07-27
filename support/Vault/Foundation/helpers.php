@@ -224,11 +224,14 @@ if (!function_exists('validate')) {
             throw new ValidationException($validator->getErrors());
         }
 
-        // If needed, can return filtered/validated data, for now just return original
         return $data;
     }
 }
-function auth(): ?object
+function auth(): Auth
 {
-    return Auth::user();
+    static $instance = null;
+    if ($instance === null) {
+        $instance = new Auth();
+    }
+    return $instance;
 }

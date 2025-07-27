@@ -7,7 +7,6 @@
 <style>
     
     .register{
-        background-color: #AAC8A7;
         position: absolute;
         top:0;
         left: 0 ;
