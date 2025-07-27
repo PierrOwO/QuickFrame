@@ -2,7 +2,7 @@
 
 namespace Support\Vault\Creation;
 
-use Support\Vault\Sanctum\Log;
+require __DIR__ . '/../Foundation/helpers.php';
 
 class CreationHandler 
 {
@@ -21,7 +21,7 @@ class CreationHandler
         $stub = file_get_contents(__DIR__ . '/stubs/controller.stub');
         $stub = str_replace('ClassName', $className, $stub);
     
-        $outputPath = __DIR__ . "/../../../app/Controllers/{$className}.php";
+        $outputPath = base_path("app/Controllers/{$className}.php");
         if (file_exists($outputPath)) {
             echo "Controller already exists.\n";
             exit(1);
@@ -41,7 +41,7 @@ class CreationHandler
         $stub = str_replace('ClassName', $name, $stub);
         $stub = str_replace('table_name', $table_name, $stub);
     
-        $outputPath = __DIR__ . "/../../../app/Models/{$name}.php";
+        $outputPath = base_path("app/Models/{$name}.php");
         if (file_exists($outputPath)) {
             echo "Model already exists.\n";
             exit(1);
@@ -60,7 +60,7 @@ class CreationHandler
         $stub = file_get_contents(__DIR__ . '/stubs/middleware.stub');
         $stub = str_replace('ClassName', $name, $stub);
     
-        $outputPath = __DIR__ . "/../../../app/Middleware/{$name}.php";
+        $outputPath = base_path("app/Middleware/{$name}.php");
         if (file_exists($outputPath)) {
             echo "Middleware already exists.\n";
             exit(1);
@@ -79,7 +79,7 @@ class CreationHandler
         $stub = file_get_contents(__DIR__ . '/stubs/helper.stub');
         $stub = str_replace('ClassName', $name, $stub);
     
-        $outputPath = __DIR__ . "/../../../app/Helpers/{$name}.php";
+        $outputPath = base_path("app/Helpers/{$name}.php");
         if (file_exists($outputPath)) {
             echo "Helper already exists.\n";
             exit(1);
@@ -98,7 +98,7 @@ class CreationHandler
         $stub = file_get_contents(__DIR__ . '/stubs/view.stub');
         $stub = str_replace('ViewName', $name, $stub);
 
-        $relativePath = "/../../../resources/views/{$name}.frame.php";
+        $relativePath = base_path("resources/views/{$name}.frame.php");
         $outputPath = __DIR__ . $relativePath;
 
         $dir = dirname($outputPath);
@@ -125,10 +125,10 @@ class CreationHandler
         $timestamp = date('Y_m_d_His');
         $fileName = $timestamp . '_' . $name . '.php';
 
-        $stub = file_get_contents(__DIR__ . '/support/create/migration.stub');
+        $stub = file_get_contents(__DIR__ . '/stubs/migration.stub');
         $stub = str_replace('{{table}}', $tableName, $stub);
 
-        $outputPath = __DIR__ . "/../../../database/migrations/{$fileName}";
+        $outputPath = base_path("database/migrations/{$fileName}");
         if (!is_dir(dirname($outputPath))) {
             mkdir(dirname($outputPath), 0755, true);
         }
@@ -146,7 +146,7 @@ class CreationHandler
         $stub = file_get_contents(__DIR__ . '/stubs/test.stub');
         $stub = str_replace('ClassName', $name, $stub);
     
-        $outputPath = __DIR__ . "/../../../support/Tests/{$name}.php";
+        $outputPath = base_path("support/Tests/{$name}.php");
         if (file_exists($outputPath)) {
             echo "Test already exists.\n";
             exit(1);

@@ -5,11 +5,16 @@ namespace Support\Vault\Sanctum;
 //require __DIR__ . '/../Foundation/helpers.php';
 class Log
 {
-    public static function log($message, $type = 'info')
+    public static function log(string $message, string $type = 'info', array $context = []): void
     {
         $date = date('Y-m-d H:i:s');
-        $logLine = "[$date][$type] $message" . PHP_EOL;
+        //$logLine = "[$date][$type] $message" . PHP_EOL;
+        $logLine = "[$date][$type] $message";
+        if (!empty($context)) {
+            $logLine .= ' | ' . json_encode($context, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        }
 
+        $logLine .= PHP_EOL;
         $logDir = base_path('storage/logs/' . date('Y') . '/' . date('m') . '/');
         $logFile = $logDir . date('d') . '.log';
 
@@ -46,5 +51,9 @@ class Log
        // $basePath = base_path('some/path/to/file');
         //return str_replace($basePath, '', $path);
         return $path;
+    }
+    public static function debug(string $message, array $context = []): void
+    {
+        self::log($message, 'DEBUG', $context);
     }
 }

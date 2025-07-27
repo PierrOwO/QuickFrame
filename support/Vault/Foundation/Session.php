@@ -2,12 +2,15 @@
 
 namespace Support\Vault\Foundation;
 
+use Support\Vault\Sanctum\Log;
+
 class Session
 {
     protected static bool $started = false;
 
     public static function start(array $params = []): void
     {
+        
         if (self::$started) {
             return;
         }
@@ -24,7 +27,7 @@ class Session
                     'domain'   => $params['domain']   ?? '',
                     'secure'   => $params['secure']   ?? true,
                     'httponly' => $params['httponly'] ?? true,
-                    'samesite' => $optiparamsons['samesite'] ?? 'Strict',
+                    'samesite' => $params['samesite'] ?? 'Strict',
                 ]);
             } else {
                 ini_set('session.cookie_httponly', $params['httponly'] ?? 1);
@@ -34,6 +37,12 @@ class Session
 
             session_start();
             self::$started = true;
+            Log::debug('Session start', [
+                'started' => Session::$started,
+                'status' => session_status(),
+                'session_id' => session_id(),
+                '_SESSION' => $_SESSION,
+            ]);
         }
     }
 
@@ -83,11 +92,21 @@ class Session
     }
     public static function flash(string $key, mixed $value): void {
         self::put('_flash.' . $key, $value);
-      }
-      public static function getFlash(string $key, mixed $default = null): mixed {
+    }
+    public static function getFlash(string $key, mixed $default = null): mixed {
         $full = '_flash.' . $key;
         $val = self::get($full, $default);
         self::forget($full);
         return $val;
-      }
+    }
+    public static function csrf(): string
+    {
+        self::ensureStarted();
+
+        if (!isset($_SESSION['_csrf_token'])) {
+            $_SESSION['_csrf_token'] = bin2hex(random_bytes(32));
+        }
+
+        return $_SESSION['_csrf_token'];
+    }
 }

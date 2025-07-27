@@ -28,9 +28,7 @@ spl_autoload_register(function ($class) {
 
 require_once __DIR__ . '/env.php';
 
-if (!isset($_SESSION['_csrf_token'])) {
-    $_SESSION['_csrf_token'] = bin2hex(random_bytes(32));
-}
+
 
 
 

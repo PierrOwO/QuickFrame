@@ -1,6 +1,8 @@
 <?php
 
+use Support\Vault\Foundation\Auth;
 use Support\Vault\Foundation\Config;
+use Support\Vault\Foundation\Session;
 use Support\Vault\Http\Request;
 use Support\Vault\Http\Response;
 use Support\Vault\Sanctum\View;
@@ -69,7 +71,7 @@ function vite(string|array $entries): string
         foreach ($entries as $entry) {
             $normalizedEntry = ltrim($entry, '/');
             if (!isset($manifest[$normalizedEntry])) {
-                $tags .= '<!-- Nie znaleziono ' . htmlspecialchars($entry) . ' w manifest.json -->' . "\n";
+                $tags .= "<!-- Couldn't find " . htmlspecialchars($entry) . " in manifest.json -->" . "\n";
                 continue;
             }
 
@@ -128,7 +130,9 @@ function isDevServerRunning(): bool
 
 
 function csrf_token() {
-    return $_SESSION['_csrf_token'] ?? 'no csrf token';
+   // return $_SESSION['_csrf_token'] ?? 'no csrf token';
+    return Session::csrf();
+
 }
 
 function csrf_field() {
@@ -223,4 +227,8 @@ if (!function_exists('validate')) {
         // If needed, can return filtered/validated data, for now just return original
         return $data;
     }
+}
+function auth(): ?object
+{
+    return Auth::user();
 }

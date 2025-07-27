@@ -10,6 +10,7 @@ class Request
     public $post;
     public $server;
     public $files;
+    protected $json;
 
     public function __construct()
     {
@@ -18,6 +19,9 @@ class Request
         $this->server = $_SERVER;
         $this->files = $_FILES;
 
+        $rawInput = file_get_contents('php://input');
+        $this->json = json_decode($rawInput, true) ?? [];
+        
         VerifyCsrfToken::handle();
     }
 
@@ -30,7 +34,10 @@ class Request
      */
     public function input($key, $default = null)
     {
-        return $this->post[$key] ?? $this->get[$key] ?? $default;
+        return $this->post[$key]
+            ?? $this->get[$key]
+            ?? $this->json[$key]
+            ?? $default;
     }
 
     /**
@@ -87,5 +94,8 @@ class Request
             isset($this->server['HTTP_X_REQUESTED_WITH']) &&
             strtolower($this->server['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'
         );
+    }
+    public function json(): array {
+        return json_decode(file_get_contents('php://input'), true);
     }
 }

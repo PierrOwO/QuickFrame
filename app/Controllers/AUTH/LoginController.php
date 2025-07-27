@@ -2,44 +2,51 @@
 
 namespace App\Controllers\AUTH;
 
-use App\Models\User;
-use Support\Vault\Foundation\Auth;
-use Support\Vault\Foundation\Hash;
-use Support\Vault\Validation\LoginThrottle;
+use App\Services\Auth\LoginUserService;
+use Support\Vault\Http\Request;
+use Support\Vault\Sanctum\Log;
+use Support\Vault\Validation\Exceptions\ValidationException;
 
-class LoginController {
+class LoginController
+{
+    protected LoginUserService $loginService;
+
+    public function __construct()
+    {
+        $this->loginService = new LoginUserService();
+    }
 
     public function index()
     {
         return view('AUTH.login');
     }
-    public function login($name, $password) 
+
+    public function login(Request $request)
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        $data = $request->json();
 
-        if (LoginThrottle::tooManyAttempts($name)) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Too many login attempts. Try again in a few minutes.'
+        try {
+            $validatedData = validate($data, [
+                'name' => 'required|string|min:3|max:50',
+                'password' => 'required|string|min:6',
             ]);
-        }
 
-        $user = User::where('name', $name)->first();
+            $result = $this->loginService->attempt($validatedData['name'], $validatedData['password']);
 
-        if ($user) {
-            if (Hash::check($password, $user->password)) {
-                LoginThrottle::clear($name); 
-                Auth::login($user);
-                return true; 
-            } else {
-                LoginThrottle::hit($name); 
-                return response()->json(['status' => false ,'message' => "Incorrect password!"]);
+            if (!$result['success']) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $result['message'],
+                ], 401);
             }
-        } else {
-            LoginThrottle::hit($name); 
-            return response()->json(['status' => false ,'message' => "Cannot find an account with the specified login"]);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Login successful',
+                'user' => $result['user'], 
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
         }
     }
 }

@@ -4,7 +4,6 @@ use Support\Vault\Config\CliHandlerFunctions;
 use Support\Vault\Config\Framework;
 use Support\Vault\Creation\CreationHandler;
 use Support\Vault\FTP\GitFtp;
-
 require __DIR__ . '/autoload.php';
 
 $argv = $_SERVER['argv'];
@@ -16,12 +15,13 @@ switch ($command) {
         break;
     case 'cache:clear':
         $type = $argv[2] ?? 'all';
+
         if ($type === 'all') {
             echo CliHandlerFunctions::clearCache('routes');
             echo CliHandlerFunctions::clearCache('views');
             echo "All cache cleared\n";
         } elseif (in_array($type, ['routes', 'views'])) {
-            $this->clearCache($type);
+            echo CliHandlerFunctions::clearCache($type);
             echo ucfirst($type) . " cache cleared\n";
         } else {
             echo "Unknown cache type\n";
@@ -36,11 +36,11 @@ switch ($command) {
         CliHandlerFunctions::cacheViews();
         break;
     case 'cache:config':
-        loadConfig();
+        CliHandlerFunctions::cacheConfig();
         echo "Config cached successfully!\n";
         break;
     case 'cache:all':
-        loadConfig();
+        CliHandlerFunctions::cacheConfig();
         CliHandlerFunctions::cacheRoutes();
         CliHandlerFunctions::cacheViews();
         echo "All caches generated\n";

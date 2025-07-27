@@ -5,6 +5,22 @@
   section {
     margin-bottom: 100px;
   }
+  .login-register{
+    position: absolute;
+    top:0;
+    right: 0;
+    padding: 15px;
+  }
+  .login-register a{
+    text-decoration: none;
+    color: white;
+  }
+  .login-register a:hover{
+    color: #f2f2f2;
+  }
+  .login-register a:last-child{
+    margin-left: 15px;
+  }
 
 </style>
 @endsection
@@ -12,6 +28,10 @@
 @section('content')
 <header class="header">
   <div class="container">
+    <div class="login-register">
+      <a href="/auth/register">Register</a>
+      <a href="/auth/login">Login</a>
+    </div>
     <h1>QuickFrame</h1>
     <nav>
       <a href="/">Home</a>

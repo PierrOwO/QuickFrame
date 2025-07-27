@@ -15,6 +15,9 @@ return [
     'ftp_user' => env('FTP_USER', null),
     'ftp_password' => env('FTP_PASSWORD', null),
 
+    'login_attempts_limit' => env('LOGIN_ATTEMPTS_LIMIT'),
+    'lockout_time' => env('LOCKOUT_TIME'),
+
     'session' => [
         'lifetime' => 1800,
         'path' => '/',

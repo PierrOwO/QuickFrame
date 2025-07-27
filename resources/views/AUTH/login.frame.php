@@ -1,7 +1,7 @@
 @php
 
 @endphp
-@extends('layouts.login')
+@extends('layouts.auth')
 @section('title', 'System - logowanie')
 @section('styles')
 <style>
@@ -79,6 +79,15 @@
 .button5:hover {
   background-color: #5fb962;
 }
+.login .content .body .error-span{
+    font-size: 14px;
+    color: red;
+    display: none;
+    padding: 0px;
+}
+.login .content .body .input-error{
+    border: 1px solid red;
+}
 </style>
 @endsection
 @section('content')
@@ -86,91 +95,16 @@
  	    <div class="content">
  	        <div class="body">
  	            <span>Logowanie</span>
-                <input id="name" type="text" placeholder="Podaj login">
-                <input id="password" type="password" placeholder="Podaj hasło">
-                <button onclick="loginBiuro()" class="button5">Zaloguj</button>
+                
+                <input id="name" name="name" type="text" placeholder="Login" required minlength="3" maxlength="50" pattern="[A-Za-z0-9_-]+">
+                <span id="error-name" class="error-span" role="alert"></span>
+                
+                <input id="password" name="password" type="password" placeholder="Password" required minlength="6">
+                <span id="error-password" class="error-span" role="alert"></span>
+               
+                <button onclick="login()" class="button5">Login</button>
                 <span id="msg" class="report-msg"></span>
  	        </div>
  	    </div>
  	</div>
-@endsection
-@section('scripts')
-<script>
-    document.addEventListener("keydown", function(event) {
-        if (event.key === "Enter" && event.target.tagName === "INPUT") {
-            loginBiuro();
-        }
-    });
-     function loginBiuro(){
-        var name = document.getElementById('name').value;
-        var password = document.getElementById('password').value;
-        setMsg(3, '');
-        if(password != ''){
-            setMsg(2, 'Łączenie...');
-            var formData = {
-                operacja: '420',
-                name: name,
-                password: password,
-            }
-            setTimeout(() => {
-                ajaxSendData(formData);
-            }, 750);
-        }else{
-            setMsg(3, 'Wypełnij wszystkie pola');
-        }
-    }
-</script>
-
-<script>
-
-   
-    
-    function setMsg(type, message){
-        var msg = document.getElementById('msg');
-        if(type == 1){
-            var msgColor = 'green';
-        }
-        if(type == 2){
-            var msgColor = 'blue';
-        }
-        if(type == 3){
-            var msgColor = 'red';
-        }
-        msg.style.color = msgColor;
-        msg.textContent = message;
-    }
-    
-    
-    function ajaxSendData(formData){
-        $.ajax({
-            url:"data/operacje.php",
-            method:"post",
-            data: formData,
-            success:function(response){  
-                let jsonResponse = JSON.parse(response);
-                var msg = jsonResponse.message;
-                if (jsonResponse.status === true){
-                    setMsg(1, msg);
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 500);
-                }
-                else{
-                    setMsg(3, msg);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log(xhr.responseText);
-                alert(xhr.responseText);
-            
-                if (xhr.status === 419 || xhr.status === 401) {
-                    window.location.reload();
-                } else {
-                    console.error(error);
-                    alert('Błąd wczytywania');
-                }
-            }
-        });
-    }
-</script>
 @endsection

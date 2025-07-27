@@ -1,6 +1,7 @@
 
 <?php
 
+use App\Middleware\Authenticate;
 use Support\Vault\Routing\Route;
 
 /**
@@ -35,4 +36,9 @@ Route::get('/docs', function () {
 });
 Route::get('/about', function () {
    return view('about');
+});
+Route::middleware([Authenticate::class], function () {
+   Route::get('/dashboard', function() {
+      return view('dashboard');
+   });
 });

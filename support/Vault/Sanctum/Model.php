@@ -12,8 +12,14 @@ class Model {
     protected $attributes = [];
     protected $conditions = [];
     protected $order = '';
+    protected $orConditions = [];
 
+    protected bool $timestamps = true;
 
+    protected function currentTimestamp(): string
+    {
+        return date('Y-m-d H:i:s');
+    }
     public function __construct(array $attributes = [])
     {
         $this->attributes = $attributes;
@@ -46,13 +52,16 @@ class Model {
         $this->attributes[$key] = $value;
     }
 
-    public function fill(array $data) 
+    public function fill(array $data, bool $strict = false)
     {
-        foreach (static::$fillable as $field) {
-            if (array_key_exists($field, $data)) {
-                $this->attributes[$field] = $data[$field];
-            }
+        $this->attributes = $strict
+            ? array_intersect_key($data, array_flip(static::$fillable))
+            : $data;
+
+        foreach ($this->attributes as $key => $value) {
+            $this->$key = $value;
         }
+
         return $this;
     }
 
@@ -72,9 +81,17 @@ class Model {
             ARRAY_FILTER_USE_KEY
         );
 
+        if ($this->timestamps) {
+            $now = $this->currentTimestamp();
+        }
+
         if (isset($this->attributes['id'])) {
             $id = $this->attributes['id'];
             unset($data['id']);
+
+            if ($this->timestamps) {
+                $data['updated_at'] = $now;
+            }
 
             $set = implode(', ', array_map(fn($key) => "$key = ?", array_keys($data)));
             $values = array_values($data);
@@ -86,6 +103,11 @@ class Model {
 
             return self::find($id);
         } else {
+            if ($this->timestamps) {
+                $data['created_at'] = $now;
+                $data['updated_at'] = $now;
+            }
+
             $columns = implode(', ', array_keys($data));
             $placeholders = implode(', ', array_fill(0, count($data), '?'));
             $values = array_values($data);
@@ -108,7 +130,7 @@ class Model {
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($data) {
-            return (new static())->fill($data);
+            return (new static())->fill($data, false);
         }
 
         return null;
@@ -144,16 +166,40 @@ class Model {
         return $this;
     }
 
-    public function get() 
+    public function get()
     {
         $table = static::$table;
-        $columns = array_keys($this->conditions);
-        $placeholders = implode(' AND ', array_map(fn($col) => "$col = ?", $columns));
-        $values = array_values($this->conditions);
+
+        $whereParts = [];
+        $values = [];
+
+        foreach ($this->conditions as $col => $val) {
+            $whereParts[] = "$col = ?";
+            $values[] = $val;
+        }
+
+        foreach ($this->orConditions as [$col, $val]) {
+            $whereParts[] = "$col = ?";
+            $values[] = $val;
+        }
+
+        $whereClause = '';
+        $andCount = count($this->conditions);
+        $orCount = count($this->orConditions);
+
+        if ($andCount && $orCount) {
+            $andPart = implode(' AND ', array_slice($whereParts, 0, $andCount));
+            $orPart = implode(' OR ', array_slice($whereParts, $andCount));
+            $whereClause = "WHERE ($andPart) OR ($orPart)";
+        } elseif ($andCount) {
+            $whereClause = "WHERE " . implode(' AND ', $whereParts);
+        } elseif ($orCount) {
+            $whereClause = "WHERE " . implode(' OR ', $whereParts);
+        }
 
         $sql = "SELECT * FROM $table";
-        if (!empty($this->conditions)) {
-            $sql .= " WHERE $placeholders";
+        if (!empty($whereClause)) {
+            $sql .= " $whereClause";
         }
         if (!empty($this->order)) {
             $sql .= " " . $this->order;
@@ -163,19 +209,43 @@ class Model {
         $stmt->execute($values);
 
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return array_map(fn($row) => (new static())->fill($row), $rows);
+        return array_map(fn($row) => (new static())->fill($row, false), $rows);
     }
 
     public function first() 
     {
         $table = static::$table;
-        $columns = array_keys($this->conditions);
-        $placeholders = implode(' AND ', array_map(fn($col) => "$col = ?", $columns));
-        $values = array_values($this->conditions);
+
+        $whereParts = [];
+        $values = [];
+
+        foreach ($this->conditions as $col => $val) {
+            $whereParts[] = "$col = ?";
+            $values[] = $val;
+        }
+
+        foreach ($this->orConditions as [$col, $val]) {
+            $whereParts[] = "$col = ?";
+            $values[] = $val;
+        }
+
+        $whereClause = '';
+        $andCount = count($this->conditions);
+        $orCount = count($this->orConditions);
+
+        if ($andCount && $orCount) {
+            $andPart = implode(' AND ', array_slice($whereParts, 0, $andCount));
+            $orPart = implode(' OR ', array_slice($whereParts, $andCount));
+            $whereClause = "WHERE ($andPart) OR ($orPart)";
+        } elseif ($andCount) {
+            $whereClause = "WHERE " . implode(' AND ', $whereParts);
+        } elseif ($orCount) {
+            $whereClause = "WHERE " . implode(' OR ', $whereParts);
+        }
 
         $sql = "SELECT * FROM $table";
-        if (!empty($this->conditions)) {
-            $sql .= " WHERE $placeholders";
+        if (!empty($whereClause)) {
+            $sql .= " $whereClause";
         }
         if (!empty($this->order)) {
             $sql .= " " . $this->order;
@@ -186,7 +256,7 @@ class Model {
         $stmt->execute($values);
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return $data ? (new static())->fill($data) : null;
+        return $data ? (new static())->fill($data, false) : null;
     }
 
     public static function all() 
@@ -194,7 +264,7 @@ class Model {
         $table = static::$table;
         $stmt = self::db()->query("SELECT * FROM $table");
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return array_map(fn($row) => (new static())->fill($row), $rows);
+        return array_map(fn($row) => (new static())->fill($row, false), $rows);
     }
 
     public static function create(array $data) 
@@ -221,5 +291,21 @@ class Model {
         $sql = "DELETE FROM $table WHERE id = ?";
         $stmt = self::db()->prepare($sql);
         return $stmt->execute([$id]);
+    }
+    public static function exists($column, $value = null): bool
+    {
+        return self::where($column, $value)->first() !== null;
+    }
+    public function orWhere($column, $value = null)
+    {
+        if (is_array($column)) {
+            foreach ($column as $key => $val) {
+                $this->orConditions[] = [$key, $val];
+            }
+        } else {
+            $this->orConditions[] = [$column, $value];
+        }
+
+        return $this;
     }
 }

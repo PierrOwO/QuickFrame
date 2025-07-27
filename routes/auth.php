@@ -1,4 +1,7 @@
 <?php
+
+use App\Controllers\AUTH\LoginController;
+use App\Controllers\AUTH\RegisterController;
 use Support\Vault\Routing\Route;
 
 
@@ -20,3 +23,8 @@ use Support\Vault\Routing\Route;
  * - Handle form submissions for login and registration
  * - Secure routes with custom middleware or session checks
  */
+Route::get('/auth/login', [LoginController::class, 'index']);
+Route::get('/auth/register', [RegisterController::class, 'index']);
+
+Route::post('/auth/login', [LoginController::class, 'login']);
+Route::post('/auth/register', [RegisterController::class, 'register']);

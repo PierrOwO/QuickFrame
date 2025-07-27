@@ -5,11 +5,12 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Support\Vault\Foundation\ViewCompiler;
 use Support\Vault\Routing\Route;
+use Support\Vault\Sanctum\Log;
+
 require __DIR__ . '/../Foundation/helpers.php';
 
 class CliHandlerFunctions
 {
-
     public static function updateEnvValue(string $key, string $value): void
     {
         $envPath = base_path('.env'); 
@@ -29,18 +30,32 @@ class CliHandlerFunctions
 
         file_put_contents($envPath, $content);
     }
+    public static function cacheConfig()
+    {
+        loadConfig();
+        return "Config cached successfully";
+    }
     public static function clearCache(string $type)
     {
         $cacheDir = base_path("storage/cache/$type");
-        if (!is_dir($cacheDir)) {
+        if (is_dir($cacheDir)) {
+            $files = glob($cacheDir . '/*');
+            foreach ($files as $file) {
+                if (is_file($file)) {
+                    unlink($file);
+                }
+            }
             return;
         }
-        $files = glob($cacheDir . '/*');
-        foreach ($files as $file) {
-            if (is_file($file)) {
-                unlink($file);
-            }
+        elseif (is_file("$cacheDir.php")){
+            unlink("$cacheDir.php");
         }
+        else{
+            return;
+        }
+        
+
+       
     }
     public static function cacheRoutes()
     {

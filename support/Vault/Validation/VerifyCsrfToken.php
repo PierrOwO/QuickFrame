@@ -2,6 +2,8 @@
 
 namespace Support\Vault\Validation;
 
+use Support\Vault\Foundation\Session;
+use Support\Vault\Sanctum\Log;
 
 class VerifyCsrfToken
 {
@@ -11,7 +13,7 @@ class VerifyCsrfToken
         $methodsToCheck = ['POST', 'PUT', 'PATCH', 'DELETE'];
 
         if (in_array($_SERVER['REQUEST_METHOD'], $methodsToCheck, true)) {
-            $sessionToken = $_SESSION['_csrf_token'] ?? null;
+            $sessionToken = Session::csrf() ?? null;
             $requestToken = $_POST['_token'] ?? $_SERVER['HTTP_X_CSRF_TOKEN'] ?? null;
 
             if (!$sessionToken || !$requestToken || !hash_equals($sessionToken, $requestToken)) {

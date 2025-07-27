@@ -1,11 +1,27 @@
 {
+  "_jquery-DkvTqftU.js": {
+    "file": "assets/jquery-DkvTqftU.js",
+    "name": "jquery"
+  },
   "js/app.js": {
-    "file": "assets/app-8xJXdCxr.js",
+    "file": "assets/app-BpGHN4Vk.js",
     "name": "app",
     "src": "js/app.js",
     "isEntry": true,
+    "imports": [
+      "_jquery-DkvTqftU.js"
+    ],
     "css": [
       "assets/app-CBGTY1lP.css"
+    ]
+  },
+  "js/auth.js": {
+    "file": "assets/auth-CxjMJC1V.js",
+    "name": "auth",
+    "src": "js/auth.js",
+    "isEntry": true,
+    "imports": [
+      "_jquery-DkvTqftU.js"
     ]
   }
 }

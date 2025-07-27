@@ -1,8 +1,8 @@
 <?php
 
-use Support\Core\Database\Migration;
-use Support\Core\Database\Schema;
-use Support\Core\Database\Blueprint;
+use Support\Vault\Database\Blueprint;
+use Support\Vault\Database\Migration;
+use Support\Vault\Database\Schema;
 
 return new class extends Migration
 {

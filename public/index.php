@@ -2,7 +2,6 @@
 require_once __DIR__ . '/../support/Vault/Config/autoload.php';
 require_once __DIR__ . '/../support/Vault/Foundation/helpers.php';
 require_once __DIR__ . '/../support/Vault/Config/routes.php';
-\Support\Vault\Foundation\Auth::secureSession();
 $config = loadConfig();
 
 /**

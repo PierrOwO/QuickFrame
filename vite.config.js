@@ -8,7 +8,10 @@ export default defineConfig({
     emptyOutDir: true,
     manifest: true,
     rollupOptions: {
-      input: 'resources/js/app.js',
+      input: [
+        'resources/js/app.js',
+        'resources/js/auth.js',
+      ],
     },
   },
   server: {

@@ -4,9 +4,16 @@ namespace Support\Vault\Validation;
 
 class LoginThrottle
 {
-    protected static int $maxAttempts = 5;
-    protected static int $lockoutTime = 300;
+    protected static ?int $maxAttempts = null;
+    protected static ?int $lockoutTime = null;
 
+    public static function init(): void
+    {
+        if (self::$maxAttempts === null) {
+            self::$maxAttempts = config('login_attempts_limit');
+            self::$lockoutTime = config('logout_time');
+        }
+    }
     public static function hit(string $identifier): void
     {
         $key = "login_attempts_$identifier";
@@ -16,6 +23,7 @@ class LoginThrottle
 
     public static function tooManyAttempts(string $identifier): bool
     {
+        self::init();
         $key = "login_attempts_$identifier";
         $timeKey = "{$key}_time";
 
