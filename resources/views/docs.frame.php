@@ -201,6 +201,7 @@ section {
   .sidebar .content {
     left: -60%;
     width: 60%;
+    font-size: 150%;
   }
   .sidebar .content .nav-header h3,
   .sidebar .content .nav-header .close-btn{
