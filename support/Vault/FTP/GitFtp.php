@@ -1,6 +1,9 @@
 <?php
 
 namespace Support\Vault\FTP;
+
+use Support\Vault\Sanctum\Log;
+
 require __DIR__ . '/../Foundation/helpers.php';
 
 class GitFtp
@@ -28,6 +31,9 @@ class GitFtp
         shell_exec('git config git-ftp.url ' . escapeshellarg($url));
         shell_exec('git config git-ftp.user ' . escapeshellarg($user));
         shell_exec('git config git-ftp.password ' . escapeshellarg($password));
+        Log::info('url: ' . escapeshellarg($url));
+        Log::info('user: ' . escapeshellarg($user));
+        Log::info('password: ' . escapeshellarg($password));
 
         $output = shell_exec('git ftp push 2>&1');
         echo $output;
