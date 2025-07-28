@@ -41,6 +41,12 @@ class GitFtp
     }
     public static function init(): void
     {
+        $url = config('app.ftp_url');
+        $user = config('app.ftp_user');
+        $password = config('app.ftp_password');
+        shell_exec('git config git-ftp.url ' . escapeshellarg($url));
+        shell_exec('git config git-ftp.user ' . escapeshellarg($user));
+        shell_exec('git config git-ftp.password ' . escapeshellarg($password));
         shell_exec('git ftp init');
         echo "Deployment finished!\n";
 
