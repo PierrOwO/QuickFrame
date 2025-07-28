@@ -3,7 +3,7 @@
 namespace Support\Vault\Database;
 
 use PDO;
-use Support\Core\Log;
+use Support\Vault\Sanctum\Log;
 
 class Schema
 {
@@ -12,7 +12,7 @@ class Schema
         Schema::ensureMigrationTableExists();
 
         if (self::hasTable($table)) {
-            Log::info('tale exists.');
+            Log::info('table exists.');
             throw new \Exception("Table '{$table}' already exists.");
         }
 

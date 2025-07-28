@@ -11,11 +11,14 @@ class Database
     public static function connect(): PDO
     {
         if (self::$pdo === null) {
-            $host = getenv('DB_HOST') ?: '127.0.0.1';
-            $db   = getenv('DB_NAME') ?: 'quickframe';
-            $user = getenv('DB_USER') ?: 'root';
-            $pass = getenv('DB_PASSWORD') ?: '';
-            $charset = 'utf8mb4';
+            
+            $config = config('database.connections.mysql');
+
+            $host = $config['host'];
+            $db = $config['database'];
+            $user = $config['username'];
+            $pass = $config['password'];
+            $charset = $config['charset'];
 
             $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
             $options = [

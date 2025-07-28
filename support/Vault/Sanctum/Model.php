@@ -40,7 +40,6 @@ class Model {
             
 
             $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
-            Log::info('connection: ' . $dsn);
             self::$connection = new PDO($dsn, $user, $pass);
             self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
