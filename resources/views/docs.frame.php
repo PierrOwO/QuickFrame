@@ -219,8 +219,11 @@ section {
     font-size: 250%;
   }
   section {
-  scroll-margin-top: 130px; 
-}
+    scroll-margin-top: 130px; 
+  }
+  .hero{
+    margin-top: 50px;
+  }
 }
 </style>
 @endsection
