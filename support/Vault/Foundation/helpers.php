@@ -161,7 +161,7 @@ if (!function_exists('config')) {
 function loadConfig(): array {
     $configDir = base_path('config');
     $cacheFile = base_path('storage/cache/config.php');
-
+    $envFile = base_path('.env');
 
     $cacheValid = false;
     if (file_exists($cacheFile)) {
@@ -175,7 +175,8 @@ function loadConfig(): array {
                 $latestConfigTime = $fileTime;
             }
         }
-        if ($cacheTime !== false && $cacheTime >= $latestConfigTime) {
+        $envTime = file_exists($envFile) ? filemtime($envFile) : 0;
+        if ($cacheTime >= max($latestConfigTime, $envTime)) {
             $cacheValid = true;
         }
     }
