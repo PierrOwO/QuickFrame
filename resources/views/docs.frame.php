@@ -199,12 +199,19 @@ section {
 }
 @media (max-width: 1000px) {
   .sidebar .content {
-    left: -40%;
-    width: 40%;
+    left: -60%;
+    width: 60%;
+    font-size: 150%;
+  }
+  .sidebar .content .nav-header h3,
+  .sidebar .content .nav-header .close-btn{
+    font-size: 200%;
   }
   .sidebar .content .links a{
-    font-size: 24px;
-    padding: 10px;
+    padding: 20px;
+  }
+  .header .hamburger-button{
+    font-size: 200%;
   }
 }
 </style>
