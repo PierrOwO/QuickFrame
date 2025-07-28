@@ -27,7 +27,6 @@ class GitFtp
             return;
         }
         echo "Starting deployment with Git-FTP...\n";
-        shell_exec('git ftp init');
         shell_exec('git config git-ftp.url ' . escapeshellarg($url));
         shell_exec('git config git-ftp.user ' . escapeshellarg($user));
         shell_exec('git config git-ftp.password ' . escapeshellarg($password));
