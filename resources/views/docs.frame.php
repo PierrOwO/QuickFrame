@@ -201,7 +201,6 @@ section {
   .sidebar .content {
     left: -60%;
     width: 60%;
-    font-size: 150%;
   }
   .sidebar .content .nav-header h3,
   .sidebar .content .nav-header .close-btn{
@@ -212,8 +211,12 @@ section {
     font-size: 200%;
 
   }
+  .header{
+    height: 100px;
+    font-size: 150%;
+  }
   .header .hamburger-button{
-    font-size: 200%;
+    scale:1.5;
   }
 }
 </style>
