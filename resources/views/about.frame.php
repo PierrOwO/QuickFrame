@@ -21,6 +21,9 @@
     bottom: 0;
     width: 100%;
   }
+  .about-container{
+    padding-bottom: 50px;
+  }
   
 </style>
 @endsection
