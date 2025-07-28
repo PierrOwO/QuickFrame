@@ -31,12 +31,16 @@ class Model {
     public static function db() 
     {
         if (!self::$connection) {
-            $host = env('DB_HOST');
-            $dbname = env('DB_NAME');
-            $user = env('DB_USER');
-            $pass = env('DB_PASSWORD');
+            $config = config('database.connections.mysql');
+
+            $host = $config['host'];
+            $dbname = $config['database'];
+            $user = $config['username'];
+            $pass = $config['password'];
+            
 
             $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+            Log::info('connection: ' . $dsn);
             self::$connection = new PDO($dsn, $user, $pass);
             self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
