@@ -216,8 +216,11 @@ section {
     font-size: 150%;
   }
   .header .hamburger-button{
-    scale:1.5;
+    font-size: 250%;
   }
+  section {
+  scroll-margin-top: 130px; 
+}
 }
 </style>
 @endsection
