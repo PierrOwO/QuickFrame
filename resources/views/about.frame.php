@@ -16,14 +16,6 @@
     text-align: center;
     margin-bottom: 30px;
   }
-  footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-  }
-  .about-container{
-    padding-bottom: 50px;
-  }
   
 </style>
 @endsection
