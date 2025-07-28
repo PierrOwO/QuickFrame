@@ -13,6 +13,9 @@ switch ($command) {
     case 'ftp:push':
         GitFtp::push();
         break;
+    case 'ftp:init':
+        GitFtp::init();
+        break;
     case 'cache:clear':
         $type = $argv[2] ?? 'all';
 

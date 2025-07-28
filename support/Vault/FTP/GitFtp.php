@@ -34,4 +34,10 @@ class GitFtp
 
         echo "Deployment finished!\n";
     }
+    public static function init(): void
+    {
+        shell_exec('git ftp init');
+        echo "Deployment finished!\n";
+
+    }
 }
