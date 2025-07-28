@@ -197,6 +197,16 @@ header .hamburger-button.rotate90{
 section {
   scroll-margin-top: 80px; 
 }
+@media (max-width: 1000px) {
+  .sidebar .content {
+    left: -40%;
+    width: 40%;
+  }
+  .sidebar .content .links a{
+    font-size: 24px;
+    padding: 10px;
+  }
+}
 </style>
 @endsection
 
