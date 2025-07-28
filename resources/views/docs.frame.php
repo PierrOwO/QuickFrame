@@ -207,7 +207,7 @@ section {
     font-size: 250%;
   }
   .sidebar .content .links a{
-    padding: 50px;
+    padding: 30px;
     font-size: 150%;
 
   }
