@@ -205,10 +205,10 @@ section {
   }
   .sidebar .content .nav-header h3,
   .sidebar .content .nav-header .close-btn{
-    font-size: 200%;
+    font-size: 250%;
   }
   .sidebar .content .links a{
-    padding: 20px;
+    padding: 50px;
     font-size: 200%;
 
   }
