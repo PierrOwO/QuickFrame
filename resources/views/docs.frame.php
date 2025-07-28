@@ -208,7 +208,7 @@ section {
   }
   .sidebar .content .links a{
     padding: 50px;
-    font-size: 100%;
+    font-size: 150%;
 
   }
   .header{
