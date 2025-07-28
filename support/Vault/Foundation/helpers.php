@@ -162,6 +162,8 @@ function loadConfig(): array {
     $configDir = base_path('config');
     $cacheFile = base_path('storage/cache/config.php');
     $envFile = base_path('.env');
+    $quickframeJson = base_path('support/Vault/Config/quickframe.json');
+
 
     $cacheValid = false;
     if (file_exists($cacheFile)) {
@@ -176,7 +178,9 @@ function loadConfig(): array {
             }
         }
         $envTime = file_exists($envFile) ? filemtime($envFile) : 0;
-        if ($cacheTime >= max($latestConfigTime, $envTime)) {
+        $quickframeJson = file_exists($quickframeJson) ? filemtime($quickframeJson) : 0;
+        
+        if ($cacheTime >= max($latestConfigTime, $envTime, $quickframeJson)) {
             $cacheValid = true;
         }
     }
