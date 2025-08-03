@@ -104,6 +104,15 @@ QuickFrame supports class-based migrations similar to Laravel:
 Migrations use an internal Blueprint system to define tables, columns, foreign keys and constraints.
 
 ---
+## 🌐 Live Preview
+
+You can explore a live instance of QuickFrame here:
+🔗 https://quickframe.pieterapps.pl
+
+It includes:
+	•	Project documentation (/docs)
+	•	Migration interface (/migrations)
+	•	Example routes and views
 
 ## 💡 VS Code Integration
 
