@@ -6,7 +6,7 @@ It was built with simplicity and accessibility in mind — especially for *share
 With QuickFrame, you can build dynamic PHP web applications even on servers that don't support Composer or command-line tools.
 
 ➡️ **Installer repository**: [quickframe-installer](https://github.com/PierrOwO/quickframe-installer)  
-➡️ **Status**: Actively developed 🚧
+➡️ **Status**: Actively developed 🚧    
 ➡️ **Live preview**: 🔗 https://quickframe.pieterapps.pl
 
 ---
