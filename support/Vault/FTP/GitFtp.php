@@ -11,15 +11,30 @@ class GitFtp
 
     public static function push(): void
     {
-
-        
         echo "Starting deployment with Git-FTP...\n";
 
-        $output = shell_exec('git ftp push 2>&1');
-        echo $output;
+        $cmd = 'git ftp push > /tmp/gitftp_output.txt 2>&1 & echo $!';
+        $pid = (int) shell_exec($cmd);
+
+        self::showSpinner($pid, "Uploading");
+
+        echo file_get_contents('/tmp/gitftp_output.txt');
 
         echo "Deployment finished!\n";
     }
+
+protected static function showSpinner(int $processId, string $message = ''): void
+{
+    $spinner = ['⠋','⠙','⠸','⠴','⠦','⠇'];
+    $i = 0;
+
+    while (posix_getpgid($processId)) {
+        echo "\r$message " . $spinner[$i++ % count($spinner)];
+        usleep(100000); // 0.1 sekundy
+    }
+
+    echo "\r$message \033[32m✓\033[0m\n";
+}
     public static function init(): void
     {
         $url = config('app.ftp_url');
