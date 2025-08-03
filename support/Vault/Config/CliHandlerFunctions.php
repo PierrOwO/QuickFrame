@@ -11,6 +11,35 @@ require __DIR__ . '/../Foundation/helpers.php';
 
 class CliHandlerFunctions
 {
+    public static function seed(string $type): string
+    {
+        $seedPath = base_path('database/seeders');
+        echo "Processing...\n";
+        if ($type === 'all') {
+            $files = glob($seedPath . '/*.php');
+            foreach ($files as $file) {
+                echo "🔸 Seeding: " . basename($file) . "\n";
+                $seeder = require $file;
+                if (is_object($seeder) && method_exists($seeder, 'run')) {
+                    $seeder->run();
+                }
+            }
+            return "All seeders executed.\n";
+        }
+
+        $filePath = $seedPath . '/' . basename($type);
+        if (!file_exists($filePath)) {
+            return "Seeder file not found: $filePath\n";
+        }
+
+        $seeder = require $filePath;
+        if (is_object($seeder) && method_exists($seeder, 'run')) {
+            $seeder->run();
+            return "Seeder executed: $type\n";
+        }
+
+        return "Invalid seeder: $type\n";
+    }
     public static function updateEnvValue(string $key, string $value): void
     {
         $envPath = base_path('.env'); 
@@ -166,25 +195,36 @@ class CliHandlerFunctions
 
         \033[36mAvailable QuickFrame Commands:\033[0m
 
-        \033[33mserve\033[0m                  Start the built-in PHP development server
-        \033[33mserve IP PORT\033[0m          Start server with custom IP and port 
-        \033[33mmigrations:on\033[0m          Enable migrations (.env MIGRATIONS_ENABLED=true)
-        \033[33mmigrations:off\033[0m         Disable migrations (.env MIGRATIONS_ENABLED=false)
-        \033[33m--version\033[0m             Current version of the framework
-        \033[33m-v\033[0m                     Shorten command of the version check
+        \033[36mCore:\033[0m
+          \033[33mserve\033[0m                  Start the local development server
+          \033[33mserve IP PORT\033[0m          Start server with custom IP and port
+          \033[33m--version\033[0m              Show current QuickFrame version
+          \033[33m-v\033[0m                     Short version of --version
 
-        \033[36mmake:\033[0m
+        \033[36mGenerators:\033[0m
+          \033[33mmake:controller Name\033[0m   Create a new controller class
+          \033[33mmake:model Name\033[0m        Create a new model class
+          \033[33mmake:middleware Name\033[0m   Create a new middleware class
+          \033[33mmake:helper Name\033[0m       Create a new global helper function
+          \033[33mmake:view Name\033[0m         Create a Blade-like view file
+          \033[33mmake:migration Name\033[0m    Create a new migration class
+          \033[33mmake:seeder Name\033[0m       Generate a new seeder class
 
-        \033[33mcontroller Name\033[0m   Generate a new controller class
-        \033[33mmodel Name\033[0m        Generate a new model class
-        \033[33mhelper Name\033[0m       Generate a new global helper function
-        \033[33mview Name\033[0m         Generate a new view file (Blade-like)
-        \033[33mmiddleware Name\033[0m   Generate a new middleware class
-        \033[33mmigration Name\033[0m    Generate a new migration class
+        \033[36mMigrations:\033[0m
+          \033[33mmigrations:on\033[0m          Enable browser migration interface
+          \033[33mmigrations:off\033[0m         Disable browser migration interface
 
-        
+        \033[36mSeeders:\033[0m
+          \033[33mdb:seed\033[0m                Run all seeders from /database/seeders
+          \033[33mdb:seed Name\033[0m           Run a specific seeder class
+          \033[33mseeders:on\033[0m             Enable browser seeder interface
+          \033[33mseeders:off\033[0m            Disable browser seeder interface
 
+        \033[36mFTP Deployment:\033[0m
+          \033[33mftp:init\033[0m               Initialize Git FTP
+          \033[33mftp:push\033[0m               Deploy using Git FTP
+        \n
         TEXT;
-        echo "\033[36mCLI: frame | Powered by QuickFrame\033[0m\n";
+        echo "\033[36mCLI: frame | Powered by QuickFrame\033[0m\n\n";
     }
 }

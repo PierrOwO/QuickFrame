@@ -6,7 +6,28 @@ require __DIR__ . '/../Foundation/helpers.php';
 
 class CreationHandler 
 {
+    public static function createSeeder($name) 
+    {
+        if (!$name) {
+            echo "Type name of the seeder.\n";
+            exit(1);
+        }
+        $stub = file_get_contents(__DIR__ . '/stubs/seeder.stub');
+        $stub = str_replace('ClassName', $name, $stub);
 
+        $directory = base_path("database/seeders");
+        if (!is_dir($directory)) {
+            mkdir($directory, 0777, true); 
+        }
+        $outputPath = base_path("database/seeders/{$name}.php");
+        if (file_exists($outputPath)) {
+            echo "Seeder already exists.\n";
+            exit(1);
+        }
+    
+        file_put_contents($outputPath, $stub);
+        echo "Created seeder: {$name}\n";
+    }
     public static function createController($name) 
     {
         if (!$name) {

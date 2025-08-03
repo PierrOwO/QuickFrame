@@ -10,6 +10,10 @@ $argv = $_SERVER['argv'];
 $command = $argv[1] ?? null;
 
 switch ($command) {
+    case 'db:seed':
+        $type = $argv[2] ?? 'all';
+        echo CliHandlerFunctions::seed($type);
+        break;
     case 'ftp:push':
         GitFtp::push();
         break;
@@ -64,7 +68,10 @@ switch ($command) {
         $name = $argv[2] ?? null;
         echo CreationHandler::createtest($name);
         break;
-        
+     case 'make:seeder':
+        $name = $argv[2] ?? null;
+        echo CreationHandler::createSeeder($name);
+        break;   
     case 'make:controller':
         $name = $argv[2] ?? null;
         $isApi = in_array('--api', $argv);
@@ -102,7 +109,16 @@ switch ($command) {
         break;
     case 'migrations:off':
         CliHandlerFunctions::updateEnvValue('MIGRATIONS_ENABLED', 'false');
-        echo "Migrations disabled.\n";
+        echo "Migrations panel disabled.\n";
+        break;
+     case 'seeders:on':
+        CliHandlerFunctions::updateEnvValue('SEEDERS_ENABLED', 'true');
+        echo "Migrations enabled.\n";
+        echo "You can now access the seeder panel at /seeders.\n";
+        break;
+    case 'seeders:off':
+        CliHandlerFunctions::updateEnvValue('SEEDERS_ENABLED', 'false');
+        echo "Seeders panel disabled.\n";
         break;
     case 'serve':
         echo CliHandlerFunctions::serve();

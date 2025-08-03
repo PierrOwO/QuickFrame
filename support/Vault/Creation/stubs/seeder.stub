@@ -1,0 +1,22 @@
+<?php
+
+use Support\Vault\Database\Seeder;
+
+return new class extends Seeder
+{
+    public static function run(): void
+    {
+        $pdo = self::$pdo;
+
+        $stmt = $pdo->prepare("INSERT INTO users (name, email, password) VALUES (:name, :email, :password)");
+
+        $users = [
+            ['name' => 'Alice', 'email' => 'alice@example.com', 'password' => password_hash('secret', PASSWORD_DEFAULT)],
+            ['name' => 'Bob', 'email' => 'bob@example.com', 'password' => password_hash('secret', PASSWORD_DEFAULT)],
+        ];
+
+        foreach ($users as $user) {
+            $stmt->execute($user);
+        }
+    }
+};

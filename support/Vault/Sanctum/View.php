@@ -178,6 +178,10 @@ class View
             $dir = base_path('support/Vault/Database/Migrations/');
             $frameFile = $dir . $path . '.frame.php';
             $phpFile = $dir . $path . '.php';
+        } else if ($template === 'seeders') {
+            $dir = base_path('support/Vault/Database/Seeders/');
+            $frameFile = $dir . $path . '.frame.php';
+            $phpFile = $dir . $path . '.php';
         } elseif (in_array($template, $specialErrorTemplates)) {
             $dir = base_path('support/Vault/Errors/Pages/');
             $path = explode('/', $path);

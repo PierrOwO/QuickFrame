@@ -1,4 +1,5 @@
 <?php
+
 namespace Support\Vault\Database\Migrations;
 
 use Support\Vault\Database\Schema;

@@ -6,8 +6,8 @@ It was built with simplicity and accessibility in mind — especially for *share
 With QuickFrame, you can build dynamic PHP web applications even on servers that don't support Composer or command-line tools.
 
 ➡️ **Installer repository**: [quickframe-installer](https://github.com/PierrOwO/quickframe-installer)  
-➡️ **Status**: Actively developed 🚧    
-➡️ **Live preview**: 🔗 https://quickframe.pieterapps.pl
+➡️ **Status**: Actively developed 🚧
+➡️ **Status**: 🔗 https://quickframe.pieterapps.pl
 
 ---
 
@@ -67,20 +67,93 @@ php frame serve
 
 Starts a local development server at `http://localhost:8000`
 
+# QuickFrame CLI & FTP Deployment Guide
+
+## Available QuickFrame Commands
+
+### Core
+- `serve`  
+  Start the local development server
+- `serve IP PORT`  
+  Start server with custom IP and port
+- `--version`  
+  Show current QuickFrame version
+- `-v`  
+  Short version of `--version`
+
+### Generators
+- `make:controller Name`  
+  Create a new controller class
+- `make:model Name`  
+  Create a new model class
+- `make:middleware Name`  
+  Create a new middleware class
+- `make:helper Name`  
+  Create a new global helper function
+- `make:view Name`  
+  Create a Blade-like view file
+- `make:migration Name`  
+  Create a new migration class
+- `make:seeder Name`  
+  Generate a new seeder class
+
+### Migrations
+- `migrations:on`  
+  Enable browser migration interface
+- `migrations:off`  
+  Disable browser migration interface
+
+### Seeders
+- `db:seed`  
+  Run all seeders from `/database/seeders`
+- `db:seed Name`  
+  Run a specific seeder class
+- `seeders:on`  
+  Enable browser seeder interface
+- `seeders:off`  
+  Disable browser seeder interface
+
+### FTP Deployment
+- `ftp:init`  
+  Initialize Git FTP
+- `ftp:push`  
+  Deploy using Git FTP
+
 ---
 
-### 🛠 Generators
+## FTP Commands Requirements
 
-QuickFrame includes generators for common elements:
+The commands:
+
+- `php frame ftp:init`
+- `php frame ftp:push`
+
+only work if you have **git-ftp** installed.
+
+### Linux / macOS
+
+Make sure you have `git ftp` installed, for example:
 
 ```bash
-php frame make:controller Example
-php frame make:model Product
-php frame make:middleware AuthCheck
-php frame make:helper Formatter
-php frame make:view homepage
-php frame make:migration CreateUsersTable
+brew install git-ftp       # macOS with Homebrew
+sudo apt install git-ftp   # Ubuntu/Debian Linux
 ```
+Windows
+
+Due to environment limitations, it’s best to run git ftp inside the Windows Subsystem for Linux (WSL) environment.
+
+If you don’t have WSL installed yet, open PowerShell as Administrator and run:
+
+```bash
+wsl --install
+```
+
+After installing WSL and restarting your PC, you can use git ftp commands via WSL.
+
+⸻
+
+Note:
+For best results on Windows, run QuickFrame commands involving FTP deployment inside a WSL shell or native Linux/macOS terminal.
 
 ---
 

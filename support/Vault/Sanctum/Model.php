@@ -282,6 +282,13 @@ class Model {
     public static function create(array $data) 
     {
         $model = new static();
+
+        if (property_exists($model, 'fillable') && in_array('unique_id', static::$fillable)) {
+            if (!isset($data['unique_id']) || empty($data['unique_id'])) {
+                $data['unique_id'] = static::generateUuid();
+            }
+        }
+
         $model->fill($data);
         return $model->save();
     }

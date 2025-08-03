@@ -1,5 +1,6 @@
 <?php
 
+use Support\Vault\Database\Database;
 use Support\Vault\Foundation\Auth;
 use Support\Vault\Foundation\Config;
 use Support\Vault\Foundation\Session;
@@ -239,4 +240,9 @@ function auth(): Auth
         $instance = new Auth();
     }
     return $instance;
+}
+
+function db(): PDO
+{
+    return Database::connect();
 }
