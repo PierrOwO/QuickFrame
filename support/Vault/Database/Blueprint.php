@@ -4,12 +4,11 @@ namespace Support\Vault\Database;
 
 class Blueprint
 {
-    protected string $table;
+    public string $table;
     protected array $columns = [];
     protected array $indexes = [];
     protected array $foreignKeys = [];
-
-    protected ?string $lastColumn = null;
+    protected array $columnRefs = [];
 
     public function __construct(string $table)
     {
@@ -34,60 +33,41 @@ class Blueprint
         return $this;
     }
 
-    public function unsignedBigInteger(string $name): self
+    public function unsignedBigInteger(string $name): ColumnDefinition
     {
-        $this->appendColumn("`$name` BIGINT UNSIGNED");
-        return $this;
+        return new ColumnDefinition($this, $name, "BIGINT UNSIGNED");
     }
 
-    public function integer(string $name, bool $unsigned = false): self
+    public function integer(string $name, bool $unsigned = false): ColumnDefinition
     {
         $type = $unsigned ? "INT UNSIGNED" : "INT";
-        $this->appendColumn("`$name` $type");
-        return $this;
+        return new ColumnDefinition($this, $name, $type);
     }
 
-    public function string(string $name, int $length = 255): self
+    public function string(string $name, int $length = 255): ColumnDefinition
     {
-        $this->appendColumn("`$name` VARCHAR($length)");
-        return $this;
+        return new ColumnDefinition($this, $name, "VARCHAR($length)");
     }
 
-    public function text(string $name): self
+    public function text(string $name): ColumnDefinition
     {
-        $this->appendColumn("`$name` TEXT");
-        return $this;
+        return new ColumnDefinition($this, $name, "TEXT");
     }
 
-    public function boolean(string $name): self
+    public function boolean(string $name): ColumnDefinition
     {
-        $this->appendColumn("`$name` TINYINT(1)");
-        return $this;
+        return new ColumnDefinition($this, $name, "TINYINT(1)");
     }
 
-    public function timestamp(string $name): self
+    public function timestamp(string $name): ColumnDefinition
     {
-        $this->appendColumn("`$name` TIMESTAMP");
-        return $this;
+        return new ColumnDefinition($this, $name, "TIMESTAMP");
     }
 
     public function timestamps(): self
     {
         $this->columns[] = "`created_at` TIMESTAMP NULL DEFAULT NULL";
         $this->columns[] = "`updated_at` TIMESTAMP NULL DEFAULT NULL";
-        return $this;
-    }
-
-    public function nullable(): self
-    {
-        $this->modifyLastColumn('NULL');
-        return $this;
-    }
-
-    public function default($value): self
-    {
-        $default = is_string($value) ? "'$value'" : $value;
-        $this->modifyLastColumn("DEFAULT $default");
         return $this;
     }
 
@@ -102,11 +82,37 @@ class Blueprint
         $this->indexes[] = "INDEX `index_{$column}` (`$column`)";
         return $this;
     }
-
-    public function foreign(string $column, string $referencedTable, string $referencedColumn = 'id', string $onDelete = 'CASCADE'): self
+    public function addUniqueFromColumn(string $name): void
     {
-        $this->foreignKeys[] = "FOREIGN KEY (`$column`) REFERENCES `$referencedTable`(`$referencedColumn`) ON DELETE $onDelete";
-        return $this;
+        $this->indexes[] = "UNIQUE KEY `unique_{$name}` (`$name`)";
+    }
+
+    public function addIndexFromColumn(string $name): void
+    {
+        $this->indexes[] = "INDEX `index_{$name}` (`$name`)";
+    }
+
+    public function foreign(string $column): ForeignKeyDefinition
+    {
+        return new ForeignKeyDefinition($this, $column);
+    }
+
+    public function addForeignKey(string $sql): void
+    {
+        $this->foreignKeys[] = $sql;
+    }
+
+    public function appendRawColumn(string $definition, string $name): void
+    {
+        $this->columns[] = $definition;
+        $this->columnRefs[$name] = &$this->columns[array_key_last($this->columns)];
+    }
+
+    public function modifyColumn(string $name, string $addition): void
+    {
+        if (isset($this->columnRefs[$name])) {
+            $this->columnRefs[$name] .= " $addition";
+        }
     }
 
     public function build(): void
@@ -140,18 +146,5 @@ class Blueprint
 
         $sql .= "\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
         return $sql;
-    }
-
-    protected function appendColumn(string $definition): void
-    {
-        $this->columns[] = $definition;
-        $this->lastColumn = &$this->columns[array_key_last($this->columns)];
-    }
-
-    protected function modifyLastColumn(string $addition): void
-    {
-        if ($this->lastColumn !== null) {
-            $this->lastColumn .= " $addition";
-        }
     }
 }

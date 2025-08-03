@@ -515,16 +515,78 @@ class HomeController
   <div class="container">
     <h2>🗂️ Migrations</h2>
     <ul>
-      <li>Migrations allow you to define and version-control your database schema using PHP classes.</li>
+      <li>Migrations allow you to define and version-control your database schema using PHP classes, similar to Laravel.</li>
+
       <li>Create a new migration with:<br>
-        <code>php frame make:migration CreateUsersTable</code>
+        <code style="display: inline-block">php frame make:migration CreateUsersTable</code>
       </li>
-      <li>Use <code style="display: inline-block;">php frame migrations:on</code> to enable browser access to the migration interface.</li>
-      <li>Use <code style="display: inline-block;">php frame migrations:off</code> to disable browser access to the migration interface.</li>
-      <li>Visit <a href="/migrations" target="_blank"><code style="display: inline-block;">/migrations</code></a> in your browser to run or drop migrations manually.</li>
+
+      <li>Enable browser-based migration interface:<br>
+        <code style="display: inline-block">php frame migrations:on</code>
+      </li>
+
+      <li>Disable browser-based migration interface:<br>
+        <code style="display: inline-block">php frame migrations:off</code>
+      </li>
+
+      <li>Visit <a href="/migrations" target="_blank"><code style="display: inline-block">/migrations</code></a> to run or drop migrations manually via the browser.</li>
     </ul>
 
-    
+    <h3>📄 Example migration</h3>
+    <pre><code>
+// database/migrations/2025_08_03_000000_create_rooms_table.php
+
+use Support\Vault\Database\Blueprint;
+use Support\Vault\Facades\Schema;
+
+return new class {
+    public function up(): void
+    {
+        Schema::create('rooms', function (Blueprint $table) {
+            $table->id();
+            $table->string('house');
+            $table->integer('number');
+            $table->string('unique_id')->unique();
+            $table->timestamps();
+
+            $table->foreign('house')
+                  ->references('unique_id')
+                  ->on('houses')
+                  ->onDelete('cascade');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('rooms');
+    }
+};
+    </code></pre>
+
+    <h3>📚 Common column types</h3>
+    <ul>
+      <li><code style="display: inline-block">$table->id()</code> – auto-incrementing BIGINT primary key</li>
+      <li><code style="display: inline-block">$table->string('name')</code> – VARCHAR(255)</li>
+      <li><code style="display: inline-block">$table->integer('count')</code> – INT</li>
+      <li><code style="display: inline-block">$table->boolean('active')</code> – TINYINT(1)</li>
+      <li><code style="display: inline-block">$table->text('description')</code> – TEXT</li>
+      <li><code style="display: inline-block">$table->timestamps()</code> – adds <code style="display: inline-block">created_at</code> and <code style="display: inline">updated_at</code></li>
+    </ul>
+
+    <h3>🔗 Foreign keys</h3>
+    <p>
+      Foreign key constraints can be added using a fluent interface:
+    </p>
+    <pre><code class="language-php">
+$table->foreign('user_id')
+      ->references('id')
+      ->on('users')
+      ->onDelete('cascade');
+    </code></pre>
+
+    <p class="text-muted">
+      Foreign keys are automatically applied at the end of the chain – you don’t need to call <code style="display: inline">->apply()</code> manually.
+    </p>
   </div>
 </section>
 <section id="cli" class="docs-section">

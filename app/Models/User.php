@@ -13,7 +13,12 @@ class User extends Model {
         'name',
         'email',
         'password',
+        'unique_id',
     ];
+    public function __construct()
+    {
+        $this->unique_id = self::generateUuid();
+    }
     
     public static function findByEmail($email) {
         $stmt = self::db()->prepare("SELECT * FROM users WHERE email = ?");
@@ -28,4 +33,5 @@ class User extends Model {
         }
         return null;
     }
+    
 }

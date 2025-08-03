@@ -20,7 +20,12 @@ class CreationHandler
         }
         $stub = file_get_contents(__DIR__ . '/stubs/controller.stub');
         $stub = str_replace('ClassName', $className, $stub);
-    
+
+        $directory = base_path("app/Controllers");
+        if (!is_dir($directory)) {
+            mkdir($directory, 0777, true); 
+        }
+        
         $outputPath = base_path("app/Controllers/{$className}.php");
         if (file_exists($outputPath)) {
             echo "Controller already exists.\n";
@@ -29,6 +34,34 @@ class CreationHandler
     
         file_put_contents($outputPath, $stub);
         echo "Created controller: {$className}\n";
+    }
+    public static function createApiController($name) 
+    {
+        if (!$name) {
+            echo "Type name of the controller.\n";
+            exit(1);
+        }
+        if (!str_ends_with($name, 'Controller')) {
+            $className = $name . 'Controller';
+        } else {
+            $className = $name;
+        }
+        $stub = file_get_contents(__DIR__ . '/stubs/api.stub');
+        $stub = str_replace('ClassName', $className, $stub);
+
+        $directory = base_path("app/Controllers/Api");
+        if (!is_dir($directory)) {
+            mkdir($directory, 0777, true); 
+        }
+
+        $outputPath = base_path("app/Controllers/Api/{$className}.php");
+        if (file_exists($outputPath)) {
+            echo "Controller already exists.\n";
+            exit(1);
+        }
+    
+        file_put_contents($outputPath, $stub);
+        echo "Created Api controller: {$className}\n";
     }
     public static function createModel($name) 
     {
@@ -98,8 +131,8 @@ class CreationHandler
         $stub = file_get_contents(__DIR__ . '/stubs/view.stub');
         $stub = str_replace('ViewName', $name, $stub);
 
-        $relativePath = base_path("resources/views/{$name}.frame.php");
-        $outputPath = __DIR__ . $relativePath;
+        $relativePath ="resources/views/{$name}.frame.php";
+        $outputPath = base_path($relativePath);
 
         $dir = dirname($outputPath);
         if (!is_dir($dir)) {

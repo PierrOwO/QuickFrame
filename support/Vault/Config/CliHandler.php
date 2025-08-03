@@ -64,9 +64,16 @@ switch ($command) {
         $name = $argv[2] ?? null;
         echo CreationHandler::createtest($name);
         break;
+        
     case 'make:controller':
         $name = $argv[2] ?? null;
-        echo CreationHandler::createController($name);
+        $isApi = in_array('--api', $argv);
+        if (!$isApi) {
+            echo CreationHandler::createController($name);
+        }
+        else {
+            echo CreationHandler::createApiController($name);
+        }
         break;
     case 'make:model':
         $name = $argv[2] ?? null;

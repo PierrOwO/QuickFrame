@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Controllers\Api;
+
+class ClassName
+{
+    public function index()
+    {
+        // GET /users
+    }
+
+    public function show($id)
+    {
+        // GET /users/{id}
+    }
+
+    public function store()
+    {
+        // POST /users
+    }
+
+    public function update($id)
+    {
+        // PUT/PATCH /users/{id}
+    }
+
+    public function destroy($id)
+    {
+        // DELETE /users/{id}
+    }
+}
