@@ -60,7 +60,7 @@ myApp/
 ├── package-lock.json
 ├── package.json
 └── vite.config.js
-```§
+```
 
 ---
 
