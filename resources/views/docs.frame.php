@@ -459,9 +459,8 @@ class HomeController
 
     <h3>How to include assets in your views?</h3>
     <p>If you’re using Vite and the build process, include the compiled assets like this:</p>
-    <pre><code>&lt;link rel="stylesheet" href="/build/assets/app.css"&gt;
-&lt;script type="module" src="/build/assets/app.js"&gt;&lt;/script&gt;
-</code></pre>
+    <pre><code class="language-html">&lt;link rel="stylesheet" href="/build/assets/app.css"&gt;
+&lt;script type="module" src="/build/assets/app.js"&gt;&lt;/script&gt;</code></pre>
 
     <h3>Using the <code style="display: inline-block;">asset()</code> helper (alternative)</h3>
     <p>If you're not using Vite, or you prefer a simple method to load static files, QuickFrame provides an <code>asset()</code> helper:</p>
