@@ -34,6 +34,13 @@ myApp/
 │   ├── Helpers/
 │   ├── Middleware/
 │   └── Models/
+├── config/
+│   ├── app/
+│   ├── database/
+│   └── mail/
+├── database/
+│   ├── migrations/
+│   └── seeders/
 ├── public/
 │   └── index.php
 ├── resources/
@@ -211,7 +218,7 @@ QuickFrame supports class-based seeders similar to Laravel:
   ```bash
   php frame seeders:off
   ```
-  
+
 ---
 
 ## 💡 VS Code Integration
