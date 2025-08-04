@@ -138,7 +138,9 @@ Make sure you have `git ftp` installed, for example:
 brew install git-ftp       # macOS with Homebrew
 sudo apt install git-ftp   # Ubuntu/Debian Linux
 ```
-Windows
+### Windows
+
+## Option 1: Use WSL (Windows Subsystem for Linux)
 
 Due to environment limitations, it’s best to run git ftp inside the Windows Subsystem for Linux (WSL) environment.
 
@@ -149,6 +151,16 @@ wsl --install
 ```
 
 After installing WSL and restarting your PC, you can use git ftp commands via WSL.
+
+## Option 2: Use Git Bash Terminal
+
+If you have Git for Windows installed, you may also use git ftp from the Git Bash terminal — just make sure git ftp is correctly installed and accessible in that environment.
+
+⸻
+
+Note:
+QuickFrame automatically detects git ftp either from WSL or the standard shell (like Git Bash).
+To avoid issues, ensure git ftp works correctly in at least one of these environments.
 
 ⸻
 
