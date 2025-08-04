@@ -162,11 +162,6 @@ Note:
 QuickFrame automatically detects git ftp either from WSL or the standard shell (like Git Bash).
 To avoid issues, ensure git ftp works correctly in at least one of these environments.
 
-⸻
-
-Note:
-For best results on Windows, run QuickFrame commands involving FTP deployment inside a WSL shell or native Linux/macOS terminal.
-
 ---
 
 ## 🗂️ Migrations
