@@ -35,9 +35,9 @@ myApp/
 │   ├── Middleware/
 │   └── Models/
 ├── config/
-│   ├── app/
-│   ├── database/
-│   └── mail/
+│   ├── app.php
+│   ├── database.php
+│   └── mail.php
 ├── database/
 │   ├── migrations/
 │   └── seeders/
@@ -60,7 +60,7 @@ myApp/
 ├── package-lock.json
 ├── package.json
 └── vite.config.js
-```
+```§
 
 ---
 
