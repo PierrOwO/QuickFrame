@@ -186,6 +186,34 @@ Migrations use an internal Blueprint system to define tables, columns, foreign k
 
 ---
 
+## 🌱 Seeders
+
+QuickFrame supports class-based seeders similar to Laravel:
+
+- Create a seeder:
+  ```bash
+  php frame make:seeder UsersTableSeeder
+  ```
+- Run a specific seeder:
+  ```bash
+  php frame db:seed UsersTableSeeder
+  ```
+- Run all seeders:
+  ```bash
+  php frame db:seed
+  ```
+- Enable browser access to the seeder panel:
+  ```bash
+  php frame seeders:on
+  ```
+- Visit [`/seeders`](http://localhost:8000/seeders) in your browser to manually run seeders.
+- Disable seeder access:
+  ```bash
+  php frame seeders:off
+  ```
+  
+---
+
 ## 💡 VS Code Integration
 
 To enable syntax highlighting and Blade features for `.frame.php` view files in **Visual Studio Code**, add this to your User Settings (`settings.json`):
