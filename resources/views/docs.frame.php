@@ -3,6 +3,8 @@
 @section('title', 'Documentation')
 
 @section('styles')
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
 <style>
 .docs-section {
   padding: 0px 20px;
@@ -191,6 +193,62 @@ header .hamburger-button {
   cursor: pointer;
   transition: 0.4s;
 }
+header .search-box {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(-50%, -50%);
+  height:40px;
+  width:40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.search-box i{
+  font-size: 20px;
+}
+.search-box .input-box{
+  position: absolute;
+  background-color: #4F46E5;
+  height: auto;
+  width: 150px;
+  top: 90px;
+  left: -140px;
+  padding: 0px 10px;
+  border-radius: 5px;
+  transition: 0.4s;
+  opacity: 0;
+}
+.search-box .input-box.show-input{
+  opacity: 1;
+  top: 71.5px;
+}
+.search-box .input-box::after{
+  content: "";
+  background-color: #4F46E5;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: -7.5px;
+  right: 15px;
+  transform: rotate(45deg);
+  z-index: -1;
+}
+.search-box .input-box input{
+  width: 100%;
+  height: 25px;
+  line-height: 25px;
+  border-radius: 2px;
+  border: none;
+  font-size: 16px;
+  z-index: 2;
+}
+mark {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+}
 header .hamburger-button.rotate90{
   transform: translate(100%, -50%) rotate(180deg);
 }
@@ -234,7 +292,13 @@ section {
   <div class="container">
     <span onclick="showSidebar()" class="hamburger-button" id="hamburger-button">|||</span>
     <h1><a href="/">QuickFrame Documentation</a></h1>
-    
+    <div class="search-box">
+      <i id="search-box-icon" onclick="showHideInput()" class='bx bx-search'></i>
+      <div id="input-box" class="input-box">
+        <input id="search" type="text" placeholder="Search...">
+      </div>
+    </div>
+
     <div class="sidebar" id="sidebar" onclick="hideSidebar()" >
       <div class="content" id="sidebar-content" onclick="event.stopPropagation()">
         <div class="nav-header">
@@ -249,6 +313,7 @@ section {
           <li><a href="#auth&sessions">Auth & Sessions</a></li>
           <li><a href="#helpers">Helpers</a></li>
           <li><a href="#migrations">Migrations</a></li>
+          <li><a href="#seeders">Seeders</a></li>
           <li><a href="#cli">CLI</a></li>
           <li><a href="#testing">Testing</a></li>
           <li><a href="#session">Session</a></li>
@@ -589,6 +654,66 @@ $table->foreign('user_id')
     </p>
   </div>
 </section>
+<section id="seeders" class="docs-section">
+  <div class="container">
+    <h2>🌱 Seeders</h2>
+    <ul>
+      <li>Seeders allow you to populate your database with test or initial data using PHP classes.</li>
+
+      <li>Create a new seeder with:<br>
+        <code style="display: inline-block">php frame make:seeder UsersSeeder</code>
+      </li>
+
+      <li>Run all seeders:<br>
+        <code style="display: inline-block">php frame db:seed</code>
+      </li>
+
+      <li>Run a specific seeder class:<br>
+        <code style="display: inline-block">php frame db:seed UsersSeeder</code>
+      </li>
+
+      <li>Enable browser-based seeders interface:<br>
+        <code style="display: inline-block">php frame seeders:on</code>
+      </li>
+
+      <li>Disable browser-based seeders interface:<br>
+        <code style="display: inline-block">php frame seeders:off</code>
+      </li>
+
+      <li>Visit <a href="/seeders" target="_blank"><code style="display: inline-block">/seeders</code></a> to run or drop migrations manually via the browser.</li>
+    </ul>
+      <li>All seeders are stored in the <code style="display: inline-block">/database/seeders</code> directory.</li>
+    </ul>
+
+    <h3>📄 Example seeder</h3>
+    <pre><code>
+// database/seeders/UsersSeeder.php
+
+use App\Models\User;
+
+return new class {
+    public function run(): void
+    {
+        User::create([
+            'name' => 'Alice',
+            'email' => 'alice@example.com',
+            'password' => password_hash('secret', PASSWORD_BCRYPT),
+        ]);
+
+        User::create([
+            'name' => 'Bob',
+            'email' => 'bob@example.com',
+            'password' => password_hash('secret', PASSWORD_BCRYPT),
+        ]);
+    }
+};
+    </code></pre>
+
+    <p class="text-muted">
+      Seeders are run in the order they are defined. You can create composite seeders that call multiple individual seeders using method chaining.
+    </p>
+  </div>
+</section>
 <section id="cli" class="docs-section">
   <div class="container">
     <h2>⚡️ CLI</h2>
@@ -831,6 +956,69 @@ function showSidebar(){
    sidebarContent.classList.remove('show');
    HamburgerBtn.classList.remove('rotate90');
  }
+var inputShowed = false;
+function showHideInput(){
+  const inputBox = document.getElementById('input-box');
+  const searchIcon = document.getElementById('search-box-icon');
+  const searchInput = document.getElementById('search');
+  if(!inputShowed){
+    inputShowed = true;
+    inputBox.classList.add('show-input');
+    searchIcon.classList.remove('bx-search');
+    searchIcon.classList.add('bx-x');
+    searchInput.focus();
+  }else{
+    inputShowed = false;
+    inputBox.classList.remove('show-input');
+    searchIcon.classList.remove('bx-x');
+    searchIcon.classList.add('bx-search');
+    searchInput.value = "";
+    searchInput.dispatchEvent(new Event("keyup"));
 
+  }
+}
+document.getElementById("search").addEventListener("keyup", function () {
+    const value = this.value.trim().toLowerCase();
+    const sections = document.querySelectorAll("section");
+
+    let firstVisibleFound = false;
+
+    sections.forEach(section => {
+        section.innerHTML = section.innerHTML.replace(/<mark>(.*?)<\/mark>/gi, '$1');
+
+        const text = section.textContent.toLowerCase();
+        const isMatch = text.includes(value);
+
+        section.style.display = isMatch ? "" : "none";
+        section.style.marginTop = "";
+
+        if (isMatch) {
+            if (value.length > 0) {
+                const regex = new RegExp(`(${value})`, 'gi');
+                highlightMatches(section, regex);
+            }
+
+            if (!firstVisibleFound) {
+                section.style.marginTop = "80px";
+                firstVisibleFound = true;
+            }
+        }
+    });
+});
+
+function highlightMatches(element, regex) {
+    for (const node of element.childNodes) {
+        if (node.nodeType === 3) { 
+            const match = node.nodeValue.match(regex);
+            if (match) {
+                const span = document.createElement("span");
+                span.innerHTML = node.nodeValue.replace(regex, '<mark>$1</mark>');
+                node.replaceWith(span);
+            }
+        } else if (node.nodeType === 1 && node.childNodes.length) {
+            highlightMatches(node, regex);
+        }
+    }
+}
 </script>
 @endsection
