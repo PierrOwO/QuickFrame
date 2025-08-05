@@ -5,7 +5,7 @@ spl_autoload_register(function ($class) {
         'App\\' => dirname(__DIR__, 3) . '/app/',
         'Support\\' => dirname(__DIR__, 3) . '/support/',
         'Database\\' => dirname(__DIR__, 3) . '/database/',
-        'PHPMailer\\PHPMailer\\' => dirname(__DIR__, 3) . '/support/PHPMailer/',
+        'PHPMailer\\PHPMailer\\' => dirname(__DIR__, 3) . '/support/Libs/PHPMailer/',
     ];
 
     foreach ($prefixes as $prefix => $base_dir) {
