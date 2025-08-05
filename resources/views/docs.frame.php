@@ -934,7 +934,7 @@ $driver = config('database.driver'); // "mysql"</code></pre>
 
 $mail = Mail::to('user@example.com')
     ->subject('Hello!')
-    ->body('&lt;h1&gt;Welcome to QuickFrame&lt;/h1&gt;');
+    ->body('Welcome to QuickFrame');
 
 if ($mail->send()) {
     echo "Mail sent!";
@@ -949,7 +949,7 @@ use Support\Vault\Sanctum\Storage;
 
 $mail = Mail::to('user@example.com')
     ->subject('Invoice')
-    ->body('&lt;p&gt;Please find the invoice attached.&lt;/p&gt;')
+    ->body('Please find the invoice attached.')
     ->attach(Storage::path('invoices/2025-08.pdf'));
 
 if ($mail->send()) {
