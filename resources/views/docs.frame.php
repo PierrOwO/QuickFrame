@@ -319,6 +319,7 @@ section {
           <li><a href="#session">Session</a></li>
           <li><a href="#cache">Cache</a></li>
           <li><a href="#config">Config</a></li>
+          <li><a href="#mail">Mail</a></li>
         </ul>
       </div>
     </div>
@@ -919,10 +920,65 @@ $driver = config('database.driver'); // "mysql"</code></pre>
     </li>
   </ul>
 </div>
+</section>
+<section id="mail" class="docs-section">
+  <div class="container">
+    <h2>📧 Mail</h2>
+    <ul>
+      <li>
+        QuickFrame uses the <code style="display: inline-block">PHPMailer</code> library for sending emails.
+      </li>
+      <li>
+        Send a simple email:
+        <pre><code>use Support\Mail\Mail;
+
+$mail = Mail::to('user@example.com')
+    ->subject('Hello!')
+    ->body('&lt;h1&gt;Welcome to QuickFrame&lt;/h1&gt;');
+
+if ($mail->send()) {
+    echo "Mail sent!";
+} else {
+    echo "Error: " . $mail->getError();
+}</code></pre>
+      </li>
+      <li>
+        Send an email with an attachment:
+        <pre><code>use Support\Mail\Mail;
+use Support\Vault\Sanctum\Storage;
+
+$mail = Mail::to('user@example.com')
+    ->subject('Invoice')
+    ->body('&lt;p&gt;Please find the invoice attached.&lt;/p&gt;')
+    ->attach(Storage::path('invoices/2025-08.pdf'));
+
+if ($mail->send()) {
+    echo "Mail sent!";
+} else {
+    echo "Error: " . $mail->getError();
+}</code></pre>
+      </li>
+      <li>
+        Example SMTP settings in <code style="display: inline-block">.env</code> :
+        <pre><code>MAIL_DRIVER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=no-reply@example.com
+MAIL_FROM_NAME=QuickFrame</code></pre>
+      </li>
+    </ul>
+  </div>
   <a href="/" class="btn-primary">← Back to Home</a>
 </section>
 <button id="backToTop" title="Back to top">↑</button>
 @endsection
+
+
+
+
 @section('scripts')
 <script>
     const backToTopButton = document.getElementById('backToTop');

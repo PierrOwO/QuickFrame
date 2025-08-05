@@ -4,11 +4,20 @@ namespace Support\Vault\Sanctum;
 
 class Storage
 {
-    protected static $basePath = __DIR__ . '/../../storage/app';
+    protected static ?string $basePath = null;
 
-    public static function path($path)
+    protected static function basePath(): string
     {
-        return rtrim(self::$basePath . '/' . ltrim($path, '/'), '/');
+        if (self::$basePath === null) {
+            self::$basePath = base_path('storage/app');
+        }
+
+        return self::$basePath;
+    }
+
+    public static function path(string $path): string
+    {
+        return rtrim(self::basePath() . '/' . ltrim($path, '/'), '/');
     }
 
     public static function exists($path)

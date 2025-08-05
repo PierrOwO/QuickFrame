@@ -1,4 +1,5 @@
-/storage/
+/storage/cache/
+/storage/logs/
 /README.md
 /.env
 /node_modules/

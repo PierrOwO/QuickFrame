@@ -5,10 +5,11 @@ spl_autoload_register(function ($class) {
         'App\\' => dirname(__DIR__, 3) . '/app/',
         'Support\\' => dirname(__DIR__, 3) . '/support/',
         'Database\\' => dirname(__DIR__, 3) . '/database/',
+        'PHPMailer\\PHPMailer\\' => dirname(__DIR__, 3) . '/support/PHPMailer/',
     ];
 
     foreach ($prefixes as $prefix => $base_dir) {
-        if (strncmp($prefix, $class, strlen($prefix)) !== 0) {
+        if (strncmp($class, $prefix, strlen($prefix)) !== 0) {
             continue;
         }
 
@@ -29,7 +30,5 @@ spl_autoload_register(function ($class) {
 
 require_once __DIR__ . '/env.php';
 
-
-
-
-
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
