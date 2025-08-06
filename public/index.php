@@ -1,12 +1,9 @@
 <?php
 
-use Support\Vault\Foundation\Session;
-
 require_once __DIR__ . '/../support/Vault/Config/autoload.php';
 require_once __DIR__ . '/../support/Vault/Foundation/helpers.php';
 require_once __DIR__ . '/../support/Vault/Config/routes.php';
 $config = loadConfig();
-//Session::start();
 
 /**
  * File: public/index.php

@@ -1,4 +1,3 @@
-
 <?php
 
 use App\Middleware\Authenticate;
