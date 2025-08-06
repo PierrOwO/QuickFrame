@@ -13,7 +13,8 @@ class Model {
     protected $conditions = [];
     protected $order = '';
     protected $orConditions = [];
-
+    protected $select = '*';
+    
     protected bool $timestamps = true;
 
     public function __construct(array $attributes = [])
@@ -24,7 +25,16 @@ class Model {
             $this->$key = $value;
         }
     }
-    
+    public function select(...$columns)
+    {
+        $this->select = implode(', ', $columns);
+        return $this;
+    }
+    public function value(string $column)
+    {
+        $result = $this->select($column)->first();
+        return $result ? $result->$column : null;
+    }
     protected function currentTimestamp(): string
     {
         return date('Y-m-d H:i:s');
@@ -209,7 +219,7 @@ class Model {
             $whereClause = "WHERE " . implode(' OR ', $whereParts);
         }
 
-        $sql = "SELECT * FROM $table";
+        $sql = "SELECT {$this->select} FROM $table";
         if (!empty($whereClause)) {
             $sql .= " $whereClause";
         }
@@ -255,7 +265,7 @@ class Model {
             $whereClause = "WHERE " . implode(' OR ', $whereParts);
         }
 
-        $sql = "SELECT * FROM $table";
+        $sql = "SELECT {$this->select} FROM $table";
         if (!empty($whereClause)) {
             $sql .= " $whereClause";
         }
