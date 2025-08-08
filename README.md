@@ -68,8 +68,7 @@ myApp/
 
 Before you start using **QuickFrame**, make sure you have the following installed on your system:
 
-- **PHP** (version X.X or higher)  
-- **Composer** (for PHP dependencies)  
+- **PHP** (version 8.2 or higher)  
 - **Node.js** (includes `npm`) – required for Vite and frontend build tools  
 - **Git** (for version control and Git-FTP deployments)  
 
@@ -120,9 +119,9 @@ Starts a local development server at `http://localhost:8000`
 
 ## QuickFrame CLI & FTP Deployment Guide
 
-## Available QuickFrame Commands
+### Available QuickFrame Commands
 
-### Core
+#### Core
 - `serve`  
   Start the local development server
 - `serve IP PORT`  
@@ -132,7 +131,7 @@ Starts a local development server at `http://localhost:8000`
 - `-v`  
   Short version of `--version`
 
-### Generators
+#### Generators
 - `make:controller Name`  
   Create a new controller class
 - `make:model Name`  
@@ -148,13 +147,13 @@ Starts a local development server at `http://localhost:8000`
 - `make:seeder Name`  
   Generate a new seeder class
 
-### Migrations
+#### Migrations
 - `migrations:on`  
   Enable browser migration interface
 - `migrations:off`  
   Disable browser migration interface
 
-### Seeders
+#### Seeders
 - `db:seed`  
   Run all seeders from `/database/seeders`
 - `db:seed Name`  
@@ -164,7 +163,7 @@ Starts a local development server at `http://localhost:8000`
 - `seeders:off`  
   Disable browser seeder interface
 
-### FTP Deployment
+#### FTP Deployment
 - `ftp:init`  
   Initialize Git FTP
 - `ftp:push`  
@@ -172,7 +171,7 @@ Starts a local development server at `http://localhost:8000`
 
 ---
 
-## FTP Commands Requirements
+### FTP Commands Requirements
 
 The commands:
 
@@ -181,7 +180,7 @@ The commands:
 
 only work if you have **git-ftp** installed.
 
-### Linux / macOS
+#### Linux / macOS
 
 Make sure you have `git ftp` installed, for example:
 
@@ -189,7 +188,7 @@ Make sure you have `git ftp` installed, for example:
 brew install git-ftp       # macOS with Homebrew
 sudo apt install git-ftp   # Ubuntu/Debian Linux
 ```
-### Windows
+#### Windows
 
 ## Option 1: Use WSL (Windows Subsystem for Linux)
 
@@ -203,7 +202,7 @@ wsl --install
 
 After installing WSL and restarting your PC, you can use git ftp commands via WSL.
 
-## Option 2: Use Git Bash Terminal
+### Option 2: Use Git Bash Terminal
 
 If you have Git for Windows installed, you may also use git ftp from the Git Bash terminal — just make sure git ftp is correctly installed and accessible in that environment.
 
