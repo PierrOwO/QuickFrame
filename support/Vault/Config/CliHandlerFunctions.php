@@ -203,6 +203,7 @@ class CliHandlerFunctions
 
         \033[36mGenerators:\033[0m
           \033[33mmake:controller Name\033[0m   Create a new controller class
+          \033[33mmake:service Name\033[0m      Create a new service class
           \033[33mmake:model Name\033[0m        Create a new model class
           \033[33mmake:middleware Name\033[0m   Create a new middleware class
           \033[33mmake:helper Name\033[0m       Create a new global helper function

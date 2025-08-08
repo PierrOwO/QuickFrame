@@ -64,7 +64,51 @@ myApp/
 
 ---
 
-## ⚙️ CLI Commands
+# First configuration
+
+Before you start using **QuickFrame**, make sure you have the following installed on your system:
+
+- **PHP** (version X.X or higher)  
+- **Composer** (for PHP dependencies)  
+- **Node.js** (includes `npm`) – required for Vite and frontend build tools  
+- **Git** (for version control and Git-FTP deployments)  
+
+## 1. Install Node.js and npm
+QuickFrame uses **Vite** for asset bundling.  
+If you don’t have Node.js installed, download it from:  
+👉 [https://nodejs.org/](https://nodejs.org/)  
+
+Installing Node.js will also install **npm** automatically.
+
+## 2. Install PHP dependencies
+In your project directory, run:
+```bash
+composer install
+```
+
+## 3. Install JavaScript dependencies
+Run:
+```bash
+npm install
+```
+
+## 4. Environment configuration
+Edit `.env` to match your database and server configuration.
+
+## 5. Run development server
+For PHP (backend):
+```bash
+php frame serve
+```
+
+For Vite (frontend assets):
+```bash
+npm run dev
+```
+
+---
+
+# ⚙️ CLI Commands
 
 From the project root, you can run:
 
@@ -74,7 +118,7 @@ php frame serve
 
 Starts a local development server at `http://localhost:8000`
 
-# QuickFrame CLI & FTP Deployment Guide
+## QuickFrame CLI & FTP Deployment Guide
 
 ## Available QuickFrame Commands
 
