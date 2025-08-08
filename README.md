@@ -79,22 +79,16 @@ If you don’t have Node.js installed, download it from:
 
 Installing Node.js will also install **npm** automatically.
 
-## 2. Install PHP dependencies
-In your project directory, run:
-```bash
-composer install
-```
-
-## 3. Install JavaScript dependencies
+## 2. Install JavaScript dependencies
 Run:
 ```bash
 npm install
 ```
 
-## 4. Environment configuration
+## 3. Environment configuration
 Edit `.env` to match your database and server configuration.
 
-## 5. Run development server
+## 4. Run development server
 For PHP (backend):
 ```bash
 php frame serve
