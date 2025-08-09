@@ -381,61 +381,86 @@ public function index()
 <section id="controllers" class="docs-section">
   <div class="container">
     <h2>🧠 Controllers</h2>
-    <p>Controllers are the core part of the MVC (Model-View-Controller) architecture. They handle user requests, interact with models, and return views or other responses.</p>
+    <p>
+      Controllers are the core part of the MVC (Model-View-Controller) architecture.  
+      They handle user requests, interact with services and models, and return views or API responses.
+    </p>
 
     <h3>Where are controllers located?</h3>
-    <p>Controllers live in the <code style="display: inline-block;">app/Controllers/</code> directory. Each controller is a PHP class grouping methods (actions) that correspond to different functions or endpoints in your application.</p>
+    <p>
+      Controllers live in the <code style="display: inline-block;">app/Controllers/</code> directory.  
+      Each controller is a PHP class grouping methods (actions) that correspond to different functions or endpoints in your application.
+    </p>
 
     <h3>Main responsibilities of a controller</h3>
     <ul>
       <li>Receive and process HTTP requests.</li>
-      <li>Interact with models (fetching, saving data).</li>
-      <li>Pass data to views.</li>
-      <li>Handle application business logic.</li>
-      <li>Manage redirects and HTTP responses (like JSON, file downloads).</li>
+      <li>Delegate business logic to <strong>services</strong> or models.</li>
+      <li>Pass data to views or format API responses (JSON, XML, etc.).</li>
+      <li>Manage redirects and HTTP responses (e.g., file downloads).</li>
+      <li>Handle application-level flow and validation.</li>
     </ul>
 
-    <h3>How to return a view from a controller?</h3>
-    <p>Controllers usually return a view with data. Example:</p>
-    <pre><code class="language-php">
-public function home()
-{
-    $data = [
-        'title' => 'Home Page',
-        'items' => ['apple', 'banana', 'pear']
-    ];
-    return view('home', $data);
-}
-    </code></pre>
-    <p>The <code style="display: inline-block;">view()</code> function loads the view template and passes the data to it.</p>
-
-    <h3>Example of a simple controller</h3>
+    <h3>Controller with an auto-generated Service</h3>
+    <p>
+      When you create a controller using the CLI, you can also generate a matching service.  
+      This service is automatically imported and instantiated in the controller, so you can focus on calling its methods.
+    </p>
     <pre><code class="language-php">
 namespace App\Controllers;
 
-class HomeController
+use App\Services\UserService;
+
+class UserController
 {
+    protected UserService $service;
+
+    public function __construct()
+    {
+        $this->service = new UserService();
+    }
+
     public function index()
     {
-        $message = "Welcome to the home page!";
-        return view('home.index', ['message' => $message]);
+        // Example: fetch users
+        $users = $this->service->getAll();
+        return view('users.index', ['users' => $users]);
+    }
+
+    public function checkData($data)
+    {
+        $result = $this->service->check($data);
+
+        if (!$result['success']) {
+            return response()->json([
+                'success' => false,
+                'message' => $result['message']
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => $result['message']
+        ]);
     }
 }
     </code></pre>
 
-    <h3>Best practices</h3>
+    <h3>Benefits of using Services in Controllers</h3>
     <ul>
-      <li><strong>Single responsibility:</strong> Keep your controller focused on handling application logic, avoid direct database queries (leave that to models).</li>
-      <li><strong>Use dependency injection:</strong> Inject services into controllers instead of creating them inside methods.</li>
-      <li><strong>Avoid bloated controllers:</strong> Move complex operations to service classes or models.</li>
-      <li><strong>Write tests for controller methods:</strong> This improves maintainability and reliability.</li>
+      <li><strong>Separation of concerns:</strong> Controllers focus on routing and responses, services handle business logic.</li>
+      <li><strong>Reusability:</strong> The same service can be used in multiple controllers.</li>
+      <li><strong>Easier testing:</strong> You can test services separately from controllers.</li>
+      <li><strong>Cleaner code:</strong> Less code inside controllers makes them easier to read.</li>
     </ul>
 
-    <h3>Error handling in controllers</h3>
-    <p>Controllers should gracefully handle errors and exceptions, e.g., by returning appropriate error pages or JSON error responses for APIs.</p>
-
-    <h3>Middleware and extensions</h3>
-    <p>Controllers can use middleware to run code before or after controller actions, such as authentication, logging, or input validation.</p>
+    <h3>Best practices</h3>
+    <ul>
+      <li>Use dependency injection to pass services, instead of creating them manually when possible.</li>
+      <li>Keep controllers thin — heavy logic belongs in services.</li>
+      <li>Validate input before passing it to services.</li>
+      <li>Handle exceptions gracefully, returning proper error messages or codes.</li>
+    </ul>
   </div>
 </section>
 

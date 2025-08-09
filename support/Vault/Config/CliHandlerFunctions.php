@@ -207,7 +207,7 @@ class CliHandlerFunctions
           \033[33mmake:model Name\033[0m        Create a new model class
           \033[33mmake:middleware Name\033[0m   Create a new middleware class
           \033[33mmake:helper Name\033[0m       Create a new global helper function
-          \033[33mmake:view Name\033[0m         Create a Blade-like view file
+          \033[33mmake:view Name\033[0m         Create a view file
           \033[33mmake:migration Name\033[0m    Create a new migration class
           \033[33mmake:seeder Name\033[0m       Generate a new seeder class
 
