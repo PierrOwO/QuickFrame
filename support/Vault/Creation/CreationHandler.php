@@ -10,49 +10,93 @@ require __DIR__ . '/../Foundation/helpers.php';
 class CreationHandler 
 {
     public static function createService($name)
-{
-    if (!$name) {
-        echo "Type name of the service.\n";
-        exit(1);
+    {
+        if (!$name) {
+            echo "Type name of the service.\n";
+            exit(1);
+        }
+
+        if (!str_ends_with($name, 'Service')) {
+            $name .= 'Service';
+        }
+
+        $normalized = str_replace(['.', '/'], '\\', $name);
+        $normalized = trim($normalized, '\\');
+
+        if (str_contains($normalized, '\\')) {
+            $parts = explode('\\', $normalized);
+            $className = array_pop($parts); 
+            $namespacePart = implode('\\', $parts);
+            $namespaceFull = 'App\\Services' . ($namespacePart ? '\\' . $namespacePart : '');
+        } else {
+            $className = $normalized;
+            $namespaceFull = 'App\\Services';
+        }
+
+        $relativePath = str_replace('\\', '/', ($namespacePart ?? '') . '/' . $className);
+        $relativePath = ltrim($relativePath, '/');
+
+        $directory = base_path('app/Services/' . dirname($relativePath));
+        if (!is_dir($directory)) {
+            mkdir($directory, 0777, true);
+        }
+
+        $outputPath = base_path('app/Services/' . $relativePath . '.php');
+        if (file_exists($outputPath)) {
+            echo "Service already exists.\n";
+            exit(1);
+        }
+
+        $stub = file_get_contents(__DIR__ . '/stubs/service.stub');
+        $stub = str_replace(['ClassName', 'NameSpace'], [$className, $namespaceFull], $stub);
+
+        file_put_contents($outputPath, $stub);
+        echo "Created service: {$relativePath}\n";
     }
+    public static function createApiService($name)
+    {
+        if (!$name) {
+            echo "Type name of the service.\n";
+            exit(1);
+        }
 
-    if (!str_ends_with($name, 'Service')) {
-        $name .= 'Service';
+        if (!str_ends_with($name, 'Service')) {
+            $name .= 'Service';
+        }
+
+        $normalized = str_replace(['.', '/'], '\\', $name);
+        $normalized = trim($normalized, '\\');
+
+        if (str_contains($normalized, '\\')) {
+            $parts = explode('\\', $normalized);
+            $className = array_pop($parts); 
+            $namespacePart = implode('\\', $parts);
+            $namespaceFull = 'App\\Services' . ($namespacePart ? '\\' . $namespacePart : '');
+        } else {
+            $className = $normalized;
+            $namespaceFull = 'App\\Services\\Api';
+        }
+
+        $relativePath = str_replace('\\', '/', ($namespacePart ?? '') . '/' . $className);
+        $relativePath = ltrim($relativePath, '/');
+
+        $directory = base_path('app/Services/Api/' . dirname($relativePath));
+        if (!is_dir($directory)) {
+            mkdir($directory, 0777, true);
+        }
+
+        $outputPath = base_path('app/Services/Api/' . $relativePath . '.php');
+        if (file_exists($outputPath)) {
+            echo "Service already exists.\n";
+            exit(1);
+        }
+
+        $stub = file_get_contents(__DIR__ . '/stubs/service.stub');
+        $stub = str_replace(['ClassName', 'NameSpace'], [$className, $namespaceFull], $stub);
+
+        file_put_contents($outputPath, $stub);
+        echo "Created service: {$relativePath}\n";
     }
-
-    $normalized = str_replace(['.', '/'], '\\', $name);
-    $normalized = trim($normalized, '\\');
-
-    if (str_contains($normalized, '\\')) {
-        $parts = explode('\\', $normalized);
-        $className = array_pop($parts); 
-        $namespacePart = implode('\\', $parts);
-        $namespaceFull = 'App\\Services' . ($namespacePart ? '\\' . $namespacePart : '');
-    } else {
-        $className = $normalized;
-        $namespaceFull = 'App\\Services';
-    }
-
-    $relativePath = str_replace('\\', '/', ($namespacePart ?? '') . '/' . $className);
-    $relativePath = ltrim($relativePath, '/');
-
-    $directory = base_path('app/Services/' . dirname($relativePath));
-    if (!is_dir($directory)) {
-        mkdir($directory, 0777, true);
-    }
-
-    $outputPath = base_path('app/Services/' . $relativePath . '.php');
-    if (file_exists($outputPath)) {
-        echo "Service already exists.\n";
-        exit(1);
-    }
-
-    $stub = file_get_contents(__DIR__ . '/stubs/service.stub');
-    $stub = str_replace(['ClassName', 'NameSpace'], [$className, $namespaceFull], $stub);
-
-    file_put_contents($outputPath, $stub);
-    echo "Created service: {$relativePath}\n";
-}
     public static function createSeeder($name) 
     {
         if (!$name) {
@@ -76,78 +120,97 @@ class CreationHandler
         echo "Created seeder: {$name}\n";
     }
     public static function createController($name)
-{
-    if (!$name) {
-        echo "Type name of the controller.\n";
-        exit(1);
-    }
-    $className = $name;
-    if (!str_ends_with($name, 'Controller')) {
-        $className .= 'Controller';
-    }
-
-    $normalized = str_replace(['.', '/'], '\\', $className); 
-    $normalized = trim($normalized, '\\');
-
-    $relativePath = str_replace('\\', '/', $normalized); 
-    $parts = explode('/', $relativePath);
-    $className = end($parts);
-    $serviceName = str_replace('Controller', 'Service', $className);
-
-    $namespacePart = dirname($relativePath);
-    $namespacePart = $namespacePart === '.' ? '' : '\\' . str_replace('/', '\\', $namespacePart);
-    $nameSpace = 'App\\Controllers' . $namespacePart;
-    $serviceNameSpace = 'App\\Services'. str_replace('Controller', 'Service', $namespacePart) . '\\' . $serviceName;;
-
-    $stub = file_get_contents(__DIR__ . '/stubs/controller.stub');
-    $stub = str_replace('ClassName', $className, $stub);
-    $stub = str_replace('NameSpace', $nameSpace, $stub);
-    $stub = str_replace('ServiceUse', $serviceNameSpace, $stub);
-    $stub = str_replace('ServiceClass', $serviceName, $stub);
-
-    $directory = base_path('app/Controllers/' . dirname($relativePath));
-    if (!is_dir($directory)) {
-        mkdir($directory, 0777, true);
-    }
-
-    $outputPath = base_path('app/Controllers/' . $relativePath . '.php');
-    if (file_exists($outputPath)) {
-        echo "Controller already exists.\n";
-        exit(1);
-    }
-
-    file_put_contents($outputPath, $stub);
-
-    self::createService($name); 
-    echo "Created controller: {$relativePath}\n";
-}
-    public static function createApiController($name) 
     {
         if (!$name) {
             echo "Type name of the controller.\n";
             exit(1);
         }
+        $className = $name;
         if (!str_ends_with($name, 'Controller')) {
-            $className = $name . 'Controller';
-        } else {
-            $className = $name;
+            $className .= 'Controller';
         }
-        $stub = file_get_contents(__DIR__ . '/stubs/api.stub');
+
+        $normalized = str_replace(['.', '/'], '\\', $className); 
+        $normalized = trim($normalized, '\\');
+
+        $relativePath = str_replace('\\', '/', $normalized); 
+        $parts = explode('/', $relativePath);
+        $className = end($parts);
+        $serviceName = str_replace('Controller', 'Service', $className);
+
+        $namespacePart = dirname($relativePath);
+        $namespacePart = $namespacePart === '.' ? '' : '\\' . str_replace('/', '\\', $namespacePart);
+        $nameSpace = 'App\\Controllers' . $namespacePart;
+        $serviceNameSpace = 'App\\Services'. str_replace('Controller', 'Service', $namespacePart) . '\\' . $serviceName;;
+
+        $stub = file_get_contents(__DIR__ . '/stubs/controller.stub');
         $stub = str_replace('ClassName', $className, $stub);
+        $stub = str_replace('NameSpace', $nameSpace, $stub);
+        $stub = str_replace('ServiceUse', $serviceNameSpace, $stub);
+        $stub = str_replace('ServiceClass', $serviceName, $stub);
 
-        $directory = base_path("app/Controllers/Api");
+        $directory = base_path('app/Controllers/' . dirname($relativePath));
         if (!is_dir($directory)) {
-            mkdir($directory, 0777, true); 
+            mkdir($directory, 0777, true);
         }
 
-        $outputPath = base_path("app/Controllers/Api/{$className}.php");
+        $outputPath = base_path('app/Controllers/' . $relativePath . '.php');
         if (file_exists($outputPath)) {
             echo "Controller already exists.\n";
             exit(1);
         }
-    
+
         file_put_contents($outputPath, $stub);
-        echo "Created Api controller: {$className}\n";
+
+        self::createService($name); 
+        echo "Created controller: {$relativePath}\n";
+    }
+    public static function createApiController($name)
+    {
+        if (!$name) {
+            echo "Type name of the api controller.\n";
+            exit(1);
+        }
+        $className = $name;
+        if (!str_ends_with($name, 'Controller')) {
+            $className .= 'Controller';
+        }
+
+        $normalized = str_replace(['.', '/'], '\\', $className); 
+        $normalized = trim($normalized, '\\');
+
+        $relativePath = str_replace('\\', '/', $normalized); 
+        $parts = explode('/', $relativePath);
+        $className = end($parts);
+        $serviceName = str_replace('Controller', 'Service', $className);
+
+        $namespacePart = dirname($relativePath);
+        $namespacePart = $namespacePart === '.' ? '' : '\\' . str_replace('/', '\\', $namespacePart);
+        $nameSpace = 'App\\Controllers\\Api' . $namespacePart;
+        $serviceNameSpace = 'App\\Services\\Api'. str_replace('Controller', 'Service', $namespacePart) . '\\' . $serviceName;;
+
+        $stub = file_get_contents(__DIR__ . '/stubs/api.stub');
+        $stub = str_replace('ClassName', $className, $stub);
+        $stub = str_replace('NameSpace', $nameSpace, $stub);
+        $stub = str_replace('ServiceUse', $serviceNameSpace, $stub);
+        $stub = str_replace('ServiceClass', $serviceName, $stub);
+
+        $directory = base_path('app/Controllers/Api/' . dirname($relativePath));
+        if (!is_dir($directory)) {
+            mkdir($directory, 0777, true);
+        }
+
+        $outputPath = base_path('app/Controllers/Api/' . $relativePath . '.php');
+        if (file_exists($outputPath)) {
+            echo "Controller already exists.\n";
+            exit(1);
+        }
+
+        file_put_contents($outputPath, $stub);
+
+        echo "Created api controller: {$relativePath}\n";
+        self::createApiService($name); 
+
     }
     public static function createModel($name) 
     {

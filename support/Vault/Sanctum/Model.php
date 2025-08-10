@@ -314,12 +314,57 @@ class Model {
         return $model->save();
     }
 
-    public static function delete($id) 
+    public static function delete2($id) 
     {
         $table = static::$table;
         $sql = "DELETE FROM $table WHERE id = ?";
         $stmt = self::db()->prepare($sql);
         return $stmt->execute([$id]);
+    }
+    public function delete()
+    {
+        if (!empty($this->conditions) || !empty($this->orConditions)) {
+            $table = static::$table;
+
+            $whereParts = [];
+            $values = [];
+
+            foreach ($this->conditions as $col => $val) {
+                $whereParts[] = "$col = ?";
+                $values[] = $val;
+            }
+
+            foreach ($this->orConditions as [$col, $val]) {
+                $whereParts[] = "$col = ?";
+                $values[] = $val;
+            }
+
+            if (empty($whereParts)) {
+                throw new \Exception("Delete without conditions is not allowed.");
+            }
+
+            $andCount = count($this->conditions);
+            $orCount = count($this->orConditions);
+
+            if ($andCount && $orCount) {
+                $andPart = implode(' AND ', array_slice($whereParts, 0, $andCount));
+                $orPart = implode(' OR ', array_slice($whereParts, $andCount));
+                $whereClause = "WHERE ($andPart) OR ($orPart)";
+            } elseif ($andCount) {
+                $whereClause = "WHERE " . implode(' AND ', $whereParts);
+            } elseif ($orCount) {
+                $whereClause = "WHERE " . implode(' OR ', $whereParts);
+            }
+
+            $sql = "DELETE FROM $table $whereClause";
+            $stmt = self::db()->prepare($sql);
+            return $stmt->execute($values);
+        }
+
+        if (!isset($this->attributes['id'])) {
+            throw new \Exception("Cannot delete a model without an ID.");
+        }
+        return static::delete($this->attributes['id']);
     }
     public static function exists($column, $value = null): bool
     {

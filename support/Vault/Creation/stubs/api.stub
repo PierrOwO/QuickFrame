@@ -1,9 +1,16 @@
 <?php
 
-namespace App\Controllers\Api;
+namespace NameSpace;
+
+use ServiceUse;
 
 class ClassName
 {
+    protected ServiceClass $service;
+
+    public function __construct() {
+        $this->service = new ServiceClass();
+    }
     public function index()
     {
         // GET /users
