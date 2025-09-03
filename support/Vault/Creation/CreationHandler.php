@@ -187,7 +187,8 @@ class CreationHandler
         $namespacePart = dirname($relativePath);
         $namespacePart = $namespacePart === '.' ? '' : '\\' . str_replace('/', '\\', $namespacePart);
         $nameSpace = 'App\\Controllers\\Api' . $namespacePart;
-        $serviceNameSpace = 'App\\Services\\Api'. str_replace('Controller', 'Service', $namespacePart) . '\\' . $serviceName;;
+        //$serviceNameSpace = 'App\\Services\\Api'. str_replace('Controller', 'Service', $namespacePart) . '\\' . $serviceName;;
+        $serviceNameSpace = 'App\\Services'. str_replace('Controller', 'Service', $namespacePart) . '\\' . $serviceName;;
 
         $stub = file_get_contents(__DIR__ . '/stubs/api.stub');
         $stub = str_replace('ClassName', $className, $stub);
@@ -209,7 +210,8 @@ class CreationHandler
         file_put_contents($outputPath, $stub);
 
         echo "Created api controller: {$relativePath}\n";
-        self::createApiService($name); 
+        //self::createApiService($name); 
+        self::createService($name); 
 
     }
     public static function createModel($name) 

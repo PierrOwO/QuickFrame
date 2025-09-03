@@ -108,6 +108,18 @@ class View
 
         $content = preg_replace('/@endforeach\b/', '<?php endforeach; ?>', $content);
 
+        $content = preg_replace_callback('/@for\s*\(([^)]+)\)/', function ($matches) {
+            return '<?php for (' . $matches[1] . ') { ?>';
+        }, $content);
+
+        $content = preg_replace('/@endfor\b/', '<?php } ?>', $content);
+
+        $content = preg_replace_callback('/@while\s*\((.*?)\)/s', function ($matches) {
+            return '<?php while (' . $matches[1] . '): ?>';
+        }, $content);
+        
+        $content = preg_replace('/@endwhile\b/', '<?php endwhile; ?>', $content);
+
         $content = preg_replace_callback(
             '/^[\t ]*@section\([\'"](.+?)[\'"]\s*,\s*[\'"](.+?)[\'"]\)/m',
             function ($matches) {

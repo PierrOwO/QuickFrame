@@ -63,7 +63,14 @@ class Blueprint
     {
         return new ColumnDefinition($this, $name, "TIMESTAMP");
     }
-
+    public function date(string $name): ColumnDefinition
+    {
+        return new ColumnDefinition($this, $name, "DATE");
+    }
+    public function dateTime(string $name): ColumnDefinition
+    {
+        return new ColumnDefinition($this, $name, "DATETIME");
+    }
     public function timestamps(): self
     {
         $this->columns[] = "`created_at` TIMESTAMP NULL DEFAULT NULL";
@@ -146,5 +153,41 @@ class Blueprint
 
         $sql .= "\n) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
         return $sql;
+    }
+
+    public function enum(string $name, array $values): ColumnDefinition
+    {
+        $type = "ENUM('" . implode("','", $values) . "')";
+        return new ColumnDefinition($this, $name, $type);
+    }
+
+    public function json(string $name): ColumnDefinition
+    {
+        $type = $this->supportsJson() ? "JSON" : "LONGTEXT";
+        return new ColumnDefinition($this, $name, $type);
+    }
+
+    protected function supportsJson(): bool
+    {
+        try {
+            $pdo = \Support\Vault\Database\Database::connect();
+            $version = $pdo->query("SELECT VERSION()")->fetchColumn();
+
+            if (stripos($version, 'mariadb') !== false) {
+                return version_compare(
+                    preg_replace('/[^0-9.]/', '', $version),
+                    '10.2.7',
+                    '>='
+                );
+            }
+
+            return version_compare(
+                preg_replace('/[^0-9.]/', '', $version),
+                '5.7.8',
+                '>='
+            );
+        } catch (\Throwable $e) {
+            return false;
+        }
     }
 }

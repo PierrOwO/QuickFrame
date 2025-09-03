@@ -93,6 +93,42 @@ class Route
         return $route;
     }
     
+    public static function delete($path, $callback): RouteFluent
+    {
+        $fullPath = self::fullPath($path);
+        $route = new RouteFluent('DELETE', $fullPath, $callback);
+        $route->middleware = self::$groupMiddleware; 
+        self::$routes['DELETE'][$fullPath] = $route;
+        return $route;
+    }
+
+    public static function put($path, $callback): RouteFluent
+    {
+        $fullPath = self::fullPath($path);
+        $route = new RouteFluent('PUT', $fullPath, $callback);
+        $route->middleware = self::$groupMiddleware; 
+        self::$routes['PUT'][$fullPath] = $route;
+        return $route;
+    }
+
+    public static function patch($path, $callback): RouteFluent
+    {
+        $fullPath = self::fullPath($path);
+        $route = new RouteFluent('PATCH', $fullPath, $callback);
+        $route->middleware = self::$groupMiddleware; 
+        self::$routes['PATCH'][$fullPath] = $route;
+        return $route;
+    }
+
+    public static function options($path, $callback): RouteFluent
+    {
+        $fullPath = self::fullPath($path);
+        $route = new RouteFluent('OPTIONS', $fullPath, $callback);
+        $route->middleware = self::$groupMiddleware; 
+        self::$routes['OPTIONS'][$fullPath] = $route;
+        return $route;
+    }
+    
     public static function middleware(array $middlewares, ?callable $callback = null)
     {
         if ($callback) {
