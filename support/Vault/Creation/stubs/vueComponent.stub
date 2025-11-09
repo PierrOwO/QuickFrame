@@ -1,0 +1,43 @@
+<template>
+  <div>
+    <!-- Component HTML structure -->
+    <p>{{ message }}</p>
+    <button @click="handleClick">Click me</button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'ComponentName', // Component name
+  props: {
+    // Define props here
+    title: String
+  },
+  data() {
+    return {
+      message: 'Hello, I am a Vue component!'
+    }
+  },
+  methods: {
+    handleClick() {
+      alert('Button clicked!');
+    }
+  },
+  computed: {
+    // Computed properties
+    upperMessage() {
+      return this.message.toUpperCase();
+    }
+  }
+}
+</script>
+
+<style scoped>
+/* Scoped styles for this component only */
+p {
+  color: blue;
+}
+button {
+  margin-top: 10px;
+}
+</style>

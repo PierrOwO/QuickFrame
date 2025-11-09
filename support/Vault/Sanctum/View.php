@@ -118,6 +118,13 @@ class View
             return '<?php while (' . $matches[1] . '): ?>';
         }, $content);
         
+        $content = preg_replace_callback(
+            '/@json\s*\((.*?)\)/s',
+            function ($matches) {
+                return '<?php echo json_encode(' . $matches[1] . ', JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT); ?>';
+            },
+            $content
+        );
         $content = preg_replace('/@endwhile\b/', '<?php endwhile; ?>', $content);
 
         $content = preg_replace_callback(

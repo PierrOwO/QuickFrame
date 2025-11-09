@@ -320,6 +320,10 @@ section {
           <li><a href="#cache">Cache</a></li>
           <li><a href="#config">Config</a></li>
           <li><a href="#mail">Mail</a></li>
+          <li><a href="#pdf">PDF helper</a></li>
+          <li><a href="#qrcode">QR Code helper </a></li>
+          <li><a href="#barcode">Barcode helper </a></li>
+          <li><a href="#carbon">Carbon</a></li>
         </ul>
       </div>
     </div>
@@ -996,8 +1000,109 @@ MAIL_FROM_NAME=QuickFrame</code></pre>
       </li>
     </ul>
   </div>
+</section>
+
+<section id="pdf" class="docs-section">
+  <div class="container">
+    <h2>📄 PDF</h2>
+    <ul>
+      <li>
+        QuickFrame uses the <code style="display: inline-block">TCPDF</code> library to generate PDF documents.
+      </li>
+      <li>
+        Generate a simple PDF:
+        <pre><code>use TCPDFWrapper\PDF;
+
+$html = '&lt;h1&gt;Hello PDF&lt;/h1&gt;&lt;p&gt;This is a sample PDF.&lt;/p&gt;';
+
+PDF::new()
+    ->author('Piotr')
+    ->title('Sample PDF')
+    ->addPage('P', 'A4')
+    ->content($html)
+    ->output('sample.pdf', 'D'); // 'I' = inline, 'D' = download</code></pre>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="qrcode" class="docs-section">
+  <div class="container">
+    <h2>🔲 QR Code</h2>
+    <ul>
+      <li>
+        QuickFrame uses the <code style="display: inline-block">QRCode</code> helper (chillerlan/php-qrcode) to generate QR codes.
+      </li>
+      <li>
+        Generate a QR code:
+        <pre><code>use QRCode\QRCode;
+
+QRCode::new('https://quickframe.pieterapps.pl')
+    ->scale(4)
+    ->margin(2)
+    ->bgColor('#ffffff')
+    ->fgColor('#000000')
+    ->size('200px')
+    ->render();</code></pre>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="barcode" class="docs-section">
+  <div class="container">
+    <h2>📇 Barcode</h2>
+    <ul>
+      <li>
+        QuickFrame uses the <code style="display: inline-block">Barcode</code> helper (Picqer\Barcode) to generate 1D barcodes.
+      </li>
+      <li>
+        Generate a barcode:
+        <pre><code>use Barcode\Barcode;
+
+Barcode::new('123456789012')
+    ->type('C128')
+    ->width(2)
+    ->height(60)
+    ->showText(true)
+    ->render();</code></pre>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="carbon" class="docs-section">
+  <div class="container">
+    <h2>🗓️ Carbon</h2>
+    <ul>
+      <li>
+        QuickFrame uses the <code style="display: inline-block">Carbon</code> library for date and time manipulation.
+      </li>
+      <li>
+        Basic examples:
+        <pre><code>use Carbon\Carbon;
+
+echo Carbon::now()
+echo Carbon::now()->format('Y-m-d H:i:s')
+echo Carbon::now()->format('d/m/Y')
+echo Carbon::now()->format('l, d F Y')
+echo Carbon::now()->addDays(7)
+echo Carbon::now()->subWeeks(2)
+echo Carbon::now()->addMonths(1)->format('d/m/Y')
+echo Carbon::now()->isWeekend() ? 'Weekend' : 'Weekday'
+echo Carbon::now()->gt(Carbon::parse('2025-12-25')) ? 'Christmas has come' : "It's not Christmas yet"
+echo Carbon::now()->addMinutes(90)->diffForHumans()
+echo Carbon::parse('2025-12-31')
+echo Carbon::create(2025, 12, 31, 23, 59, 59)
+echo Carbon::now('Europe/Warsaw')
+echo Carbon::now()->setTimezone('America/New_York')</code></pre>
+      </li>
+    </ul>
+  </div>
   <a href="/" class="btn-primary">← Back to Home</a>
 </section>
+
+
 <button id="backToTop" title="Back to top">↑</button>
 @endsection
 

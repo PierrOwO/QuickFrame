@@ -131,9 +131,7 @@ function isDevServerRunning(): bool
 
 
 function csrf_token() {
-   // return $_SESSION['_csrf_token'] ?? 'no csrf token';
     return Session::csrf();
-
 }
 
 function csrf_field() {
@@ -245,4 +243,12 @@ function auth(): Auth
 function db(): PDO
 {
     return Database::connect();
+}
+function session(): Session
+{
+    static $instance = null;
+    if ($instance === null) {
+        $instance = new Session();
+    }
+    return $instance;
 }

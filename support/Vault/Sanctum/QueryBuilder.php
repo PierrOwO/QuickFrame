@@ -147,4 +147,16 @@ class QueryBuilder {
 
         return (int)$stmt->fetch(PDO::FETCH_ASSOC)['cnt'];
     }
+    public function exists(): bool {
+        $sql = "SELECT 1 FROM {$this->table}";
+        $values = [];
+    
+        $sql .= $this->buildWhereClause($values);
+        $sql .= " LIMIT 1";
+    
+        $stmt = Model::db()->prepare($sql);
+        $stmt->execute($values);
+    
+        return (bool) $stmt->fetchColumn();
+    }
 }

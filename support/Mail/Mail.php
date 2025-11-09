@@ -7,7 +7,7 @@ class Mail
     protected string $to;
     protected string $subject;
     protected string $body;
-    protected array $attachments = []; // tu będą załączniki
+    protected array $attachments = []; 
 
     protected Mailer $mailer;
     protected ?string $error = null;
@@ -44,7 +44,6 @@ class Mail
 
     public function send(): bool
     {
-        // Wywołujemy metodę send w Mailer, przekazując załączniki
         $result = $this->mailer->send($this->to, $this->subject, $this->body, $this->attachments);
 
         if (!$result) {

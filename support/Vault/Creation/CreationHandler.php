@@ -339,4 +339,29 @@ class CreationHandler
         file_put_contents($outputPath, $stub);
         echo "Created Test: {$name}\n";
     }
+    public static function createVueComponent($name) 
+    {
+        if (!$name) {
+            echo "Type name of the component.\n";
+            exit(1);
+        }
+        $stub = file_get_contents(__DIR__ . '/stubs/vueComponent.stub');
+        $stub = str_replace('ComponentName', $name, $stub);
+
+        $relativePath ="resources/js/components/{$name}.vue";
+        $outputPath = base_path($relativePath);
+
+        $dir = dirname($outputPath);
+        if (!is_dir($dir)) {
+            mkdir($dir, 0777, true);
+        }
+
+        if (file_exists($outputPath)) {
+            echo "Component already exists: $relativePath\n";
+            exit(1);
+        }
+    
+        file_put_contents($outputPath, $stub);
+        echo "Created vue component: $relativePath\n";
+    }
 }

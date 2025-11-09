@@ -68,6 +68,10 @@ switch ($command) {
         $name = $argv[2] ?? null;
         echo CreationHandler::createService($name);
         break;
+    case 'make:component':
+        $name = $argv[2] ?? null;
+        echo CreationHandler::createVueComponent($name);
+        break;
     case 'make:test':
         $name = $argv[2] ?? null;
         echo CreationHandler::createtest($name);
