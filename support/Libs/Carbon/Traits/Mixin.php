@@ -90,7 +90,7 @@ trait Mixin
             }
         }
     }
-
+    /*
     private static function loadMixinTrait(string $trait): void
     {
         $context = eval(self::getAnonymousClassCodeForTrait($trait));
@@ -159,6 +159,7 @@ trait Mixin
             });
         }
     }
+    */
 
     private static function getAnonymousClassCodeForTrait(string $trait): string
     {
