@@ -31,28 +31,36 @@ class Route
     }
 
     public static function saveCache(): void
-    {
-        $exportArray = [];
-    
-        foreach (self::$routes as $method => $routes) {
-            foreach ($routes as $path => $route) {
-                if ($route->callback instanceof \Closure) {
-                    continue;
-                }
-    
-                $exportArray[$method][$path] = $route->toArray();
+{
+    $exportArray = [];
+    $excludedPaths = ['/migrations', '/seeders']; 
+
+    foreach (self::$routes as $method => $routes) {
+        foreach ($routes as $path => $route) {
+            if ($route->callback instanceof \Closure) {
+                continue;
             }
+
+            // 👇 Pomijamy określone ścieżki
+            foreach ($excludedPaths as $excluded) {
+                if (str_starts_with($path, $excluded)) {
+                    continue 2; // pomiń ten route i przejdź do następnego
+                }
+            }
+
+            $exportArray[$method][$path] = $route->toArray();
         }
-    
-        $export = var_export($exportArray, true);
-        $content = "<?php\nreturn $export;\n";
-    
-        if (!is_dir(dirname(self::$cacheFile))) {
-            mkdir(dirname(self::$cacheFile), 0755, true);
-        }
-    
-        file_put_contents(self::$cacheFile, $content);
     }
+
+    $export = var_export($exportArray, true);
+    $content = "<?php\nreturn $export;\n";
+
+    if (!is_dir(dirname(self::$cacheFile))) {
+        mkdir(dirname(self::$cacheFile), 0755, true);
+    }
+
+    file_put_contents(self::$cacheFile, $content);
+}
     public static function prefix(string $prefix, callable $callback): void
     {
         $previousPrefix = self::$prefix;

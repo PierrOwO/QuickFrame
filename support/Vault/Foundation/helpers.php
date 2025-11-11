@@ -2,6 +2,7 @@
 
 use Support\Vault\Database\Database;
 use Support\Vault\Foundation\Auth;
+use Support\Vault\Foundation\Cache;
 use Support\Vault\Foundation\Config;
 use Support\Vault\Foundation\Session;
 use Support\Vault\Http\Request;
@@ -249,6 +250,15 @@ function session(): Session
     static $instance = null;
     if ($instance === null) {
         $instance = new Session();
+    }
+    return $instance;
+}
+function cache(): Cache
+{
+    static $instance = null;
+    if($instance === null)
+    {
+        $instance = new Cache();
     }
     return $instance;
 }

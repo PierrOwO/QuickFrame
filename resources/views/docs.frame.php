@@ -709,7 +709,7 @@ $table->foreign('user_id')
         <code style="display: inline-block">php frame seeders:off</code>
       </li>
 
-      <li>Visit <a href="/seeders" target="_blank"><code style="display: inline-block">/seeders</code></a> to run or drop migrations manually via the browser.</li>
+      <li>Visit <a href="/seeders" target="_blank"><code style="display: inline-block">/seeders</code></a> to run or show seeders manually via the browser.</li>
     </ul>
       <li>All seeders are stored in the <code style="display: inline-block">/database/seeders</code> directory.</li>
     </ul>

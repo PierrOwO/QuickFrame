@@ -114,19 +114,31 @@ switch ($command) {
         CliHandlerFunctions::updateEnvValue('MIGRATIONS_ENABLED', 'true');
         echo "Migrations enabled.\n";
         echo "You can now access the migration panel at /migrations.\n";
+        echo CliHandlerFunctions::clearCache('config');
+        echo CliHandlerFunctions::clearCache('routes');
+        echo CliHandlerFunctions::clearCache('views');
         break;
     case 'migrations:off':
         CliHandlerFunctions::updateEnvValue('MIGRATIONS_ENABLED', 'false');
         echo "Migrations panel disabled.\n";
+        echo CliHandlerFunctions::clearCache('config');
+        echo CliHandlerFunctions::clearCache('routes');
+        echo CliHandlerFunctions::clearCache('views');
         break;
      case 'seeders:on':
         CliHandlerFunctions::updateEnvValue('SEEDERS_ENABLED', 'true');
         echo "Migrations enabled.\n";
         echo "You can now access the seeder panel at /seeders.\n";
+        echo CliHandlerFunctions::clearCache('config');
+        echo CliHandlerFunctions::clearCache('routes');
+        echo CliHandlerFunctions::clearCache('views');
         break;
     case 'seeders:off':
         CliHandlerFunctions::updateEnvValue('SEEDERS_ENABLED', 'false');
         echo "Seeders panel disabled.\n";
+        echo CliHandlerFunctions::clearCache('config');
+        echo CliHandlerFunctions::clearCache('routes');
+        echo CliHandlerFunctions::clearCache('views');
         break;
     case 'serve':
         echo CliHandlerFunctions::serve();
