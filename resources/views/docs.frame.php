@@ -307,6 +307,7 @@ section {
         </div>
         <ul class="links">
           <li><a href="#getting-started">Getting Started</a></li>
+          <li><a href="#environment">Environment</a></li>
           <li><a href="#views&layouts">Views & Layouts</a></li>
           <li><a href="#controllers">Controllers</a></li>
           <li><a href="#css&js">CSS & JS</a></li>
@@ -362,6 +363,62 @@ public function index()
 {
   return response()->json(['data' => $data]);
 }</code>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section id="environment" class="docs-section">
+  <div class="container">
+    <h2>⚙️ Environment</h2>
+    <ul>
+      <li>
+        QuickFrame uses a <code style="display: inline-block">.env</code> file to configure the application environment, database, mail, and session settings.
+      </li>
+      <li>
+        Example <code style="display: inline-block">.env</code> configuration:
+        <pre><code>APP_NAME="QuickFrame App"
+APP_VERSION="1.0.0"
+
+APP_ENV=development
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+VITE_DEV_SRV_URL=http://localhost:2137
+
+MIGRATIONS_ENABLED=true
+SEEDERS_ENABLED=true
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_NAME=quickframe
+DB_USER=root
+DB_PASSWORD=
+
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=no-reply@example.com
+MAIL_FROM_NAME=QuickFrame
+
+FTP_USER=
+FTP_PASSWORD=
+FTP_URL=ftp://your-host.com/app
+
+LOGIN_ATTEMPTS_LIMIT=5
+LOCKOUT_TIME=300
+
+SESSION_LIFETIME=1800
+SESSION_PATH=/
+SESSION_DOMAIN=
+SESSION_SECURE=false
+SESSION_HTTPONLY=true
+SESSION_SAMESITE=Lax</code></pre>
+      </li>
+      <li>
+        Environment variables can be accessed using the <code style="display: inline-block">env('KEY')</code> helper inside your application code.
       </li>
     </ul>
   </div>
