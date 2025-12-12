@@ -8,9 +8,9 @@ use Support\Vault\Foundation\Session;
 
 class Auth
 {
-    protected static ?object $cachedUser = null;
+    protected static ?User $cachedUser = null;
 
-    public static function login(object $user): void
+    public static function login(User $user): void
     {
         Session::start(config('app.session'));
 
@@ -43,7 +43,7 @@ class Auth
         return Session::has('user_id') && self::user() !== null;
     }
 
-    public static function user(): ?object
+    public static function user(): ?User
     {
         Session::start();
         if (self::$cachedUser) {

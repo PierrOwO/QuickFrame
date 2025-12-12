@@ -364,4 +364,28 @@ class CreationHandler
         file_put_contents($outputPath, $stub);
         echo "Created vue component: $relativePath\n";
     }
+    public static function createVue3Component($name) 
+    {
+        if (!$name) {
+            echo "Type name of the component.\n";
+            exit(1);
+        }
+        $stub = file_get_contents(__DIR__ . '/stubs/vue3Component.stub');
+
+        $relativePath ="resources/js/components/{$name}.vue";
+        $outputPath = base_path($relativePath);
+
+        $dir = dirname($outputPath);
+        if (!is_dir($dir)) {
+            mkdir($dir, 0777, true);
+        }
+
+        if (file_exists($outputPath)) {
+            echo "Component already exists: $relativePath\n";
+            exit(1);
+        }
+    
+        file_put_contents($outputPath, $stub);
+        echo "Created vue component: $relativePath\n";
+    }
 }

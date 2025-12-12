@@ -1,4 +1,8 @@
 {
+  "_index-Dq7h7Pqt.js": {
+    "file": "assets/index-Dq7h7Pqt.js",
+    "name": "index"
+  },
   "_jquery-DkvTqftU.js": {
     "file": "assets/jquery-DkvTqftU.js",
     "name": "jquery"
@@ -16,12 +20,25 @@
     ]
   },
   "js/auth.js": {
-    "file": "assets/auth-CxjMJC1V.js",
+    "file": "assets/auth-CRDhIebz.js",
     "name": "auth",
     "src": "js/auth.js",
     "isEntry": true,
     "imports": [
-      "_jquery-DkvTqftU.js"
+      "_jquery-DkvTqftU.js",
+      "_index-Dq7h7Pqt.js"
+    ]
+  },
+  "js/mainApp.js": {
+    "file": "assets/mainApp-DLGyTHkE.js",
+    "name": "mainApp",
+    "src": "js/mainApp.js",
+    "isEntry": true,
+    "imports": [
+      "_index-Dq7h7Pqt.js"
+    ],
+    "css": [
+      "assets/mainApp-Bnq2Dgbd.css"
     ]
   }
 }

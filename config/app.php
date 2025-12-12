@@ -13,6 +13,8 @@ return [
 
     'locale' => 'en', 
 
+    'vue_app_view' => env('VUE_APP_VIEW', 'app'),
+
     'ftp_url' => env('FTP_URL', null),
     'ftp_user' => env('FTP_USER', null),
     'ftp_password' => env('FTP_PASSWORD', null),

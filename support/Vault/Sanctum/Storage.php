@@ -4,60 +4,126 @@ namespace Support\Vault\Sanctum;
 
 class Storage
 {
-    protected static ?string $basePath = null;
+    protected string $diskName;
+    protected array $config;
 
-    protected static function basePath(): string
+    public function __construct(?string $disk = null)
     {
-        if (self::$basePath === null) {
-            self::$basePath = base_path('storage/app');
+        $this->diskName = $disk ?: config('filesystems.default');
+        $this->config = config("filesystems.disks.{$this->diskName}");
+
+        if (!$this->config) {
+            throw new \Exception("Disk '{$this->diskName}' is not defined.");
         }
-
-        return self::$basePath;
     }
 
-    public static function path(string $path): string
+    public static function disk(?string $disk = null): static
     {
-        return rtrim(self::basePath() . '/' . ltrim($path, '/'), '/');
+        return new static($disk);
     }
 
-    public static function exists($path)
+    public function root(): string
     {
-        return file_exists(self::path($path));
+        return rtrim($this->config['root'], '/');
     }
 
-    public static function makeDirectory($path, $mode = 0777, $recursive = true)
+    public function path(string $path): string
     {
-        $fullPath = self::path($path);
-        if (!file_exists($fullPath)) {
-            return mkdir($fullPath, $mode, $recursive);
-        }
-        return true;
+        return $this->root() . '/' . ltrim($path, '/');
     }
 
-    public static function put($path, $file)
+    public function exists(string $path): bool
+    {
+        return file_exists($this->path($path));
+    }
+
+    public function makeDirectory(string $path): bool
+    {
+        $dir = $this->path($path);
+        return is_dir($dir) || mkdir($dir, 0777, true);
+    }
+
+    public function put(string $path, array $file)
     {
         if (!isset($file['tmp_name']) || !is_uploaded_file($file['tmp_name'])) {
             return false;
         }
 
-        $fullPath = self::path($path);
+        $fullPath = $this->path($path);
         $directory = dirname($fullPath);
 
-        if (!file_exists($directory)) {
-            self::makeDirectory(dirname($path));
+        if (!is_dir($directory)) {
+            $this->makeDirectory(dirname($path));
         }
 
         return move_uploaded_file($file['tmp_name'], $fullPath) ? $path : false;
     }
 
-    public static function delete($path)
+    public function get(string $path): ?string
     {
-        $fullPath = self::path($path);
-        return file_exists($fullPath) ? unlink($fullPath) : false;
+        $full = $this->path($path);
+        return file_exists($full) ? file_get_contents($full) : null;
     }
 
-    public static function url($path)
+    public function delete(string $path): bool
     {
-        return '/storage/' . ltrim(str_replace('public/', '', $path), '/');
+        $full = $this->path($path);
+        return file_exists($full) ? unlink($full) : false;
+    }
+
+    public function url(string $path): string
+    {
+        $root = $this->config['root'];
+        $public = str_replace(base_path('storage/app/public'), '', $root);
+
+        if (isset($this->config['url'])) {
+            return rtrim($this->config['url'], '/'). '/public/' . ltrim($path, '/');
+        }
+
+        return "/storage/" . ltrim($path, '/');
+    }
+
+    public function serve(string $path)
+    {
+        $fullPath = $this->path($path);
+
+        if (!file_exists($fullPath)) {
+            http_response_code(404);
+            exit('File not found');
+        }
+
+        $mime = mime_content_type($fullPath);
+        $extension = strtolower(pathinfo($fullPath, PATHINFO_EXTENSION));
+
+        $inlineExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'pdf'];
+        $disposition = in_array($extension, $inlineExtensions) ? 'inline' : 'attachment';
+        if ($extension == 'pdf')
+        { 
+            $mime = 'application/pdf';
+        }
+
+        header("Content-Type: $mime");
+        header("Content-Disposition: $disposition; filename=\"" . basename($fullPath) . "\"");
+        header("Content-Length: " . filesize($fullPath));
+
+        readfile($fullPath);
+        exit;
+    }
+
+    public function download(string $path)
+    {
+        $fullPath = $this->path($path);
+
+        if (!file_exists($fullPath)) {
+            http_response_code(404);
+            exit('File not found');
+        }
+
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename="' . basename($fullPath) . '"');
+        header('Content-Length: ' . filesize($fullPath));
+
+        readfile($fullPath);
+        exit;
     }
 }

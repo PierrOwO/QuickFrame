@@ -70,7 +70,13 @@ switch ($command) {
         break;
     case 'make:component':
         $name = $argv[2] ?? null;
-        echo CreationHandler::createVueComponent($name);
+        $isVue2 = in_array('--vue2', $argv);
+        if (!$isVue2) {
+            echo CreationHandler::createVue3Component($name);
+        }
+        else {
+            echo CreationHandler::createVueComponent($name);
+        }
         break;
     case 'make:test':
         $name = $argv[2] ?? null;
@@ -141,7 +147,9 @@ switch ($command) {
         echo CliHandlerFunctions::clearCache('views');
         break;
     case 'serve':
-        echo CliHandlerFunctions::serve();
+        $host = $argv[2] ?? '127.0.0.1';
+        $port = $argv[3] ?? null;
+        echo CliHandlerFunctions::serve($host, $port);
         break;
     case '/help':
         echo CliHandlerFunctions::help();

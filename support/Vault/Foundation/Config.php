@@ -5,18 +5,17 @@ namespace Support\Vault\Foundation;
 class Config
 {
     protected static array $configs = [];
+    protected static bool $loaded = false;
 
     public static function get(string $key, $default = null)
     {
-        if (empty(self::$configs)) {
+        if (!self::$loaded) {
             self::loadConfigs();
         }
 
-        $keys = explode('.', $key);
         $value = self::$configs;
-
-        foreach ($keys as $segment) {
-            if (!isset($value[$segment])) {
+        foreach (explode('.', $key) as $segment) {
+            if (!is_array($value) || !array_key_exists($segment, $value)) {
                 return $default;
             }
             $value = $value[$segment];
@@ -26,41 +25,56 @@ class Config
     }
 
     protected static function loadConfigs(): void
-{
-    $cacheFile = base_path('storage/cache/config.php');
+    {
+        $cacheFile = base_path('storage/cache/config.php');
+        $configDir = base_path('config');
 
-    $cacheValid = false;
+        $configFiles = glob($configDir . '/*.php') ?: [];
+        $latestConfigTime = 0;
 
-    if (file_exists($cacheFile)) {
-        $cacheTime = filemtime($cacheFile);
-        $configFiles = glob(base_path('config/*.php'));
-        $latestConfigTime = max(array_map('filemtime', $configFiles));
-
-        if ($cacheTime !== false && $cacheTime >= $latestConfigTime) {
-            $cacheValid = true;
+        foreach ($configFiles as $file) {
+            $time = filemtime($file);
+            if ($time > $latestConfigTime) {
+                $latestConfigTime = $time;
+            }
         }
+
+        $envFile = base_path('.env');
+        $envTime = file_exists($envFile) ? filemtime($envFile) : 0;
+
+        $cacheValid = false;
+
+        if (file_exists($cacheFile)) {
+            $cacheTime = filemtime($cacheFile);
+            if ($cacheTime >= max($latestConfigTime, $envTime)) {
+                $cacheValid = true;
+            }
+        }
+
+        // Load from cache
+        if ($cacheValid) {
+            self::$configs = include $cacheFile;
+            self::$loaded = true;
+            return;
+        }
+
+        // Rebuild config
+        $config = [];
+        foreach ($configFiles as $file) {
+            $key = basename($file, '.php');
+            $config[$key] = include $file;
+        }
+
+        // Cache it
+        $cacheDir = dirname($cacheFile);
+        if (!is_dir($cacheDir)) {
+            mkdir($cacheDir, 0755, true);
+        }
+
+        $export = var_export($config, true);
+        file_put_contents($cacheFile, "<?php\nreturn $export;\n");
+
+        self::$configs = $config;
+        self::$loaded = true;
     }
-
-    if ($cacheValid) {
-        self::$configs = include $cacheFile;
-        return;
-    }
-
-    $config = [];
-    foreach (glob(base_path('config/*.php')) as $file) {
-        $key = basename($file, '.php');
-        $config[$key] = include $file;
-    }
-
-    $export = var_export($config, true);
-    $content = "<?php\nreturn $export;\n";
-    $cacheDir = dirname($cacheFile);
-
-    if (!is_dir($cacheDir)) {
-        mkdir($cacheDir, 0755, true);
-    }
-
-    file_put_contents($cacheFile, $content);
-    self::$configs = $config;
-}
 }

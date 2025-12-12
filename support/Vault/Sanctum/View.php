@@ -87,6 +87,10 @@ class View
             return '<?= ' . $matches[1] . ' ?>';
         }, $content);
 
+        $content = preg_replace_callback('/{!!\s*(.+?)\s*!!}/', function ($matches) {
+            return '<?= ' . $matches[1] . ' ?>';
+        }, $content);
+
         $content = preg_replace_callback('/@php(.*?)@endphp/s', function ($matches) {
             return "<?php " . trim($matches[1]) . " ?>";
         }, $content);
@@ -131,8 +135,13 @@ class View
             '/^[\t ]*@section\([\'"](.+?)[\'"]\s*,\s*[\'"](.+?)[\'"]\)/m',
             function ($matches) {
                 $name = $matches[1];
-                $sectionContent = $matches[2];
-                return "<?php \\Support\\Vault\\Sanctum\\View::section('$name', '$sectionContent'); ?>";
+                $value = trim($matches[2]);
+
+                if (str_starts_with($value, '$')) {
+                    return "<?php \\Support\\Vault\\Sanctum\\View::section('$name', $value); ?>";
+                }
+                
+                return "<?php \\Support\\Vault\\Sanctum\\View::section('$name', '$value'); ?>";
             },
             $content
         );

@@ -242,13 +242,22 @@ class Route
         $wheres = array_merge(self::$globalWheres, $wheres);
 
         $regex = preg_replace_callback('#\{([^}]+)\}#', function ($matches) use (&$paramNames, $wheres) {
-            $paramNames[] = $matches[1];
-            $param = $matches[1];
 
-            if (isset($wheres[$param])) {
-                return '(' . $wheres[$param] . ')';
+            $full = $matches[1];
+        
+            // Obsługa {param:regex}
+            if (strpos($full, ':') !== false) {
+                [$param, $pattern] = explode(':', $full, 2);
+                $paramNames[] = $param;
+                return '(' . $pattern . ')';
             }
-
+        
+            $paramNames[] = $full;
+        
+            if (isset($wheres[$full])) {
+                return '(' . $wheres[$full] . ')';
+            }
+        
             return '([^/]+)';
         }, $path);
 

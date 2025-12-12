@@ -1,25 +1,16 @@
 <?php
 
+require_once dirname(__DIR__, 3) . '/support/Libs/LibPrefixes.php';
+
 spl_autoload_register(function ($class) {
     $prefixes = [
         'App\\' => dirname(__DIR__, 3) . '/app/',
         'Support\\' => dirname(__DIR__, 3) . '/support/',
-        'Database\\' => dirname(__DIR__, 3) . '/database/',
-        'PHPMailer\\PHPMailer\\' => dirname(__DIR__, 3) . '/support/Libs/PHPMailer/',
-        'Carbon\\' => dirname(__DIR__, 3) . '/support/Libs/Carbon/',
-        'Lazy\\' => dirname(__DIR__, 3) . '/support/lazy/',
-        'Symfony\\' => dirname(__DIR__, 3) . '/support/Libs/Symfony/', 
-        'Psr\\' => dirname(__DIR__, 3) . '/support/Libs/Psr/',
-        'chillerlan\\' => dirname(__DIR__, 3) . '/support/Libs/chillerlan/',
-        'QRCode\\' => dirname(__DIR__, 3) . '/support/Libs/QRCode/',
-        'Masterminds\\' => dirname(__DIR__, 3) . '/support/Libs/Masterminds/',
-        'TCPDFWrapper\\' => dirname(__DIR__, 3) . '/support/Libs/TCPDFWrapper/',
-        'Picqer\\Barcode\\' => dirname(__DIR__, 3) . '/support/Libs/php-barcode-generator-main/src/',
-        'Barcode\\' => dirname(__DIR__, 3) . '/support/Libs/Barcode/',
-
-
+        'Database\\' => dirname(__DIR__, 3) . '/database/'
     ];
-
+    
+    $prefixes = array_merge($prefixes, \Support\Libs\LibPrefixes::all());
+    
     foreach ($prefixes as $prefix => $base_dir) {
         if (strncmp($class, $prefix, strlen($prefix)) !== 0) {
             continue;

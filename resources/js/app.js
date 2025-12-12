@@ -1,5 +1,11 @@
-import '../css/app.css';
-import './test.js';
-import $ from 'jquery';
-window.$ = $;
-window.jQuery = $;
+import { createApp } from 'vue'
+import App from './App.vue'
+
+const root = document.getElementById('app')
+const initialView = root.dataset.view
+const currentYear = new Date().getFullYear();
+
+createApp(App, { 
+    view: initialView,
+    year: Number(currentYear)
+}).mount('#app')

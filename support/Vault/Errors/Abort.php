@@ -21,7 +21,7 @@ class Abort
                 return view('errors/404', ['message' => $message ?? "Not found"]);
                 break;
             default:
-                $view = __DIR__ . '/../../errors/error.php';
+                $view = __DIR__ . 'Pages/error.php';
                 break;
         }
 

@@ -6,33 +6,30 @@ use Support\Vault\Validation\VerifyCsrfToken;
 
 class Request
 {
-    public $get;
-    public $post;
-    public $server;
-    public $files;
-    protected $json;
+    protected array $get;
+    protected array $post;
+    protected array $server;
+    protected array $files;
+    protected array $json;
 
     public function __construct()
     {
-        $this->get = $_GET;
-        $this->post = $_POST;
+        $this->get    = $_GET;
+        $this->post   = $_POST;
         $this->server = $_SERVER;
-        $this->files = $_FILES;
+        $this->files  = $_FILES;
 
         $rawInput = file_get_contents('php://input');
         $this->json = json_decode($rawInput, true) ?? [];
-        
+
         VerifyCsrfToken::handle();
     }
 
-    /**
-     * Get input from POST or GET.
-     *
-     * @param string $key
-     * @param mixed $default
-     * @return mixed
-     */
-    public function input($key, $default = null)
+    /* -------------------------
+     * BASIC INPUT ACCESS
+     * ------------------------- */
+
+    public function input(string $key, $default = null)
     {
         return $this->post[$key]
             ?? $this->get[$key]
@@ -40,62 +37,103 @@ class Request
             ?? $default;
     }
 
-    /**
-     * Get all input data (POST + GET).
-     *
-     * @return array
-     */
-    public function all()
+    public function has(string $key): bool
     {
-        return array_merge($this->get, $this->post);
+        return isset($this->post[$key])
+            || isset($this->get[$key])
+            || isset($this->json[$key]);
     }
 
-    /**
-     * Check if a file was uploaded without errors.
-     *
-     * @param string $key
-     * @return bool
-     */
-    public function hasFile($key)
+    public function all(): array
+    {
+        return array_merge($this->get, $this->post, $this->json);
+    }
+
+    public function only(array $keys): array
+    {
+        $data = $this->all();
+        return array_filter($data, fn($k) => in_array($k, $keys), ARRAY_FILTER_USE_KEY);
+    }
+
+    public function except(array $keys): array
+    {
+        $data = $this->all();
+        return array_filter($data, fn($k) => !in_array($k, $keys), ARRAY_FILTER_USE_KEY);
+    }
+
+    /* -------------------------
+     * FILES
+     * ------------------------- */
+
+    public function hasFile(string $key): bool
     {
         return isset($this->files[$key]) && $this->files[$key]['error'] === UPLOAD_ERR_OK;
     }
 
-    /**
-     * Get uploaded file data.
-     *
-     * @param string $key
-     * @return array|null
-     */
-    public function file($key)
+    public function file(string $key): ?array
     {
         return $this->files[$key] ?? null;
     }
 
-    /**
-     * Check if request expects a JSON response (e.g. via Axios, fetch).
-     *
-     * @return bool
-     */
+    /* -------------------------
+     * HTTP META
+     * ------------------------- */
+
+    public function method(): string
+    {
+        return strtoupper($this->server['REQUEST_METHOD'] ?? 'GET');
+    }
+
+    public function isMethod(string $method): bool
+    {
+        return strtoupper($method) === $this->method();
+    }
+
+    public function header(string $key, $default = null)
+    {
+        $header = 'HTTP_' . strtoupper(str_replace('-', '_', $key));
+        return $this->server[$header] ?? $default;
+    }
+
+    public function bearerToken(): ?string
+    {
+        $auth = $this->header('Authorization');
+        if (!$auth) return null;
+
+        if (preg_match('/Bearer\s(.+)/', $auth, $matches)) {
+            return $matches[1];
+        }
+
+        return null;
+    }
+
+    /* -------------------------
+     * JSON
+     * ------------------------- */
+
+    public function json(): array
+    {
+        return $this->json;
+    }
+
+    public function isJson(): bool
+    {
+        $contentType = $this->header('Content-Type', '');
+        return stripos($contentType, 'application/json') !== false;
+    }
+
     public function expectsJson(): bool
     {
-        $accept = $this->server['HTTP_ACCEPT'] ?? '';
+        $accept = $this->header('Accept', '');
         return stripos($accept, 'application/json') !== false;
     }
 
-    /**
-     * Check if the request is an AJAX call.
-     *
-     * @return bool
-     */
+    /* -------------------------
+     * AJAX
+     * ------------------------- */
+
     public function isAjax(): bool
     {
-        return (
-            isset($this->server['HTTP_X_REQUESTED_WITH']) &&
-            strtolower($this->server['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest'
-        );
-    }
-    public function json(): array {
-        return json_decode(file_get_contents('php://input'), true);
+        return strtolower($this->header('X-Requested-With', '')) === 'xmlhttprequest';
     }
 }

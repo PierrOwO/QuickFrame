@@ -1,0 +1,37 @@
+<template>
+  <div>
+    <!-- Component HTML structure -->
+    <p>{{ upperMessage }}</p>
+    <button @click="handleClick">Click me</button>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed } from 'vue';
+
+// Props
+defineProps({
+  title: String
+});
+
+// Reactive data
+const message = ref('Hello, I am a Vue component!');
+
+// Computed property
+const upperMessage = computed(() => message.value.toUpperCase());
+
+// Methods
+function handleClick() {
+  alert('Button clicked!');
+}
+</script>
+
+<style scoped>
+/* Scoped styles for this component only */
+p {
+  color: blue;
+}
+button {
+  margin-top: 10px;
+}
+</style>

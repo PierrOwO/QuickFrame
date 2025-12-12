@@ -1,5 +1,9 @@
 <?php
 
+use App\Controllers\AboutController;
+use App\Controllers\DashboardController;
+use App\Controllers\DocumentationController;
+use App\Controllers\HomeController;
 use App\Middleware\Authenticate;
 use Support\Vault\Routing\Route;
 
@@ -27,17 +31,11 @@ use Support\Vault\Routing\Route;
  * This is the central place for managing how URLs map to your application's functionality.
  */
 
-Route::get('/', function () {
-   return view('home');
-});
-Route::get('/docs', function () {
-   return view('docs');
-});
-Route::get('/about', function () {
-   return view('about');
-});
+ Route::get('/', [HomeController::class, 'index']);
+ Route::get('/docs', [DocumentationController::class, 'index']);
+ Route::get('/about', [AboutController::class, 'index']);
+ 
 Route::middleware([Authenticate::class], function () {
-   Route::get('/dashboard', function() {
-      return view('dashboard');
-   });
+   Route::get('/dashboard', [DashboardController::class, 'index']);
+
 });

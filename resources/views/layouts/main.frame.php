@@ -11,9 +11,14 @@ use Carbon\Carbon;
     <meta name="keywords" content="QuickFrame, PHP framework, routing, sessions, custom framework, lightweight framework" />
     <meta name="author" content="Piotr Miłoś" />
     
-    @vite('js/app.js')
-   
+    @vite(['js/app.js', 'js/mainApp.js'])
+@yield('headerScripts')
 @yield('styles')
+<style>
+  body{
+      background-color: #f8f8f8;
+  }
+</style>
 </head>
 <body>
 <main>
@@ -25,11 +30,5 @@ use Carbon\Carbon;
   </div>
 </footer>
 @yield('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const _token = $('meta[name="csrf-token"]').attr('content');
-        console.log('csrf token: ' + _token);
-    });
-</script>
 </body>
 </html>

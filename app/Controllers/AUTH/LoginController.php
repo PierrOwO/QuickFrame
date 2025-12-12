@@ -3,23 +3,27 @@
 namespace App\Controllers\AUTH;
 
 use App\Services\Auth\LoginUserService;
+use Carbon\Carbon;
 use Support\Vault\Http\Request;
 use Support\Vault\Sanctum\Log;
 use Support\Vault\Validation\Exceptions\ValidationException;
 
 class LoginController
 {
-    protected LoginUserService $loginService;
+    protected LoginUserService $service;
 
     public function __construct()
     {
-        $this->loginService = new LoginUserService();
+        $this->service = new LoginUserService();
     }
 
     public function index()
     {
-        return view('AUTH.login');
-    }
+        //return view('AUTH.login');
+        return vueView('login', [
+            'title' => 'Login page',
+            'year' => Carbon::now()->format('Y'),
+        ]);    }
 
     public function login(Request $request)
     {
@@ -27,11 +31,11 @@ class LoginController
 
         try {
             $validatedData = validate($data, [
-                'name' => 'required|string|min:3|max:50',
+                'email' => 'required|email',
                 'password' => 'required|string|min:6',
             ]);
 
-            $result = $this->loginService->attempt($validatedData['name'], $validatedData['password']);
+            $result = $this->service->attempt($validatedData['email'], $validatedData['password']);
 
             if (!$result['success']) {
                 return response()->json([

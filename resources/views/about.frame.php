@@ -21,6 +21,7 @@
 @endsection
 
 @section('content')
+
 <header class="header">
   <div class="container">
     <h1>About QuickFrame</h1>
