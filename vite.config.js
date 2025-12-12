@@ -18,8 +18,6 @@ export default defineConfig({
     rollupOptions: {
       input: [
         'resources/js/app.js',
-        'resources/js/mainApp.js',
-        'resources/js/auth.js',
       ],
     },
   },
