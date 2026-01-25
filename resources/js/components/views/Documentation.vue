@@ -1018,7 +1018,87 @@ $driver = config('database.driver'); // "mysql"</code></pre>
   </ul>
 </div>
 </section>
+<section id="action-requests" class="docs-section">
+  <div class="container">
+    <h2>📧 Action Requests (Action Confirmation)</h2>
 
+    <p>
+      This module allows you to generate action confirmation requests
+      (e.g. updating user data) using a secure token-based flow.
+    </p>
+
+    <ul>
+      <li>
+        <strong>1. Generate a request</strong>
+        <p>
+          Use the <code style="display: inline;">DataUpdate</code> helper to define what should be updated,
+          where, and with what data.
+        </p>
+
+<pre><code class="language-php">use Support\Vault\Http\ActionRequests\Helpers\DataUpdate;
+
+$where = [
+    'id' => auth()->user()->id,
+];
+
+$data = [
+    'email' => $email,
+];
+
+return DataUpdate::table('users')
+    ->action('update')
+    ->where($where)
+    ->data($data)
+    ->create();
+</code></pre>
+
+        <p>
+          <code style="display: inline;">$where</code> defines the conditions used to locate the record,
+          while <code style="display: inline;">$data</code> contains the values that will be updated after confirmation.
+        </p>
+      </li>
+
+      <li>
+        <strong>2. Handle the request manually</strong>
+        <p>
+          Once the user confirms the action (for example via email),
+          handle the request using the generated token.
+        </p>
+
+<pre><code class="language-php">use Support\Vault\Http\ActionRequests\Handlers\DataUpdateHandler;
+
+public function updateDataFromRequest(string $token)
+{
+    $handler = new DataUpdateHandler;
+
+    return $handler->updateData($token);
+}
+</code></pre>
+      </li>
+
+      <li>
+        <strong>3. Handle the request via routing (recommended)</strong>
+        <p>
+          You can also process the confirmation directly through routing
+          without creating a dedicated controller method.
+        </p>
+
+<pre><code class="language-php">use Support\Vault\Http\ActionRequests\Handlers\DataUpdateHandler;
+
+Route::post(
+    'action-token/confirm/{token}',
+    [DataUpdateHandler::class, 'updateData']
+);
+</code></pre>
+      </li>
+    </ul>
+
+    <p>
+      This flow ensures secure, token-based confirmation of sensitive actions
+      such as data updates.
+    </p>
+  </div>
+</section>
 
 
     </main>

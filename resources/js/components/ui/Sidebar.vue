@@ -102,6 +102,13 @@
       >
         <a href="#config" :class="{ active: activeSection === 'config' }">Config</a>
       </Accordion>
+      <Accordion
+        title="Requests"
+        :model-value="openAccordion === 'Requests'"
+        @update:modelValue="() => toggleAccordion('Requests')"
+      >
+        <a href="#action-requests" :class="{ active: activeSection === 'requests' }">Action Requests</a>
+      </Accordion>
     </nav>
   </aside>
 </template>
