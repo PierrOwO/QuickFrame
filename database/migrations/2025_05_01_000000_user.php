@@ -12,10 +12,12 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('name');
             $table->string('email');
             $table->string('password');
             $table->string('unique_id');
+            $table->integer('verified_email')->default(0);
+            $table->integer('activated')->default(0);
+            $table->dateTime('activated_at')->nullable();
             $table->timestamps();
 
         });

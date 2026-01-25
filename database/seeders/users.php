@@ -10,17 +10,17 @@ return new class extends Seeder {
         User::create([
             'first_name' => 'Alice',
             'last_name' => 'Smith',
-            'name' => 'Alice',
             'email' => 'alice@example.com',
-            'password' => password_hash('secret', PASSWORD_DEFAULT),
+            'password' => password_hash('AliceSmith', PASSWORD_DEFAULT),
+            'activated' => 1,
         ]);
 
         User::create([
             'first_name' => 'Bob',
             'last_name' => 'Johnson',
-            'name' => 'Bob',
             'email' => 'bob@example.com',
-            'password' => password_hash('secret', PASSWORD_DEFAULT),
+            'password' => password_hash('BobJohnson', PASSWORD_DEFAULT),
+            'activated' => 1,
         ]);
     }
 };

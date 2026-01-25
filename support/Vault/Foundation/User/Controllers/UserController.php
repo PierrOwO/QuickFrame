@@ -27,6 +27,7 @@ class UserController
             'success' => true,
             'userFirstName' => $result['userFirstName'],
             'userLastName' => $result['userLastName'],
+            'userEmail' => $result['userEmail'],
         ]);
     }
 

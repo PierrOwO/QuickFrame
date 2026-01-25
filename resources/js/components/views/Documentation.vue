@@ -1058,6 +1058,7 @@ onMounted(() => {
     color: white;
     font-weight: bold;
     transition: 0.25s;
+    font-size: 20px;
   }
   .btn-back-to-home:hover{
     color: rgb(198, 198, 198);

@@ -2,6 +2,7 @@
 
 use App\Controllers\AboutController;
 use App\Controllers\DashboardController;
+use App\Controllers\DataUpdate\UserController;
 use App\Controllers\DocumentationController;
 use App\Controllers\HomeController;
 use App\Middleware\Authenticate;
@@ -37,5 +38,6 @@ use Support\Vault\Routing\Route;
  
 Route::middleware([Authenticate::class], function () {
    Route::get('/dashboard', [DashboardController::class, 'index']);
+   Route::get('/user/data', [UserController::class, 'index']);
 
 });

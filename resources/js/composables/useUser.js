@@ -4,6 +4,7 @@ import axios from 'axios';
 export function useUser() {
     const userFirstName = ref(null);
     const userLastName = ref(null);
+    const userEmail = ref(null);
     const loading = ref(false);
     const error = ref(null);
 
@@ -15,6 +16,7 @@ export function useUser() {
             if (res.data.success) {
                 userFirstName.value = res.data.userFirstName;
                 userLastName.value = res.data.userLastName;
+                userEmail.value = res.data.userEmail;
             } else {
                 error.value = 'Failed to fetch user';
             }
@@ -25,5 +27,5 @@ export function useUser() {
         }
     };
 
-    return { userFirstName, userLastName, loading, error, fetchUser };
+    return { userFirstName, userLastName, userEmail, loading, error, fetchUser };
 }

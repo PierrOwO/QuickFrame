@@ -6,10 +6,4 @@
 
 
 <style scoped>
-p {
-  color: blue;
-}
-button {
-  margin-top: 10px;
-}
 </style>

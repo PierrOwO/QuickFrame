@@ -75,7 +75,7 @@ class Validator
     protected function validateRequired(string $field, $value, $params, array $data): bool
     {
         if ($value === null || $value === '' || (is_array($value) && empty($value))) {
-            $this->addError($field, "The $field field is required.");
+            $this->addError($field, "This field is required.");
             return false;
         }
         return true;

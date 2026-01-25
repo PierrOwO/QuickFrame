@@ -64,8 +64,8 @@ const loginAttempt = async () => {
     !email.value ||
     !password.value
   ) {
-    openPopup("Please fill up all inputs", 'info')
-    return
+    //openPopup("Please fill up all inputs", 'info')
+    //return
   }
 
   loading.value = true
@@ -158,11 +158,24 @@ const loginAttempt = async () => {
     <span v-else-if="success">{{ successMsg }}</span>
     <span v-else>Sign in</span>
   </Button>
+  <span class="go-to-register">Don't have an acccount? <a href="/auth/register">Sign up</a></span>
+
   
 </div>
 <Popup ref="popup" :type="popupType" :message="popupMessage"></Popup>
 </template>
 <style scoped>
+  .go-to-register{
+  font-size: small;
+  text-align: right;
+  margin-top: 5px;
+  margin-bottom: -10px;
+}
+.go-to-register a{
+  text-decoration: none;
+  color: #007bff;
+  font-weight: 600;
+}
 .error-span{
     font-size: 14px;
     color: red;

@@ -1,8 +1,9 @@
 <template>
+  <Loading ref="spinner"/>
      <a class="logout" href="logout">Logout</a>
     <div class="main">
-      <h1>Hello there!</h1>
-      <h4 v-if="loggedIn">Your Name is {{ userFirstName }}</h4>
+      <h1 v-if="loggedIn">Hey {{ userFirstName }}!</h1>
+      <h4 v-if="loggedIn">You can change your data here: <a href="/user/data">change my data</a></h4>
       <h4 v-else>You are not logged in!</h4>
     </div>
 </template>
@@ -10,15 +11,20 @@
 <script setup>
 import {ref, onMounted} from 'vue'
 
+import Loading from '../ui/Loading.vue'
 import {useUser} from '../../composables/useUser';
 const { userFirstName, userLastName, loading, error, fetchUser } = useUser();
+
+const spinner = ref();
 const loggedIn = ref(false)
 
 onMounted(async () => {
-    await fetchUser();  
-    if (!error.value) {
-        loggedIn.value = true;
-    }
+  spinner.value.startLoading();
+  await fetchUser();  
+  if (!error.value) {
+      loggedIn.value = true; 
+  }
+  spinner.value.stopLoading();
 });
 </script>
 
@@ -49,5 +55,11 @@ onMounted(async () => {
 }
 .logout:hover {
   color: #d1cfcf;
+}
+.main a{
+  color: black;
+}
+.main a:hover{
+  color: green;
 }
 </style>

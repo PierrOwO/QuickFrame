@@ -24,9 +24,9 @@ class Log
         file_put_contents($logFile, $logLine, FILE_APPEND);
     }
 
-    public static function info($message)
+    public static function info(string $message, array $context = [])
     {
-        self::log($message, 'INFO');
+        self::log($message, 'INFO', $context);
     }
 
     public static function error($message, $trace = null)

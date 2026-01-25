@@ -12,7 +12,6 @@ import InputLabel from './../ui/Label.vue'
 import Popup from './../ui/Popup.vue';
 
 
-// reactive values
 const firstName = ref('')
 const lastName = ref('')
 const email = ref('')
@@ -48,17 +47,6 @@ async function openPopup(message, type) {
 const registerAttempt = async () => {
   clearErrors()
 
-  if (
-    !firstName.value ||
-    !lastName.value ||
-    !email.value ||
-    !password.value ||
-    !password_confirmation.value 
-  ) {
-    openPopup("Please fill up all inputs", 'info')
-    return
-  }
-
   loading.value = true
   success.value = false
 
@@ -76,10 +64,11 @@ const registerAttempt = async () => {
       success.value = true
     loading.value = false
       successMsg.value = response.data.message;
-      setTimeout(() => {
+     /* setTimeout(() => {
                 let url = '/auth/login';
                 window.location = url;
             }, 1000);
+      */
     })
 
   } catch (error) {
@@ -136,7 +125,7 @@ onMounted(() => {
   <div>
     <InputText 
       v-model="firstName"
-      id="first-name"
+      id="first_name"
       type="text"
       required 
       minlength="2" 
@@ -145,15 +134,15 @@ onMounted(() => {
       placeholder=""
       autofocus
     />
-    <InputLabel for="first-name">First Name</InputLabel>
-    <span id="error-first-name" class="error-span" role="alert"></span>
+    <InputLabel for="first_name">First Name</InputLabel>
+    <span id="error-first_name" class="error-span" role="alert"></span>
   </div>
 
   <div>
     <InputText 
     v-model="lastName"
 
-      id="last-name"
+      id="last_name"
       type="text"
       required 
       minlength="2" 
@@ -161,8 +150,8 @@ onMounted(() => {
       pattern="[A-Za-zÀ-ž\s'-]+"
       placeholder=""
     />
-    <InputLabel for="last-name">Last Name</InputLabel>
-    <span id="error-last-name" class="error-span" role="alert"></span>
+    <InputLabel for="last_name">Last Name</InputLabel>
+    <span id="error-last_name" class="error-span" role="alert"></span>
   </div>
 
   <div>
@@ -206,7 +195,7 @@ onMounted(() => {
       maxlength="50"
       placeholder=""
     />
-    <InputLabel for="password">Password confirmation</InputLabel>
+    <InputLabel for="password_confirmation">Password confirmation</InputLabel>
     <span id="error-password_confirmation" class="error-span" role="alert"></span>
   </div>
 
@@ -218,16 +207,28 @@ onMounted(() => {
     @click="registerAttempt" 
     theme="green"
   >
-    <span v-if="loading">Connecting...</span>
+    <span v-if="loading">Processing...</span>
     <span v-else-if="success">{{ successMsg }}</span>
     <span v-else>Sign up</span>
   </Button>
+  <span class="go-to-login">Already have an acccount? <a href="/auth/login">Sign in</a></span>
 </div>
 <Popup ref="popup" :type="popupType" :message="popupMessage"></Popup>
 </template>
 
 
 <style scoped>
+.go-to-login{
+  font-size: small;
+  text-align: right;
+  margin-top: 5px;
+  margin-bottom: -10px;
+}
+.go-to-login a{
+  text-decoration: none;
+  color: #007bff;
+  font-weight: 600;
+}
 .error-span{
     font-size: 14px;
     color: red;

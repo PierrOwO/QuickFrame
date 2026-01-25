@@ -19,11 +19,13 @@ class UserService
         }
         $userFirstName = auth()->user()->first_name;
         $userLastName = auth()->user()->last_name;
+        $userEmail = auth()->user()->email;
 
         return [
             'success' => true,
             'userFirstName' => $userFirstName,
             'userLastName' => $userLastName,
+            'userEmail' => $userEmail,
         ];
     }
     public function updateEmail($email): bool

@@ -4,6 +4,8 @@ namespace App\Controllers\AUTH;
 
 use App\Services\Auth\RegisterUserService;
 use Carbon\Carbon;
+use Support\Vault\Http\ActionRequests\ActionRequest;
+use Support\Vault\Http\ActionRequests\Handlers\AccountActivationHandler;
 use Support\Vault\Http\Request;
 use Support\Vault\Sanctum\Log;
 use Support\Vault\Validation\Exceptions\ValidationException;
@@ -46,7 +48,23 @@ class RegisterController
                 return response()->json(['errors' => $errors], 422);
             }
 
-            $this->service->register($validatedData);
+            $registerUser = $this->service->register($validatedData);
+            if (!$registerUser) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'error while processing'
+                ], 500);
+            }
+            if(config('app.env') == 'production')
+            {
+                $AccountActivationHandler = new AccountActivationHandler;
+                $AccountActivationHandler->newRequest($registerUser->email, $registerUser->unique_id);
+                if (request()->expectsJson()) {
+                    return response()->json(['message' => 'Success, an activation email sent!']);
+                }
+                
+            }
+            
             if (request()->expectsJson()) {
                 return response()->json(['message' => 'Registration successful!']);
             }

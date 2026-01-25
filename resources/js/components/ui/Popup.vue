@@ -12,6 +12,7 @@
     >
       <div class="body">
         <span class="message" ref="messageSpan" v-html="props.message"></span>
+        <slot></slot>
       </div>
       <div class="footer">
         <button v-show="isConfirmAlert" :class="'btn-confirm-1'" @click="$emit('confirm')">Accept</button>
@@ -23,8 +24,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 
 const isVisible = ref(false);
 const opening = ref(false);
@@ -87,7 +87,7 @@ onMounted(() => {
   //messageSpan.value.html = props.message
 
 })
-defineExpose({ openPopup });
+defineExpose({ openPopup,closePopup });
 
 </script>
 

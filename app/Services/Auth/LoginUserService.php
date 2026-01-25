@@ -34,4 +34,17 @@ class LoginUserService
             'user' => $user,
         ];
     }
+    public function checkEmail(string $email):object
+    {
+        return User::where('email', $email)
+            ->first();
+    }
+    public function checkIfActivated(object $user):bool
+    {
+        if($user->activated != 1)
+        {
+            return false;
+        }
+        return true;
+    }
 }

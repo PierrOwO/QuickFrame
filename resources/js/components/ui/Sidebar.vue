@@ -1,11 +1,14 @@
 <template>
   <aside :class="{ open: open }">
     <div class="sidebar-header">
+      <h2 class="btn-back-to-home-desktop"><a href="/" >QuickFrame</a></h2>
+      
       <h2>Documentation</h2>
       <button class="close-btn" @click="$emit('close')">✕</button>
     </div>
 
     <nav>
+      
       <!-- Getting Started -->
       <Accordion
         title="Getting Started"
@@ -135,8 +138,17 @@ aside {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
 }
 
+.btn-back-to-home-desktop  a{
+  color: white;
+  text-decoration: none;
+  transition: 0.24s;
+}
+.btn-back-to-home-desktop a:hover{
+  color: rgb(198, 198, 198);
+}
 .close-btn {
   display: none;
   background: none;
@@ -159,10 +171,27 @@ nav a.active {
   font-weight: bold;
   opacity: 1;
 }
+@media (min-width: 1001px){
+  .sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
 
+.sidebar-header h2 {
+  width: 100%;
+  margin: 0;
+}
+}
 /* MOBILE */
 /* MOBILE: do szerokości 1000px */
 @media (max-width: 1000px) {
+  .btn-back-to-home-desktop {
+  display: none;
+}
   aside {
     position: fixed;
     left: -550px; /* lekko zmniejszone, aby nie wychodziło poza ekran */

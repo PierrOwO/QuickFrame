@@ -29,6 +29,7 @@ class ForeignKeyDefinition
     public function on(string $on): self
     {
         $this->on = $on;
+        $this->apply();
         return $this;
     }
 
@@ -38,6 +39,11 @@ class ForeignKeyDefinition
         return $this;
     }
 
+    public function cascadeOnDelete(): self
+    {
+        $this->onDelete = 'CASCADE';
+        return $this;
+    }
     public function apply(): void
     {
         if ($this->reference && $this->on) {
