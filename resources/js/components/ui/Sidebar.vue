@@ -107,7 +107,7 @@
         :model-value="openAccordion === 'Requests'"
         @update:modelValue="() => toggleAccordion('Requests')"
       >
-        <a href="#action-requests" :class="{ active: activeSection === 'requests' }">Action Requests</a>
+        <a href="#action-requests" :class="{ active: activeSection === 'action-requests' }">Action Requests</a>
       </Accordion>
     </nav>
   </aside>
